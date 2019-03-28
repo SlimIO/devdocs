@@ -22,7 +22,11 @@
         "url": "https://github.com/SlimIO/documentation/issues"
     },
     "homepage": "https://github.com/SlimIO/documentation#readme",
-    "dependencies": {},
+    "dependencies": {
+        "@slimio/jsdoc": "^0.1.0",
+        "@slimio/manifest": "^0.2.0",
+        "kleur": "^3.0.2"
+    },
     "devDependencies": {
         "@commitlint/cli": "^7.5.2",
         "@commitlint/config-conventional": "^7.5.0",
