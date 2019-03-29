@@ -23,11 +23,13 @@
     },
     "homepage": "https://github.com/SlimIO/documentation#readme",
     "dependencies": {
+        "@polka/send-type": "^0.5.2",
         "@slimio/arg-parser": "^0.2.4",
         "@slimio/jsdoc": "^0.1.0",
         "@slimio/manifest": "^0.2.1",
         "kleur": "^3.0.2",
         "polka": "^0.5.2",
+        "serve-static": "^1.13.2",
         "zup": "0.0.1"
     },
     "devDependencies": {

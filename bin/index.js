@@ -54,16 +54,16 @@ async function main() {
     // console.log(JSON.stringify(docs, null, 4));
     const launchHTTP = arg.get("http");
     if (launchHTTP) {
-        // eslint-disable-next-line
         const polka = require("polka");
+        const send = require("@polka/send-type");
+        const serve = require("serve-static");
 
         const server = polka();
-        const port = 1337;
+        server.use(serve(join(__dirname, "public")));
         server.get("/", (req, res) => {
-            res.writeHead(200, { "Content-Type": "text/html" });
-            res.end(final);
-        }).listen(port, () => {
-            console.log(`HTTP Server now listening: ${kleur.yellow(`http://localhost:${port}`)}`);
+            send(res, 200, final, { "Content-Type": "text/html" });
+        }).listen(config.doc.port, () => {
+            console.log(`HTTP Server now listening: ${kleur.yellow(`http://localhost:${config.doc.port}`)}`);
         });
     }
     else {
