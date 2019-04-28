@@ -49,6 +49,8 @@ async function main() {
         process.exit(0);
     }
 
+    // console.log(JSON.stringify(docs, null, 4));
+
     // Get view and generate final HTML Template
     const HTMLStr = readFileSync(join(VIEW_DIR, "doc.html"), { encoding: "utf8" });
     const HTMLTemplate = zup(HTMLStr)({ projectName: "test" });
@@ -62,12 +64,14 @@ async function main() {
         const send = require("@polka/send-type");
         const serve = require("serve-static");
 
+        const port = config.doc.port || 1337;
+
         polka()
             .use(serve(join(__dirname, "public")))
             .get("/", (req, res) => {
                 send(res, 200, HTMLTemplate, { "Content-Type": "text/html" });
-            }).listen(config.doc.port, () => {
-                console.log(`HTTP Server now listening: ${kleur.yellow(`http://localhost:${config.doc.port}`)}`);
+            }).listen(port, () => {
+                console.log(`HTTP Server now listening: ${kleur.yellow(`http://localhost:${port}`)}`);
             });
     }
 
