@@ -27,7 +27,7 @@
         "@slimio/arg-parser": "^0.3.1",
         "@slimio/jsdoc": "^0.1.0",
         "@slimio/manifest": "^0.3.0",
-        "kleur": "^3.0.2",
+        "kleur": "^3.0.3",
         "polka": "^0.5.2",
         "serve-static": "^1.13.2",
         "zup": "0.0.1"
