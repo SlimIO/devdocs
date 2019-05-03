@@ -1,0 +1,108 @@
+* {
+    font-family: 'Open Sans',Arial, Helvetica, sans-serif;
+}
+
+body, html, p, h1, h2, h3 {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    height: 100vh;
+}
+    body > section#wall {
+        flex-basis: 1200px;
+        display: flex;
+        flex-direction: column;
+    }
+        body > section#wall > h1.namespace {
+            font-size: 35px
+        }
+        body > section#wall > h2.namespace{
+            color: #880e4f;
+            margin-bottom: 28px;
+            border-bottom: 2px dashed #e0e0e0;
+        }
+        body > section#wall > h2.method {
+            color: #311b92;
+            font-size: 22px;
+            margin-bottom: 15px;
+        }
+        body > section#wall > h2.property {
+            color: #43a047;
+            font-size: 22px;
+            margin-bottom: 15px;
+            margin-top: 25px
+        }
+        body > section#wall > div.title {
+            padding-bottom: 5px;
+            cursor: pointer;
+            color: #24292e;
+        }
+        body > section#wall > div.property {
+            font-size: 15px;
+        }
+            body > section#wall > div.title span {
+                display: inline-block;
+                transform: rotate(0deg);
+                transition: 0.5s transform linear;
+            }
+            body > section#wall > div.title span.active {
+                transform: rotate(90deg);
+                transition: 0.5s transform linear;
+            }
+            body > section#wall > div.title h3 {
+                display: inline-block;
+                font-size: 17px;
+            }
+                body > section#wall > div.title > h3 > i {
+                    font-size: 15px;
+                }
+        body > section#wall > div.content {
+            display: flex;
+            padding: 0 20px;
+            flex-direction: column;
+            overflow: hidden;
+            color: #24292e;
+        }
+        body > section#wall > div.open {
+            max-height: 1000px;
+            transition-property: max-height;
+            transition-duration: 0.5s;
+            transition-timing-function: linear;
+        }
+        body > section#wall > div.close {
+            max-height: 0px;
+            transition-property: max-height, padding;
+            transition-duration: 0.5s;
+            transition-timing-function: linear;
+        }
+            body > section#wall > div.content > *:first-child {
+                margin-top: 10px;
+            }
+            body > section#wall > div.content > pre {
+                background-color: #f6f8fa;
+                border-radius: 3px;
+                font-size: 85%;
+                line-height: 1.45;
+                overflow: auto;
+                padding: 16px;
+                border: none;
+            }
+            body > section#wall > div.content > *:last-child {
+                margin-bottom: 10px;
+            }
+
+            
+.content div {
+    background: purple;
+    flex-basis: 20px;
+}
+.content div+ div {
+    margin-top: 5px;
+    background: green;
+}
+
