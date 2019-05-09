@@ -6,7 +6,9 @@ body, html, p, h1, h2, h3 {
     margin: 0;
     padding: 0;
 }
-
+em {
+    font-style: normal;
+}
 body {
     display: flex;
     flex-direction: row;
@@ -27,40 +29,94 @@ body {
             border-bottom: 2px dashed #e0e0e0;
         }
         body > section#wall > h2.method {
-            color: #311b92;
+            
             font-size: 22px;
             margin-bottom: 15px;
         }
         body > section#wall > h2.property {
-            color: #43a047;
+            
             font-size: 22px;
             margin-bottom: 15px;
             margin-top: 25px
         }
         body > section#wall > div.title {
-            padding-bottom: 5px;
+            display: flex;
+            flex-direction: row;
+            margin-bottom: 5px;
             cursor: pointer;
             color: #24292e;
+            position: relative;
+            border-radius: 8px;
+            font-size: 17px;
+            align-items: center;
+            padding: 2px 0;
         }
-        body > section#wall > div.property {
-            font-size: 15px;
+        body > section#wall > div.title:hover{
+            background: #e2e7cb;
+            transition: 0.2s background linear;
         }
-            body > section#wall > div.title span {
+            body > section#wall > div.title > span.icon-right-dir {
                 display: inline-block;
                 transform: rotate(0deg);
-                transition: 0.5s transform linear;
+                transition: 0.25s transform linear;
             }
             body > section#wall > div.title span.active {
                 transform: rotate(90deg);
-                transition: 0.5s transform linear;
+                transition: 0.25s transform linear;
             }
-            body > section#wall > div.title h3 {
-                display: inline-block;
-                font-size: 17px;
+            body > section#wall > div.title > span.static {
+                margin-right: 3px;
+                background: #7760e2;
+                border-radius: 15px;
+                color: #d3cbf6;
+                padding: 0 7px;
+                line-height: 20px;
             }
-                body > section#wall > div.title > h3 > i {
-                    font-size: 15px;
+            body > section#wall > div.title > span.name {
+                font-weight: bold;
+            }
+            body > section#wall > div.title > p.args {
+                margin-left: 10px;
+            }
+                body > section#wall > div.title > p.args > span.open-p {
+                    
                 }
+                body > section#wall > div.title > p.args > span.arg-name {
+                    color: #3c00b3;
+                    position: relative;
+                    z-index: 10;
+                    margin-right: 1px; 
+                }
+                body > section#wall > div.title > p.args > span.opt::before {
+                    content: "?";
+                    width: 13px;
+                    height: 14px;
+                    border-radius: 15px;
+                    background: hsla(46, 62%, 72%, 1);
+                    color: hsl(53, 88%, 18%);
+                    top: -2px;
+                    right: -8px;
+                    position: absolute;
+                    font-size: 12px;
+                    z-index: -1;
+                    display: flex;
+                    flex-direction: row;
+                    align-items: center;
+                    justify-content: center;
+                }
+                body > section#wall > div.title > p.args > span.type{
+                    color: #43a047;
+                    font-style: italic;
+                    text-transform: capitalize;
+                }
+                body > section#wall > div.title > p.args > span.close-p {
+                    margin-left: 3px;
+                }
+            body > section#wall > div.title > span.version {
+                font-size: 14px;
+                position: absolute;
+                right: 10px;
+            }
         body > section#wall > div.content {
             display: flex;
             padding: 0 20px;
@@ -71,38 +127,43 @@ body {
         body > section#wall > div.open {
             max-height: 1000px;
             transition-property: max-height;
-            transition-duration: 0.5s;
+            transition-duration: 0.25s;
             transition-timing-function: linear;
         }
         body > section#wall > div.close {
             max-height: 0px;
             transition-property: max-height, padding;
-            transition-duration: 0.5s;
+            transition-duration: 0.25s;
             transition-timing-function: linear;
         }
+            body > section#wall > div.content > div {
+                background: #cfcfcf;
+                flex-basis: 20px;
+            }
+            body > section#wall > div.content > div + div {
+                margin-top: 5px;
+                background: #a0a0a0;
+            }
             body > section#wall > div.content > *:first-child {
                 margin-top: 10px;
             }
-            body > section#wall > div.content > pre {
-                background-color: #f6f8fa;
-                border-radius: 3px;
-                font-size: 85%;
-                line-height: 1.45;
-                overflow: auto;
-                padding: 16px;
-                border: none;
-            }
+                body > section#wall > div.content > div.exemple > pre {
+                    background-color: #f6f8fa;
+                    border-radius: 3px;
+                    font-size: 85%;
+                    line-height: 1.45;
+                    overflow: auto;
+                    padding: 16px;
+                    border: none;
+                }
             body > section#wall > div.content > *:last-child {
                 margin-bottom: 10px;
             }
 
-            
-.content div {
-    background: purple;
-    flex-basis: 20px;
+        body > section#wall > div.property {
+            font-size: 15px;
+        }
+.test{
+    color: #311b92;
+    color: ;
 }
-.content div+ div {
-    margin-top: 5px;
-    background: green;
-}
-
