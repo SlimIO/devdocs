@@ -22,7 +22,7 @@ body {
         body > section#wall > h1.namespace {
             font-size: 35px
         }
-        body > section#wall > h2.namespace{
+        body > section#wall > h2.className{
             color: #880e4f;
             margin-bottom: 28px;
             border-bottom: 2px dashed #e0e0e0;
@@ -49,15 +49,16 @@ body {
             font-size: 17px;
             align-items: center;
             padding: 2px 0;
+            /* background: rgb(175, 175, 175)r */
         }
         body > section#wall > div.title:hover{
             background: #e2e7cb;
-            transition: 0.2s background linear;
+            transition: 0.2s all linear;
+            /* transform: scale(1.01); */
         }
             body > section#wall > div.title > div.left {
                 display: flex;
                 flex-direction: row;
-                
                 flex-basis: 0;
                 flex-grow: 2;
             }
@@ -71,17 +72,28 @@ body {
                     transition: 0.25s transform linear;
                 }
                 body > section#wall > div.title > div.left > span.static {
-                    margin-right: 4px;
-                    background: #7760e2;
-                    border-radius: 15px;
-                    color: #d3cbf6;
+                    display: inline-block;
+                    margin-right: 2px;
+                    /* background: #7760e2; */
+                    /* color: #d3cbf6; */
+                    background: #000;
+                    color: #0bf;
+                    border-radius: 5px;
                     padding: 0px 7px;
                     line-height: 22px;
+                    transform: skew(-20deg) scale(0.8);
                 }
+                    body > section#wall > div.title > div.left > span.static > em {
+                        display: inline-block;
+                        transform: skew(20deg);
+                    }
                 body > section#wall > div.title > div.left > span.name {
                     font-weight: bold;
                     white-space: nowrap;
                 }
+                    body > section#wall > div.title > div.left > span.name > em{
+                        color: #9a9a9a;
+                    }
                 body > section#wall > div.title > div.left > p.args {
                     margin-left: 10px;
                     white-space: nowrap;
@@ -90,30 +102,29 @@ body {
                         
                     }
                     body > section#wall > div.title > div.left > p.args > span.arg-name {
-                        color: #3c00b3;
+                        /* color: #3c00b3; */
+                        color: #b36d00;
                         position: relative;
                         z-index: 10;
-                        margin-right: 1px; 
                     }
-                    body > section#wall > div.title > div.left > p.args > span.opt::before {
-                        content: "?";
-                        width: 13px;
-                        height: 14px;
-                        border-radius: 15px;
-                        background: hsla(46, 62%, 72%, 1);
-                        color: hsl(53, 88%, 18%);
-                        top: -2px;
-                        right: -8px;
-                        position: absolute;
-                        font-size: 12px;
-                        z-index: -1;
-                        display: flex;
-                        flex-direction: row;
-                        align-items: center;
-                        justify-content: center;
+                    body > section#wall > div.title > div.left > p.args > span.opt{
+                        padding-right: 15px;
                     }
+                        body > section#wall > div.title > div.left > p.args >span> span.opt-chip {
+                            /* color: #2a017b; */
+                            /* background: hsl(264, 44%, 83%); */
+                            color: #b1842f;
+                            background: hsl(37, 75%, 78%);
+                            position: absolute;
+                            top: 0px;
+                            right: 0px;
+                            padding: 1px 5px;
+                            font-size: 9px;
+                            border-radius: 15px
+                        }
                     body > section#wall > div.title > div.left > p.args > span.type{
-                        color: #43a047;
+                        /* color: #43a047; */
+                        color: #769c78;
                         font-style: italic;
                         text-transform: capitalize;
                         margin-right: -3px;
@@ -139,6 +150,7 @@ body {
                     flex-shrink: 0;
                     font-size: 14px;
                     white-space: nowrap;
+                    margin-right: 5px;
                 }
         body > section#wall > div.content {
             display: flex;
