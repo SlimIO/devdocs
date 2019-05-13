@@ -9,11 +9,13 @@ document.addEventListener("DOMContentLoaded", () => {
                 spanClass.remove("active");
                 content.add("close");
                 content.remove("open");
+                this.classList.remove("active");
             }
             else {
                 spanClass.add("active");
                 content.remove("close");
                 content.add("open");
+                this.classList.add("active");
             }
         });
     }

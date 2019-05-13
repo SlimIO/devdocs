@@ -11,17 +11,18 @@ em {
 body {
     display: flex;
     flex-direction: row;
-    justify-content: center;
     height: 100vh;
 }
     body > section#wall {
         flex-basis: 1200px;
         display: flex;
+        margin:  0 auto;
         flex-direction: column;
+        padding-left: 10px;
+        padding-right: 10px
     }
         body > section#wall > h1.namespace {
             font-size: 35px;
-            background: 
         }
         body > section#wall > div.top{
             color: #880e4f;
@@ -33,9 +34,6 @@ body {
             body > section#wall > div.top > span {
                 font-size: 30px;
                 margin-right: 15px;
-            }
-            body > section#wall > div.top > h2 {
-                margin
             }
         body > section#wall > div.method,
         body > section#wall > div.property {
@@ -64,19 +62,25 @@ body {
         body > section#wall > div.title {
             display: flex;
             flex-direction: row;
-            flex-wrap: wrap;
             justify-content: space-between;
-            margin-bottom: 5px;
+            /* margin-bottom: 5px; */
             cursor: pointer;
             color: #24292e;
             border-radius: 8px;
             font-size: 17px;
             align-items: center;
             padding: 2px 0;
-            /* background: rgb(175, 175, 175)r */
+            /* background: rgb(175, 175, 175) */
+        }
+        body > section#wall > div.active {
+            background: #efecec;
+            border-radius: 8px 8px 0 0;
+            transition: 0.2s all linear;
         }
         body > section#wall > div.title:hover{
-            background: #e2e7cb;
+            /* background: #e2e7cb; */
+            background: #efecec;
+            /* background: linear-gradient(#d4d4d4, #fff); */
             transition: 0.2s all linear;
             /* transform: scale(1.01); */
         }
@@ -104,7 +108,8 @@ body {
                     color: #0bf;
                     border-radius: 5px;
                     padding: 0px 10px;
-                    line-height: 22px;
+                    border: 1px solid #9dc7d6;
+                    line-height: 20px;
                     transform: skew(-20deg) scale(0.8);
                 }
                     body > section#wall > div.title > div.left > span.static > em {
@@ -178,6 +183,8 @@ body {
                         transform: skew(-25deg);
                         padding: 0 9px;
                         margin-right: 10px;
+                        border: 1px solid #9dc7d6;
+                        line-height: 20px;
                     }
                     body > section#wall > div.title > div.middle > div.skew > span.icon-return{
                         display: inline-block;
@@ -196,6 +203,9 @@ body {
             flex-direction: column;
             overflow: hidden;
             color: #24292e;
+            background: #efecec;
+            border-radius: 0 0 5px 5px;
+            margin-bottom: 5px;
         }
         body > section#wall > div.open {
             max-height: 1000px;
@@ -205,30 +215,61 @@ body {
         }
         body > section#wall > div.close {
             max-height: 0px;
-            transition-property: max-height, padding;
+            transition-property: max-height;
             transition-duration: 0.25s;
             transition-timing-function: linear;
         }
             body > section#wall > div.content > div {
-                background: #cfcfcf;
+                /* background: #cfcfcf; */
                 flex-basis: 20px;
             }
             body > section#wall > div.content > div + div {
                 margin-top: 5px;
-                background: #a0a0a0;
+                /* background: #a0a0a0; */
             }
             body > section#wall > div.content > *:first-child {
                 margin-top: 10px;
             }
+            body > section#wall > div.content > div.desc {
+                margin: 10px 0;
+            }
                 body > section#wall > div.content > div.exemple > pre {
-                    background-color: #f6f8fa;
-                    border-radius: 3px;
                     font-size: 85%;
                     line-height: 1.45;
                     overflow: auto;
                     padding: 16px;
                     border: none;
+                    margin: 0;
+                    border-radius: 3px;
+                    background: #ffffff;
+                    border: 1px solid #cae7f5;
+                    margin: 10px 0;
                 }
+                body > section#wall > div.content > div.throw{
+                    display: flex;
+                    flex-direction: row;
+                    align-items: baseline;
+                }
+                body > section#wall > div.content > div.throw > p.title{
+                    display: inline-block;
+                }
+                body > section#wall > div.content > div.throw > ul {
+                    padding-left: 10px;
+                    display: inline-block;
+                    list-style: none;
+                    font-size: 12px;
+                    margin: 0;
+                }
+                body > section#wall > div.content > div.throw > ul > li {
+                    display: inline-block;
+                }
+                body > section#wall > div.content > div.throw > ul > li + li {
+                    margin-left: 20px; 
+                }
+            body > section#wall > div.content > div.author {
+                font-size: 14px;
+                align-self: flex-end;
+            }
             body > section#wall > div.content > *:last-child {
                 margin-bottom: 10px;
             }
