@@ -21,85 +21,94 @@ body {
         padding-left: 10px;
         padding-right: 10px
     }
-        body > section#wall > h1.namespace {
-            font-size: 35px;
+    body > section#wall > div.top{
+        color: #880e4f;
+        display: flex;
+        flex-direction: column;
+        padding: 0 18px;
+    }
+            body > section#wall > div.top > div > h1.namespace {
+                font-size: 35px;
+                display: inline-block;
         }
-        body > section#wall > div.top{
-            color: #880e4f;
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            padding: 0 10px;
+        body > section#wall > div.top > div > span {
+            font-size: 30px;
+            margin-right: 15px;
         }
-            body > section#wall > div.top > span {
-                font-size: 30px;
-                margin-right: 15px;
-            }
-        body > section#wall > div.method,
-        body > section#wall > div.property {
+    body > section#wall > section.method {
+        display: flex;
+        flex-direction: column;
+    }   
+        body > section#wall > section.method > div.method,
+        body > section#wall > section.property > div.property {
             font-size: 14px;
             margin-bottom: 15px;
             margin-top: 28px;
             display: flex;
             flex-direction: row;
-            background: #d4d4d4;
+            /* background: #d4d4d4; */
             color: #0bf;
-            transform: skew(-25deg);
+            /* transform: skew(-25deg); */
             border-radius: 10px;
             align-items: center;
-            padding: 2px 10px
+            padding: 2px 0;
         }
-            body > section#wall > div.method > span,
-            body > section#wall > div.property > span {
+            body > section#wall > section.method > div.method > span,
+            body > section#wall > section.property > div.property > span {
                 font-size: 25px;
                 display: inline-block;
-                transform: skew(25deg);
+                /* transform: skew(25deg); */
+                margin-left: -5px;
             }
-            body > section#wall > div.method > h2,
-            body > section#wall > div.property > h2 {
-                transform: skew(25deg);
+            body > section#wall > section.method > div.method > h2,
+            body > section#wall > section.property > div.property > h2 {
+                /* transform: skew(25deg); */
             }
-        body > section#wall > div.title {
+        body > section#wall > section > div.title {
             display: flex;
             flex-direction: row;
             justify-content: space-between;
             /* margin-bottom: 5px; */
             cursor: pointer;
             color: #24292e;
-            border-radius: 8px;
+            /* border-radius: 8px; */
             font-size: 17px;
             align-items: center;
             padding: 2px 0;
+            /* border-top: 1px solid #000; */
             /* background: rgb(175, 175, 175) */
         }
-        body > section#wall > div.active {
+        body > section#wall > section > div.title ~ div.title {
+            border-top: 1px solid #dcdcdc;
+        }
+        body > section#wall > section > div.active {
             background: #efecec;
-            border-radius: 8px 8px 0 0;
             transition: 0.2s all linear;
         }
-        body > section#wall > div.title:hover{
+        body > section#wall > section > div.title:hover {
             /* background: #e2e7cb; */
             background: #efecec;
             /* background: linear-gradient(#d4d4d4, #fff); */
             transition: 0.2s all linear;
             /* transform: scale(1.01); */
         }
-            body > section#wall > div.title > div.left {
+            body > section#wall > section.method > div.title > div.left {
                 display: flex;
                 flex-direction: row;
                 flex-basis: 0;
                 flex-grow: 2;
             }
-                body > section#wall > div.title > div.left > span.icon-right-dir {
+                body > section#wall > section > div.title > div.left > span.icon-right-dir {
                     display: inline-block;
                     transform: rotate(0deg);
                     transition: 0.25s transform linear;
+                    margin-left: -6px;
                 }
-                body > section#wall > div.title > div.left > span.active {
+                body > section#wall > section > div.title > div.left > span.active {
                     transform: rotate(90deg);
                     transition: 0.25s transform linear;
                 }
-                body > section#wall > div.title > div.left > span.static {
+                body > section#wall > section.method > div.title > div.left > span.static {
                     display: inline-block;
                     margin-right: 2px;
                     /* background: #7760e2; */
@@ -112,34 +121,34 @@ body {
                     line-height: 20px;
                     transform: skew(-20deg) scale(0.8);
                 }
-                    body > section#wall > div.title > div.left > span.static > em {
+                    body > section#wall > section.method > div.title > div.left > span.static > em {
                         display: inline-block;
                         transform: skew(20deg);
                     }
-                body > section#wall > div.title > div.left > span.name {
+                body > section#wall > section > div.title > div.left > span.name {
                     font-weight: bold;
                     white-space: nowrap;
                 }
-                    body > section#wall > div.title > div.left > span.name > em{
+                    body > section#wall > section.method > div.title > div.left > span.name > em{
                         color: #9a9a9a;
                     }
-                body > section#wall > div.title > div.left > p.args {
+                body > section#wall > section.method > div.title > div.left > p.args {
                     margin-left: 10px;
                     white-space: nowrap;
                 }
-                    body > section#wall > div.title > div.left > p.args > span.open-p {
+                    body > section#wall > section.method > div.title > div.left > p.args > span.open-p {
                         
                     }
-                    body > section#wall > div.title > div.left > p.args > span.arg-name {
-                        /* color: #3c00b3; */
-                        color: #b36d00;
+                    body > section#wall > section.method > div.title > div.left > p.args > span.arg-name {
+                        /* color: #b36d00; */
+                        color: #3c00b3;
                         position: relative;
                         z-index: 10;
                     }
-                    body > section#wall > div.title > div.left > p.args > span.opt{
+                    body > section#wall > section.method > div.title > div.left > p.args > span.opt{
                         padding-right: 15px;
                     }
-                        body > section#wall > div.title > div.left > p.args >span> span.opt-chip {
+                        body > section#wall > section.method > div.title > div.left > p.args >span> span.opt-chip {
                             /* color: #2a017b; */
                             /* background: hsl(264, 44%, 83%); */
                             color: #b1842f;
@@ -151,17 +160,17 @@ body {
                             font-size: 9px;
                             border-radius: 15px
                         }
-                    body > section#wall > div.title > div.left > p.args > span.type{
-                        /* color: #43a047; */
-                        color: #769c78;
+                    body > section#wall > section.method > div.title > div.left > p.args > span.type{
+                        /* color: #769c78; */
+                        color: #43a047;
                         font-style: italic;
                         text-transform: capitalize;
                         margin-right: -3px;
                     }
-                    body > section#wall > div.title > div.left > p.args > span.close-p {
+                    body > section#wall > section.method > div.title > div.left > p.args > span.close-p {
                         margin-left: 6px;
                     }
-                body > section#wall > div.title > div.middle {
+                body > section#wall > section.method > div.title > div.middle {
                     flex-grow: 1; 
                     display: flex;
                     flex-basis: 0;
@@ -169,12 +178,12 @@ body {
                     flex-direction: row;
                     align-items: center;
                 }
-                    body > section#wall > div.title > div.middle > img {
+                    body > section#wall > section.method > div.title > div.middle > img {
                         width: 20px;
                         margin-right: 5px;
                         height: inherit;
                     }
-                    body > section#wall > div.title > div.middle > div.skew{
+                    body > section#wall > section.method > div.title > div.middle > div.skew{
                         font-size: 17px;
                         font-weight: bold;
                         color: #0bf;
@@ -186,54 +195,57 @@ body {
                         border: 1px solid #9dc7d6;
                         line-height: 20px;
                     }
-                    body > section#wall > div.title > div.middle > div.skew > span.icon-return{
+                    body > section#wall > section.method > div.title > div.middle > div.skew > span.icon-return{
                         display: inline-block;
                         transform: skew(25deg);
                     }
-                body > section#wall > div.title > span.version {
+                body > section#wall > section > div.title > div.left > span.active {
                     flex-basis: 0;
                     flex-shrink: 0;
                     font-size: 14px;
                     white-space: nowrap;
                     margin-right: 5px;
                 }
-        body > section#wall > div.content {
+        body > section#wall > section > div.content {
             display: flex;
             padding: 0 20px;
             flex-direction: column;
             overflow: hidden;
             color: #24292e;
-            background: #efecec;
-            border-radius: 0 0 5px 5px;
             margin-bottom: 5px;
+            border-bottom: none;
         }
-        body > section#wall > div.open {
+
+
+        body > section#wall > section > div.content:not(section.method:first-child) {
+            border-bottom: 1px solid rgb(92, 92, 92);
+        }
+
+
+
+
+        body > section#wall > section > div.open {
             max-height: 1000px;
             transition-property: max-height;
             transition-duration: 0.25s;
             transition-timing-function: linear;
         }
-        body > section#wall > div.close {
+        body > section#wall > section > div.close {
             max-height: 0px;
             transition-property: max-height;
             transition-duration: 0.25s;
             transition-timing-function: linear;
         }
-            body > section#wall > div.content > div {
-                /* background: #cfcfcf; */
-                flex-basis: 20px;
-            }
-            body > section#wall > div.content > div + div {
+            body > section#wall > section > div.content > div + div {
                 margin-top: 5px;
-                /* background: #a0a0a0; */
             }
-            body > section#wall > div.content > *:first-child {
+            body > section#wall > section > div.content > *:first-child {
                 margin-top: 10px;
             }
-            body > section#wall > div.content > div.desc {
+            body > section#wall > section.method > div.content > div.desc {
                 margin: 10px 0;
             }
-                body > section#wall > div.content > div.exemple > pre {
+                body > section#wall > section.method > div.content > div.exemple > pre {
                     font-size: 85%;
                     line-height: 1.45;
                     overflow: auto;
@@ -241,36 +253,36 @@ body {
                     border: none;
                     margin: 0;
                     border-radius: 3px;
-                    background: #ffffff;
-                    border: 1px solid #cae7f5;
+                    background: #f6f8fa;
+                    /* border: 1px solid #cae7f5; */
                     margin: 10px 0;
                 }
-                body > section#wall > div.content > div.throw{
+                body > section#wall > section.method > div.content > div.throw{
                     display: flex;
                     flex-direction: row;
                     align-items: baseline;
                 }
-                body > section#wall > div.content > div.throw > p.title{
+                body > section#wall > section.method > div.content > div.throw > p.title{
                     display: inline-block;
                 }
-                body > section#wall > div.content > div.throw > ul {
+                body > section#wall > section.method > div.content > div.throw > ul {
                     padding-left: 10px;
                     display: inline-block;
                     list-style: none;
                     font-size: 12px;
                     margin: 0;
                 }
-                body > section#wall > div.content > div.throw > ul > li {
+                body > section#wall > section.method > div.content > div.throw > ul > li {
                     display: inline-block;
                 }
-                body > section#wall > div.content > div.throw > ul > li + li {
+                body > section#wall > section.method > div.content > div.throw > ul > li + li {
                     margin-left: 20px; 
                 }
-            body > section#wall > div.content > div.author {
+            body > section#wall > section.method > div.content > div.author {
                 font-size: 14px;
                 align-self: flex-end;
             }
-            body > section#wall > div.content > *:last-child {
+            body > section#wall > section > div.content > *:last-child {
                 margin-bottom: 10px;
             }
 
