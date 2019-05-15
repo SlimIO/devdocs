@@ -71,37 +71,43 @@ body {
                 margin-right: 5px;
             }
 
-        body > main > div.title {
-            display: flex;
-            cursor: pointer;
-            color: #455A64;
-            align-items: center;
-            padding: 6px 0;
-            border-top: 1px solid rgba(26, 36, 136, 0.3);
-        }
-        body > main > h2.method + div.title,
-        body > main > h2.property + div.title {
-            border-top: none;
-        }
+            body > main > div.title {
+                display: flex;
+                cursor: pointer;
+                color: #455A64;
+                align-items: center;
+                padding: 6px 0;
+                border-top: 1px solid rgba(26, 36, 136, 0.3);
+                position: relative;
+            }
+            body > main > h2.method + div.title,
+            body > main > h2.property + div.title {
+                border-top: none;
+            }
             body > main > div.title > div.left {
                 display: flex;
                 flex-basis: 0;
                 flex-grow: 2;
             }
+                body > main > div.title > div.left:first-child {
+                    margin-left: 15px;
+                }
                 body > main > div.title > div.left > span.icon-right-dir {
                     display: inline-block;
                     transform: rotate(0deg);
                     transition: 0.15s transform linear;
-                    margin-left: -6px;
+                    transform-origin: 50% 50%;
+                    width: 23px;
+                    position: absolute;
+                    top: 6px;
+                    left: -6px;
+                    padding: 2px 0;
                 }
                 body > main > div.title > div.left > span.active {
-                    transform: rotate(90deg);
-                    transition: 0.15s transform linear;
-                    flex-basis: 0;
-                    flex-shrink: 0;
                     font-size: 14px;
                     white-space: nowrap;
-                    margin-right: 5px;
+                    transform: rotate(90deg);
+                    transition: 0.15s transform linear;
                 }
                 body > main > div.title > div.left > span.static {
                     margin-right: 5px;
@@ -162,6 +168,7 @@ body {
                     color: #16355d;
                     display: inline-block;
                     margin-right: 3px;
+                    display: inline-block;
                 }
             body > main > div.title > span.version{
                 color: #8c8c8c;
