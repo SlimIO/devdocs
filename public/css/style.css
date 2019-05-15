@@ -1,5 +1,10 @@
-* {
-    font-family: 'Open Sans',Arial, Helvetica, sans-serif;
+@font-face{
+    font-family: "mononoki";
+    src: url("../font/mononoki/mononoki-Regular.eot");
+    src: url("../font/mononoki/mononoki-Regular.woff") format("woff"),
+    url("../font/mononoki/mononoki-Regular.ttf") format("truetype"),
+    url("../font/mononoki/mononoki-Bold.woff2") format("woff2");
+    font-style: normal;
 }
 body, html, p, h1, h2, h3 {
     margin: 0;
@@ -12,6 +17,7 @@ body {
     display: flex;
     flex-direction: row;
     height: 100vh;
+    font-family: 'Open Sans', Arial, Helvetica, sans-serif;
 }
     body > section#wall {
         flex-basis: 1200px;
@@ -246,6 +252,7 @@ body {
                 margin: 10px 0;
             }
                 body > section#wall > section.method > div.content > div.exemple > pre {
+                    font-family: 'mononoki';
                     font-size: 85%;
                     line-height: 1.45;
                     overflow: auto;
@@ -254,9 +261,14 @@ body {
                     margin: 0;
                     border-radius: 3px;
                     background: #f6f8fa;
+                    font-family: 'mononoki';
                     /* border: 1px solid #cae7f5; */
                     margin: 10px 0;
                 }
+                    body > section#wall > section.method > div.content > div.exemple > pre {
+                        
+                    }
+
                 body > section#wall > section.method > div.content > div.throw{
                     display: flex;
                     flex-direction: row;
