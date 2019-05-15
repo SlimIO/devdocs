@@ -87,10 +87,6 @@ body {
         body > section#wall > div.title ~ div.title {
             border-top: 1px solid #dcdcdc;
         }
-        body > section#wall > div.active {
-            background: #efecec;
-            transition: 0.2s all linear;
-        }
         body > section#wall > div.title:hover {
             /* background: #e2e7cb; */
             background: #efecec;
@@ -209,7 +205,6 @@ body {
             flex-direction: column;
             overflow: hidden;
             color: #24292e;
-            margin-bottom: 5px;
             border-bottom: none;
         }
 
