@@ -13,53 +13,45 @@ body, html, p, h1, h2, h3 {
 em {
     font-style: normal;
 }
+html {
+    height: 100vh;
+}
 body {
     display: flex;
     flex-direction: row;
+    justify-content: center;
     height: 100vh;
-    font-family: 'Open Sans', Arial, Helvetica, sans-serif;
+    font-family: 'Roboto', Arial, Helvetica, sans-serif;
 }
     body > section#wall {
         flex-basis: 1200px;
         display: flex;
-        margin:  0 auto;
+        /* margin:  0 auto; */
         flex-direction: column;
-        padding-left: 10px;
-        padding-right: 10px
+        padding: 0 10px;
     }
-    body > section#wall > div.top{
-        color: #880e4f;
-    }
-        body > section#wall > div.top > h1.namespace {
-            font-size: 35px;
-            display: inline-block;
+        body > section#wall > div.top{
+            color: #880e4f;
+            margin-top: 10px;
         }
-        body > section#wall > div.top > span {
-            font-size: 30px;
-            margin-left: -5px;
-        }
-        body > section#wall > div.top > h2 {
-            display: block;
-        }
-    body > section#wall {
-        display: flex;
-        flex-direction: column;
-    }   
-        body > section#wall > div.method,
-        body > section#wall > div.property {
+            body > section#wall > div.top > h1.namespace {
+                font-size: 35px;
+                display: inline-block;
+            }
+            body > section#wall > div.top > span {
+                font-size: 30px;
+                margin-left: -5px;
+            }
+            body > section#wall > div.top > h2 {
+                display: block;
+            }  
+        body > section#wall > h2 {
             font-size: 14px;
             margin: 15px 0;
-            display: flex;
-            flex-direction: row;
-            /* color: #0bf; */
+            font-size: 25px;
             color: #6099e2;
-            align-items: center;
         }
-            body > section#wall > div.method > span,
-            body > section#wall > div.property > span {
-                font-size: 25px;
-                display: inline-block;
-                /* transform: skew(25deg); */
+            body > section#wall > h2 > span{
                 margin-left: -5px;
             }
         body > section#wall > div.title {
@@ -70,17 +62,12 @@ body {
             color: #24292e;
             font-size: 17px;
             align-items: center;
-            padding: 2px 0;
+            padding: 4px 0;
             border-top: 1px solid #8c8c8c;
         }
-        body > section#wall > div.method + div.title,
-        body > section#wall > div.property + div.title {
+        body > section#wall > h2.method + div.title,
+        body > section#wall > h2.property + div.title {
             border-top: none;
-        }
-        body > section#wall > div.title
-        body > section#wall > div.title:hover {
-            background: #efecec;
-            transition: 0.2s all linear;
         }
             body > section#wall > div.title > div.left {
                 display: flex;
@@ -97,6 +84,11 @@ body {
                 body > section#wall > div.title > div.left > span.active {
                     transform: rotate(90deg);
                     transition: 0.25s transform linear;
+                    flex-basis: 0;
+                    flex-shrink: 0;
+                    font-size: 14px;
+                    white-space: nowrap;
+                    margin-right: 5px;
                 }
                 body > section#wall > div.title > div.left > span.static {
                     margin-right: 4px;
@@ -105,32 +97,30 @@ body {
                     padding: 0px 7px;
                     border-radius: 15px;
                     line-height: 21px;
+                    font-weight: 500;
                 }
                 body > section#wall > div.title > div.left > span.name {
-                    font-weight: bold;
+                    font-weight: 500;
                     white-space: nowrap;
                 }
                     body > section#wall > div.title > div.left > span.name > em{
                         color: #9a9a9a;
+                        font-weight: 300;
                     }
                 body > section#wall > div.title > div.left > p.args {
                     margin-left: 10px;
                     white-space: nowrap;
                 }
                     body > section#wall > div.title > div.left > p.args > span.arg-name {
-                        /* color: #b36d00; */
                         color: #3c00b3;
                         position: relative;
-                        z-index: 10;
                     }
                     body > section#wall > div.title > div.left > p.args > span.opt{
                         padding-right: 15px;
                     }
                         body > section#wall > div.title > div.left > p.args >span> span.opt-chip {
-                            /* color: #2a017b; */
-                            /* background: hsl(264, 44%, 83%); */
+                            background: #f0d09c;
                             color: #b1842f;
-                            background: hsl(37, 75%, 78%);
                             position: absolute;
                             top: 0px;
                             right: 0px;
@@ -139,116 +129,96 @@ body {
                             border-radius: 15px
                         }
                     body > section#wall > div.title > div.left > p.args > span.type{
-                        /* color: #769c78; */
                         color: #43a047;
                         font-style: italic;
                         text-transform: capitalize;
                         margin-right: -3px;
+                        font-weight: 300;
                     }
                     body > section#wall > div.title > div.left > p.args > span.close-p {
                         margin-left: 5px;
                     }
-                body > section#wall > div.title > div.middle {
-                    flex-grow: 1; 
-                    display: flex;
-                    flex-basis: 0;
-                    margin: 0 10px;
-                    flex-direction: row;
-                    align-items: center;
+            body > section#wall > div.title > div.middle {
+                display: flex;
+                flex-grow: 1; 
+                flex-basis: 0;
+                flex-direction: row;
+                align-items: center;
+                margin: 0 10px;
+            }
+                body > section#wall > div.title > div.middle > span.icon-return{
+                    font-size: 17px;
+                    color: #16355d;
+                    display: inline-block;
+                    margin-right: 3px;
                 }
-                    body > section#wall > div.title > div.middle > img {
-                        width: 20px;
-                        margin-right: 5px;
-                        height: inherit;
-                    }
-                    body > section#wall > div.title > div.middle > div.skew{
-                        font-size: 17px;
-                        font-weight: bold;
-                        /* color: #0bf; */
-                        color: #6099e2;
-                        /* background: #d4d4d4; */
-                        background: #dee2f5;
-                        border-radius: 5px;
-                        transform: skew(-25deg);
-                        padding: 0 9px;
-                        margin-right: 10px;
-                        border: 1px solid #9dc7d6;
-                        line-height: 20px;
-                    }
-                    body > section#wall > div.title > div.middle > div.skew > span.icon-return{
-                        display: inline-block;
-                        transform: skew(25deg);
-                    }
-                body > section#wall > div.title > div.left > span.active {
-                    flex-basis: 0;
-                    flex-shrink: 0;
-                    font-size: 14px;
-                    white-space: nowrap;
-                    margin-right: 5px;
-                }
+            body > section#wall > div.title > span.version{
+                color: #8c8c8c;
+                font-size: 12px;
+                margin-right: 5px;
+                font-weight: 300;
+            }
         body > section#wall > div.content {
             display: flex;
-            padding: 0 20px;
             flex-direction: column;
             overflow: hidden;
-            color: #24292e;
+            padding: 0 20px;
+            color: #656565;
             border-bottom: none;
         }
         body > section#wall > div.open {
             max-height: 1000px;
-            transition-property: max-height;
-            transition-duration: 0.25s;
-            transition-timing-function: linear;
+            transition-property: 0.25s max-height linear;
         }
         body > section#wall > div.close {
             max-height: 0px;
-            transition-property: max-height;
-            transition-duration: 0.25s;
-            transition-timing-function: linear;
+            transition-property: 0.25s max-height linear;
         }
             body > section#wall > div.content > *:first-child {
                 margin-top: 10px;
+            }
+            body > section#wall > div.content > p.desc {
+                margin-bottom: 10px;
             }
                 body > section#wall > div.content > div.exemple > pre {
                     font-family: 'mononoki';
                     font-size: 85%;
                     line-height: 1.45;
-                    overflow: auto;
                     padding: 16px;
                     border: none;
                     margin: 0;
                     border-radius: 3px;
-                    background: #f6f8fa;
-                    font-family: 'mononoki';
-                    /* border: 1px solid #cae7f5; */
+                    background: #e8eaf6;
                 }
-                body > section#wall > div.content > div.throw{
-                    display: flex;
-                    flex-direction: row;
-                    align-items: baseline;
-                }
-                body > section#wall > div.content > div.throw > p.title{
+            body > section#wall > div.content > div.throw{
+                display: flex;
+                flex-direction: row;
+                align-items: baseline;
+                margin-top: 10px;
+            }
+                body > section#wall > div.content > div.throw > p {
                     display: inline-block;
                 }
                 body > section#wall > div.content > div.throw > ul {
                     padding-left: 10px;
                     display: inline-block;
+                    font-family: 'mononoki';
                     list-style: none;
                     font-size: 15px;
                     margin: 0;
-                    font-family: 'mononoki';
                 }
-                body > section#wall > div.content > div.throw > ul > li {
-                    display: inline-block;
-                }
-                body > section#wall > div.content > div.throw > ul > li + li {
-                    margin-left: 20px; 
-                }
-            body > section#wall > div.content > div.author {
-                font-size: 14px;
+                    body > section#wall > div.content > div.throw > ul > li {
+                        display: inline-block;
+                    }
+                    body > section#wall > div.content > div.throw > ul > li + li {
+                        margin-left: 20px; 
+                    }
+            body > section#wall > div.content > p.author {
                 align-self: flex-end;
+                color: #8c8c8c;
+                font-size: 15px;
+                font-weight: 300;
             }
             body > section#wall > div.content > *:last-child {
                 margin-bottom: 10px;
             }
-
