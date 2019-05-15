@@ -22,51 +22,62 @@ body {
     height: 100vh;
     font-family: 'Roboto', Arial, Helvetica, sans-serif;
 }
-    body > header{
-        color: #880e4f;
-        background: #e0e0e0;
+    body > header {
+        color: #1A237E;
+        background: #E8EAF6;
         display: flex;
         justify-content: center;
         position: sticky;
+        border-bottom: 1px solid #CFD8DC;
+        box-shadow: 1px 1px 15px rgba(26, 36, 136, 0.3);
     }
         body > header > div.center {
             flex-basis: 1000px;
             padding: 10px 0;
         }
             body > header > div.center > h1.namespace {
-                font-size: 35px;
+                font-size: 17px;
                 display: inline-block;
+                font-style: italic;
             }
             body > header > div.center > span {
-                font-size: 30px;
+                font-size: 17px;
                 margin-left: -5px;
+                margin-right: 5px;
             }
             body > header > div.center > h2 {
                 display: block;
-            }  
+                color: #673AB7;
+                font-size: 30px;
+                text-shadow: 1px 1px 10px rgba(255, 117, 232, 0.25);
+            }
+
     body > main {
-        width: 1000px;
+        width: 100vw;
+        max-width: 1000px;
         display: flex;
-        /* margin:  0 auto; */
         flex-direction: column;
         align-self: center;
     }
         body > main > h2 {
-            font-size: 14px;
             margin: 15px 0;
             font-size: 25px;
-            color: #6099e2;
+            color: #0D47A1;
+            font-weight: 400;
+            text-shadow: 1px 1px 3px rgba(204, 117, 255, 0.3);
         }
             body > main > h2 > span{
                 margin-left: -5px;
+                margin-right: 5px;
             }
+
         body > main > div.title {
             display: flex;
             cursor: pointer;
-            color: #24292e;
+            color: #455A64;
             align-items: center;
-            padding: 4px 0;
-            border-top: 1px solid #8c8c8c;
+            padding: 6px 0;
+            border-top: 1px solid rgba(26, 36, 136, 0.3);
         }
         body > main > h2.method + div.title,
         body > main > h2.property + div.title {
@@ -80,12 +91,12 @@ body {
                 body > main > div.title > div.left > span.icon-right-dir {
                     display: inline-block;
                     transform: rotate(0deg);
-                    transition: 0.25s transform linear;
+                    transition: 0.15s transform linear;
                     margin-left: -6px;
                 }
                 body > main > div.title > div.left > span.active {
                     transform: rotate(90deg);
-                    transition: 0.25s transform linear;
+                    transition: 0.15s transform linear;
                     flex-basis: 0;
                     flex-shrink: 0;
                     font-size: 14px;
@@ -93,19 +104,18 @@ body {
                     margin-right: 5px;
                 }
                 body > main > div.title > div.left > span.static {
-                    margin-right: 4px;
-                    background: #7760e2;
-                    color: #d3cbf6;
-                    padding: 0px 7px;
-                    border-radius: 15px;
-                    line-height: 21px;
+                    margin-right: 5px;
+                    background: #4527A0;
+                    color: #F3E5F5;
+                    padding: 0px 5px;
+                    border-radius: 40px;
                     font-weight: 500;
                 }
                 body > main > div.title > div.left > span.name {
                     font-weight: 500;
                     white-space: nowrap;
                 }
-                    body > main > div.title > div.left > span.name > em{
+                    body > main > div.title > div.left > span.name > em {
                         color: #9a9a9a;
                         font-weight: 300;
                     }
@@ -131,7 +141,7 @@ body {
                             border-radius: 15px
                         }
                     body > main > div.title > div.left > p.args > span.type{
-                        color: #43a047;
+                        color: #388E3C;
                         font-style: italic;
                         text-transform: capitalize;
                         margin-right: -3px;
@@ -142,7 +152,7 @@ body {
                     }
             body > main > div.title > div.middle {
                 display: flex;
-                flex-grow: 1; 
+                flex-grow: 1;
                 flex-basis: 0;
                 align-items: center;
                 margin: 0 10px;
@@ -159,6 +169,7 @@ body {
                 margin-right: 5px;
                 font-weight: 300;
             }
+
         body > main > div.content {
             display: flex;
             flex-direction: column;
@@ -167,16 +178,18 @@ body {
             color: #656565;
             border-bottom: none;
         }
+
         body > main > div.open {
             max-height: 1000px;
             transition-property: max-height;
-            transition-duration: 0.25s;
+            transition-duration: 0.10s;
             transition-timing-function: ease-in;
         }
+
         body > main > div.close {
             max-height: 0px;
             transition-property: max-height;
-            transition-duration: 0.25s;
+            transition-duration: 0.10s;
             transition-timing-function: ease-out;
         }
             body > main > div.content > *:first-child {
@@ -187,7 +200,6 @@ body {
             }
                 body > main > div.content > div.exemple > pre {
                     font-family: 'mononoki';
-                    font-size: 85%;
                     line-height: 1.45;
                     padding: 16px;
                     border: none;
@@ -215,7 +227,7 @@ body {
                         display: inline-block;
                     }
                     body > main > div.content > div.throw > ul > li + li {
-                        margin-left: 20px; 
+                        margin-left: 20px;
                     }
             body > main > div.content > p.author {
                 align-self: flex-end;
