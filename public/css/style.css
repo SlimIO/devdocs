@@ -51,7 +51,8 @@ body {
             margin: 15px 0;
             display: flex;
             flex-direction: row;
-            color: #0bf;
+            /* color: #0bf; */
+            color: #6099e2;
             align-items: center;
         }
             body > section#wall > div.method > span,
@@ -163,8 +164,10 @@ body {
                     body > section#wall > div.title > div.middle > div.skew{
                         font-size: 17px;
                         font-weight: bold;
-                        color: #0bf;
-                        background: #d4d4d4;
+                        /* color: #0bf; */
+                        color: #6099e2;
+                        /* background: #d4d4d4; */
+                        background: #dee2f5;
                         border-radius: 5px;
                         transform: skew(-25deg);
                         padding: 0 9px;
@@ -231,8 +234,9 @@ body {
                     padding-left: 10px;
                     display: inline-block;
                     list-style: none;
-                    font-size: 12px;
+                    font-size: 15px;
                     margin: 0;
+                    font-family: 'mononoki';
                 }
                 body > section#wall > div.content > div.throw > ul > li {
                     display: inline-block;
