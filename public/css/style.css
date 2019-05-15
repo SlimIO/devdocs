@@ -115,22 +115,13 @@ body {
                     transition: 0.25s transform linear;
                 }
                 body > section#wall > section.method > div.title > div.left > span.static {
-                    display: inline-block;
-                    margin-right: 2px;
-                    /* background: #7760e2; */
-                    /* color: #d3cbf6; */
-                    background: #d4d4d4;
-                    color: #0bf;
-                    border-radius: 5px;
-                    padding: 0px 10px;
-                    border: 1px solid #9dc7d6;
-                    line-height: 20px;
-                    transform: skew(-20deg) scale(0.8);
+                    margin-right: 4px;
+                    background: #7760e2;
+                    color: #d3cbf6;
+                    padding: 0px 7px;
+                    border-radius: 15px;
+                    line-height: 21px;
                 }
-                    body > section#wall > section.method > div.title > div.left > span.static > em {
-                        display: inline-block;
-                        transform: skew(20deg);
-                    }
                 body > section#wall > section > div.title > div.left > span.name {
                     font-weight: bold;
                     white-space: nowrap;
@@ -224,7 +215,7 @@ body {
 
 
         body > section#wall > section > div.content:not(section.method:first-child) {
-            border-bottom: 1px solid rgb(92, 92, 92);
+            border-bottom: 1px solid rgb(66, 66, 66);
         }
 
 
@@ -268,7 +259,6 @@ body {
                     body > section#wall > section.method > div.content > div.exemple > pre {
                         
                     }
-
                 body > section#wall > section.method > div.content > div.throw{
                     display: flex;
                     flex-direction: row;
