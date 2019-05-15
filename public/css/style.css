@@ -53,7 +53,6 @@ body {
             flex-direction: row;
             color: #0bf;
             align-items: center;
-            padding: 2px 0;
         }
             body > section#wall > div.method > span,
             body > section#wall > div.property > span {
@@ -62,27 +61,22 @@ body {
                 /* transform: skew(25deg); */
                 margin-left: -5px;
             }
-            body > section#wall > div.method > h2,
-            body > section#wall > div.property > h2 {
-                /* transform: skew(25deg); */
-            }
         body > section#wall > div.title {
             display: flex;
             flex-direction: row;
             justify-content: space-between;
-            /* margin-bottom: 5px; */
             cursor: pointer;
             color: #24292e;
-            /* border-radius: 8px; */
             font-size: 17px;
             align-items: center;
             padding: 2px 0;
-            /* border-top: 1px solid #000; */
-            /* background: rgb(175, 175, 175) */
+            border-top: 1px solid #8c8c8c;
         }
-        body > section#wall > div.title ~ div.title {
-            border-top: 1px solid #dcdcdc;
+        body > section#wall > div.method + div.title,
+        body > section#wall > div.property + div.title {
+            border-top: none;
         }
+        body > section#wall > div.title
         body > section#wall > div.title:hover {
             background: #efecec;
             transition: 0.2s all linear;
@@ -122,9 +116,6 @@ body {
                     margin-left: 10px;
                     white-space: nowrap;
                 }
-                    body > section#wall > div.title > div.left > p.args > span.open-p {
-                        
-                    }
                     body > section#wall > div.title > div.left > p.args > span.arg-name {
                         /* color: #b36d00; */
                         color: #3c00b3;
@@ -154,7 +145,7 @@ body {
                         margin-right: -3px;
                     }
                     body > section#wall > div.title > div.left > p.args > span.close-p {
-                        margin-left: 6px;
+                        margin-left: 5px;
                     }
                 body > section#wall > div.title > div.middle {
                     flex-grow: 1; 
@@ -200,15 +191,6 @@ body {
             color: #24292e;
             border-bottom: none;
         }
-
-
-        body > section#wall > div.content:not(section.method:first-child) {
-            border-bottom: 1px solid rgb(66, 66, 66);
-        }
-
-
-
-
         body > section#wall > div.open {
             max-height: 1000px;
             transition-property: max-height;
