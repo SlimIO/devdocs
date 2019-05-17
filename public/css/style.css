@@ -70,7 +70,6 @@ body {
                 margin-left: -5px;
                 margin-right: 5px;
             }
-
             body > main > div.title {
                 display: flex;
                 cursor: pointer;
@@ -136,7 +135,7 @@ body {
                     body > main > div.title > div.left > p.args > span.opt{
                         padding-right: 15px;
                     }
-                        body > main > div.title > div.left > p.args >span> span.opt-chip {
+                        body > main > div.title > div.left > p.args >span > span.opt-chip {
                             background: #f0d09c;
                             color: #b1842f;
                             position: absolute;
@@ -230,11 +229,16 @@ body {
                     font-size: 15px;
                     margin: 0;
                 }
-                    body > main > div.content > div.throw > ul > li {
+                    body > main > div.content > div.throw > ul  li {
                         display: inline-block;
-                    }
-                    body > main > div.content > div.throw > ul > li + li {
-                        margin-left: 20px;
+                        /* background: #ece8f6; */
+                        background: #f8f5ff;
+                        border-radius: 5px;
+                        padding: 3px 6px;
+                        color: #b19c9c;
+                        color: #b7abab;
+                        /* border: 1px solid #dcd8d8; */
+                        border: 1px solid #dad5d5;
                     }
             body > main > div.content > p.author {
                 align-self: flex-end;
