@@ -202,22 +202,39 @@ body {
             transition-duration: 0.10s;
             transition-timing-function: ease-out;
         }
+            body > main > div.content .number {color: #cddc39}
+            body > main > div.content .string {color: #e8b905}
+            body > main > div.content .boolean {color: #ff80ab}
             body > main > div.content > *:first-child {
                 margin-top: 10px;
             }
             body > main > div.content > p:not(.author) {
                 margin-bottom: 10px;
             }
-            body > main > div.content > p.p-default-val {
-                margin-top: 15px;
+            body > main > div.content > div.row {
+                display: flex;
+                font-size: 14px;
+            }
+                body > main > div.content > div.row > span:first-child {
+
+                    flex: 0 0 150px;
+                    text-align: right
+                }
+                body > main > div.content > div.row > span {
+                    padding: 4px 5px;
+                    border-bottom: 1px solid #dfe2e5;
+                }
+                body > main > div.content > div.row > span:last-child {
+                    flex: 2 0 200px;
+                }
+            body > main > div.content > .row:last-of-type {
+                margin-bottom: 15px;
+                background: blue;
             }
             body > main > div.content > table {
                 margin-bottom: 15px;
                 border-collapse: collapse;
             }
-            body > main > div.content > table .number {color: #cddc39}
-            body > main > div.content > table .string {color: #e8b905}
-            body > main > div.content > table .boolean {color: #ff80ab}
                 body > main > div.content > table tr:nth-child(2n) {
                     background: #f6f8fa;
                 }
