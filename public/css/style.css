@@ -70,28 +70,28 @@ body {
                 margin-left: -5px;
                 margin-right: 5px;
             }
-            body > main > div.title {
-                display: flex;
-                cursor: pointer;
-                color: #455A64;
-                align-items: center;
-                padding: 6px 0;
-                border-top: 1px solid rgba(26, 36, 136, 0.3);
-                position: relative;
-                user-select: none;
-            }
-            body > main > h2.method + div.title,
-            body > main > h2.property + div.title {
-                border-top: none;
-            }
+        body > main > div.title {
+            display: flex;
+            cursor: pointer;
+            color: #455A64;
+            align-items: center;
+            padding: 6px 0;
+            border-top: 1px solid rgba(26, 36, 136, 0.3);
+            position: relative;
+            user-select: none;
+        }
+        body > main > h2.method + div.title,
+        body > main > h2.property + div.title {
+            border-top: none;
+        }
             body > main > div.title > div.left {
                 display: flex;
                 flex-basis: 0;
                 flex-grow: 2;
             }
-                body > main > div.title > div.left:first-child {
-                    margin-left: 15px;
-                }
+            body > main > div.title > div.left:first-child {
+                margin-left: 15px;
+            }
                 body > main > div.title > div.left > span.icon-right-dir {
                     display: inline-block;
                     transform: rotate(0deg);
@@ -202,18 +202,38 @@ body {
             body > main > div.content > *:first-child {
                 margin-top: 10px;
             }
-            body > main > div.content > p.desc {
+            body > main > div.content > p:not(.author) {
                 margin-bottom: 10px;
             }
-                body > main > div.content > div.exemple > pre {
-                    font-family: 'mononoki';
-                    line-height: 1.45;
-                    padding: 16px;
-                    border: none;
-                    margin: 0;
-                    border-radius: 3px;
-                    background: #e8eaf6;
+            body > main > div.content > table.arg-desc {
+                margin-bottom: 15px;
+                border-collapse: collapse;
+            }
+                body > main > div.content > table.arg-desc tr:nth-child(2n) {
+                    background: #f6f8fa;
                 }
+                    body > main > div.content > table.arg-desc tr th {
+                        border: 1px solid #dfe2e5;
+                        font-weight: 500;
+                        font-size: 15px;
+                        padding: 6px 13px;
+                        white-space: nowrap;
+                    }
+                    body > main > div.content > table.arg-desc tr td {
+                        border: 1px solid #dfe2e5;
+                        padding: 6px 13px;
+                        font-size: 14px;
+                    }
+                    
+            body > main > div.content >  pre {
+                font-family: 'mononoki';
+                line-height: 1.45;
+                padding: 16px;
+                border: none;
+                margin: 0;
+                border-radius: 3px;
+                background: #e8eaf6;
+            }
             body > main > div.content > div.throw{
                 display: flex;
                 align-items: baseline;

@@ -43,9 +43,50 @@
         </div>
         <div class="content close">
             <p class="desc">Description of the method here</p>
-            <div class="exemple">
-                <pre class="prettyprint lang-js">const ex = new Example("./path/to/file.json", {<br>&#9;createOnNoEntry: true,<br>&#9;autoReload: true<br>});</pre>
-            </div>
+            <p>Available <em>argName</em> :</p>
+            <table class="arg-desc">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Type</th>
+                        <th>default Value</th>
+                        <th>description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                    <td>createOnNoEntry</td>
+                    <td>boolean</td>
+                    <td>false</td>
+                    <td>Create the file with default payload value if he doesn't exist on the local disk</td>
+                    </tr>
+                    <tr>
+                    <td>writeOnSet</td>
+                    <td>boolean</td>
+                    <td>false</td>
+                    <td>Write the file on the disk after each time .set() is called</td>
+                    </tr>
+                    <tr>
+                    <td>autoReload</td>
+                    <td>boolean</td>
+                    <td>false</td>
+                    <td>Setup hot reload of the configuration file</td>
+                    </tr>
+                    <tr>
+                    <td>reloadDelay</td>
+                    <td>number</td>
+                    <td>500ms</td>
+                    <td>The delay to wait before hot reloading the configuration, it's a security to avoid event spamming</td>
+                    </tr>
+                    <tr>
+                    <td>defaultSchema</td>
+                    <td>plainObject</td>
+                    <td>null</td>
+                    <td>The default JSON Schema for the configuration</td>
+                    </tr>
+                </tbody>
+            </table>
+            <pre class="prettyprint lang-js">const ex = new Example("./path/to/file.json", {<br>&#9;createOnNoEntry: true,<br>&#9;autoReload: true<br>});</pre>
             <div class="throw">
                 <p>Throw :</p>
                 <ul>
@@ -74,9 +115,7 @@
         </div>
         <div class="content close">
             <p class="desc">Description of the method here</p>
-            <div class="exemple">
-                <pre class="prettyprint lang-js">const ex = new Example("./path/to/file.json", {<br>&#9;createOnNoEntry: true,<br>&#9;autoReload: true<br>});</pre>
-            </div>
+            <pre class="prettyprint lang-js">const ex = new Example("./path/to/file.json", {<br>&#9;createOnNoEntry: true,<br>&#9;autoReload: true<br>});</pre>
             <div class="throw">
                 <p>Throw :</p>
                 <ul>
@@ -110,9 +149,7 @@
         </div>
         <div class="content close">
             <p class="desc">Description of the method here</p>
-            <div class="exemple">
-                <pre class="prettyprint lang-js">const ex = new Example("./path/to/file.json", {<br>&#9;createOnNoEntry: true,<br>&#9;autoReload: true<br>});</pre>
-            </div>
+            <pre class="prettyprint lang-js">const ex = new Example("./path/to/file.json", {<br>&#9;createOnNoEntry: true,<br>&#9;autoReload: true<br>});</pre>
             <div class="throw">
                 <p>Throw :</p>
                 <ul>
