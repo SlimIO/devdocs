@@ -28,6 +28,9 @@ body {
         display: flex;
         justify-content: center;
         position: sticky;
+        top: 0;
+        width: 100%;
+        z-index: 1000;
         border-bottom: 1px solid #CFD8DC;
         box-shadow: 1px 1px 15px rgba(26, 36, 136, 0.3);
     }
@@ -51,7 +54,6 @@ body {
                 font-size: 30px;
                 text-shadow: 1px 1px 10px rgba(255, 117, 232, 0.25);
             }
-
     body > main {
         width: 100vw;
         max-width: 1000px;
@@ -224,7 +226,6 @@ body {
                         padding: 6px 13px;
                         font-size: 14px;
                     }
-                    
             body > main > div.content >  pre {
                 font-family: 'mononoki';
                 line-height: 1.45;
