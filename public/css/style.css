@@ -22,6 +22,7 @@ body {
     height: 100vh;
     font-family: 'Roboto', Arial, Helvetica, sans-serif;
 }
+
     body > header {
         color: #1A237E;
         background: #E8EAF6;
@@ -207,21 +208,27 @@ body {
             body > main > div.content > p:not(.author) {
                 margin-bottom: 10px;
             }
-            body > main > div.content > table.arg-desc {
+            body > main > div.content > p.p-default-val {
+                margin-top: 15px;
+            }
+            body > main > div.content > table {
                 margin-bottom: 15px;
                 border-collapse: collapse;
             }
-                body > main > div.content > table.arg-desc tr:nth-child(2n) {
+            body > main > div.content > table .number {color: #cddc39}
+            body > main > div.content > table .string {color: #e8b905}
+            body > main > div.content > table .boolean {color: #ff80ab}
+                body > main > div.content > table tr:nth-child(2n) {
                     background: #f6f8fa;
                 }
-                    body > main > div.content > table.arg-desc tr th {
+                    body > main > div.content > table tr th {
                         border: 1px solid #dfe2e5;
                         font-weight: 500;
                         font-size: 15px;
                         padding: 6px 13px;
                         white-space: nowrap;
                     }
-                    body > main > div.content > table.arg-desc tr td {
+                    body > main > div.content > table tr td {
                         border: 1px solid #dfe2e5;
                         padding: 6px 13px;
                         font-size: 14px;

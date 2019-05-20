@@ -43,7 +43,30 @@
         </div>
         <div class="content open">
             <p class="desc">Description of the method here</p>
-            <p>Available <em>argName</em> :</p>
+            <p class="p-default-val">Arguments with default value</p>
+            <table class="t-default-val">
+                <tr>
+                    <th>name</th>
+                    <th>default Value</th>
+                    <th>description</th>
+                </tr>
+                <tr>
+                    <td>nameArgument</td>
+                    <td class="string">"Valeur par default"</td>
+                    <td>description de l'argument</td>
+                </tr>
+                <tr>
+                    <td>nameArgument</td>
+                    <td class="number">500</td>
+                    <td>description de l'argument</td>
+                </tr>
+                <tr>
+                    <td>nameArgument</td>
+                    <td class="boolean">true</td>
+                    <td>description de l'argument</td>
+                </tr>
+            </table>
+            <p class="arg-definition">Available <em>argName</em> :</p>
             <table class="arg-desc">
                 <thead>
                     <tr>
@@ -75,7 +98,7 @@
                     <tr>
                     <td>reloadDelay</td>
                     <td>number</td>
-                    <td>500ms</td>
+                    <td>500</td>
                     <td>The delay to wait before hot reloading the configuration, it's a security to avoid event spamming</td>
                     </tr>
                     <tr>
