@@ -6,6 +6,7 @@
     url("../font/mononoki/mononoki-Bold.woff2") format("woff2");
     font-style: normal;
 }
+
 body, html, p, h1, h2, h3 {
     margin: 0;
     padding: 0;
@@ -62,14 +63,14 @@ body {
         flex-direction: column;
         align-self: center;
     }
-        body > main > h2 {
+        body > main > h3 {
             margin: 15px 0;
             font-size: 25px;
             color: #0D47A1;
             font-weight: 400;
             text-shadow: 1px 1px 3px rgba(204, 117, 255, 0.3);
         }
-            body > main > h2 > span{
+            body > main > h3 > span{
                 margin-left: -5px;
                 margin-right: 5px;
             }
