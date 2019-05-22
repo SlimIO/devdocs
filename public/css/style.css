@@ -1,298 +1,273 @@
-@font-face{
-    font-family: "mononoki";
-    src: url("../font/mononoki/mononoki-Regular.eot");
-    src: url("../font/mononoki/mononoki-Regular.woff") format("woff"),
-    url("../font/mononoki/mononoki-Regular.ttf") format("truetype"),
-    url("../font/mononoki/mononoki-Bold.woff2") format("woff2");
-    font-style: normal;
-}
 
-body, html, p, h1, h2, h3 {
-    margin: 0;
-    padding: 0;
+header {
+    color: #1A237E;
+    background: #E8EAF6;
+    display: flex;
+    justify-content: center;
+    position: sticky;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    border-bottom: 1px solid #CFD8DC;
+    box-shadow: 1px 1px 15px rgba(26, 36, 136, 0.3);
 }
-em {
-    font-style: normal;
-}
-html {
-    height: 100vh;
-}
-body {
+    header > div.center {
+        flex-basis: 1000px;
+        padding: 10px 0;
+    }
+        header > div.center > h1.namespace {
+            font-size: 17px;
+            display: inline-block;
+            font-style: italic;
+        }
+        header > div.center > span {
+            font-size: 17px;
+            margin-left: -5px;
+            margin-right: 5px;
+        }
+        header > div.center > h2 {
+            display: block;
+            color: #673AB7;
+            font-size: 30px;
+            text-shadow: 1px 1px 10px rgba(255, 117, 232, 0.25);
+        }
+main {
+    width: 100vw;
+    max-width: 1000px;
     display: flex;
     flex-direction: column;
-    height: 100vh;
-    font-family: 'Roboto', Arial, Helvetica, sans-serif;
+    align-self: center;
 }
-
-    body > header {
-        color: #1A237E;
-        background: #E8EAF6;
-        display: flex;
-        justify-content: center;
-        position: sticky;
-        top: 0;
-        width: 100%;
-        z-index: 1000;
-        border-bottom: 1px solid #CFD8DC;
-        box-shadow: 1px 1px 15px rgba(26, 36, 136, 0.3);
+    main > h3 {
+        margin: 15px 0;
+        font-size: 25px;
+        color: #0D47A1;
+        font-weight: 400;
+        text-shadow: 1px 1px 3px rgba(204, 117, 255, 0.3);
     }
-        body > header > div.center {
-            flex-basis: 1000px;
-            padding: 10px 0;
+        main > h3 > span{
+            margin-left: -5px;
+            margin-right: 5px;
         }
-            body > header > div.center > h1.namespace {
-                font-size: 17px;
+    main > div.title {
+        display: flex;
+        cursor: pointer;
+        color: #455A64;
+        align-items: center;
+        padding: 6px 0;
+        border-top: 1px solid rgba(26, 36, 136, 0.3);
+        position: relative;
+        user-select: none;
+    }
+    main > h2.method + div.title,
+    main > h2.property + div.title {
+        border-top: none;
+    }
+        main > div.title > div.left {
+            display: flex;
+            flex-basis: 0;
+            flex-grow: 2;
+        }
+        main > div.title > div.left:first-child {
+            margin-left: 15px;
+        }
+            main > div.title > div.left > span.icon-right-dir {
                 display: inline-block;
-                font-style: italic;
+                transform: rotate(0deg);
+                transition: 0.15s transform linear;
+                transform-origin: 50% 50%;
+                width: 23px;
+                position: absolute;
+                top: 6px;
+                left: -6px;
+                padding: 2px 0;
             }
-            body > header > div.center > span {
-                font-size: 17px;
-                margin-left: -5px;
+            main > div.title > div.left > span.active {
+                font-size: 14px;
+                white-space: nowrap;
+                transform: rotate(90deg);
+                transition: 0.15s transform linear;
+            }
+            main > div.title > div.left > span.static {
                 margin-right: 5px;
+                background: #4527A0;
+                color: #F3E5F5;
+                padding: 0px 5px;
+                border-radius: 40px;
+                font-weight: 500;
             }
-            body > header > div.center > h2 {
-                display: block;
-                color: #673AB7;
-                font-size: 30px;
-                text-shadow: 1px 1px 10px rgba(255, 117, 232, 0.25);
+            main > div.title > div.left > span.name {
+                font-weight: 500;
+                white-space: nowrap;
             }
-    body > main {
-        width: 100vw;
-        max-width: 1000px;
+                main > div.title > div.left > span.name > em {
+                    color: #9a9a9a;
+                    font-weight: 300;
+                }
+            main > div.title > div.left > p.args {
+                margin-left: 10px;
+                white-space: nowrap;
+            }
+                main > div.title > div.left > p.args > span.arg-name {
+                    color: #3c00b3;
+                    position: relative;
+                }
+                main > div.title > div.left > p.args > span.opt{
+                    padding-right: 15px;
+                }
+                    main > div.title > div.left > p.args >span > span.opt-chip {
+                        background: #f0d09c;
+                        color: #b1842f;
+                        position: absolute;
+                        top: 0px;
+                        right: 0px;
+                        padding: 1px 5px;
+                        font-size: 9px;
+                        border-radius: 15px
+                    }
+                main > div.title > div.left > p.args > span.type{
+                    color: #388E3C;
+                    font-style: italic;
+                    text-transform: capitalize;
+                    margin-right: -3px;
+                    font-weight: 300;
+                }
+                main > div.title > div.left > p.args > span.close-p {
+                    margin-left: 5px;
+                }
+        main > div.title > div.middle {
+            display: flex;
+            flex-grow: 1;
+            flex-basis: 0;
+            align-items: center;
+            margin: 0 10px;
+        }
+            main > div.title > div.middle > span.icon-return{
+                font-size: 17px;
+                color: #16355d;
+                display: inline-block;
+                margin-right: 3px;
+                display: inline-block;
+            }
+        main > div.title > span.version{
+            color: #8c8c8c;
+            font-size: 12px;
+            margin-right: 5px;
+            font-weight: 300;
+        }
+
+    main > div.content {
         display: flex;
         flex-direction: column;
-        align-self: center;
+        overflow: hidden;
+        padding: 0 20px;
+        color: #656565;
+        border-bottom: none;
     }
-        body > main > h3 {
-            margin: 15px 0;
-            font-size: 25px;
-            color: #0D47A1;
-            font-weight: 400;
-            text-shadow: 1px 1px 3px rgba(204, 117, 255, 0.3);
+
+    main > div.open {
+        max-height: 1000px;
+        transition-property: max-height;
+        transition-duration: 0.10s;
+        transition-timing-function: ease-in;
+    }
+
+    main > div.close {
+        max-height: 0px;
+        transition-property: max-height;
+        transition-duration: 0.10s;
+        transition-timing-function: ease-out;
+    }
+        main > div.content .number {color: #cddc39}
+        main > div.content .string {color: #e8b905}
+        main > div.content .boolean {color: #ff80ab}
+        main > div.content > *:first-child {
+            margin-top: 10px;
         }
-            body > main > h3 > span{
-                margin-left: -5px;
-                margin-right: 5px;
-            }
-        body > main > div.title {
+        main > div.content > p:not(.author) {
+            margin-bottom: 10px;
+        }
+        main > div.content > div.row {
             display: flex;
-            cursor: pointer;
-            color: #455A64;
-            align-items: center;
-            padding: 6px 0;
-            border-top: 1px solid rgba(26, 36, 136, 0.3);
-            position: relative;
-            user-select: none;
+            font-size: 14px;
         }
-        body > main > h2.method + div.title,
-        body > main > h2.property + div.title {
-            border-top: none;
+            main > div.content > div.row > span:first-child {
+
+                flex: 0 0 150px;
+                text-align: right
+            }
+            main > div.content > div.row > span {
+                padding: 4px 5px;
+                border-bottom: 1px solid #dfe2e5;
+            }
+            main > div.content > div.row > span:last-child {
+                flex: 2 0 200px;
+            }
+        main > div.content > div[class="row"]:last-of-type {
+            margin-bottom: 15px;
+            background: blue;
         }
-            body > main > div.title > div.left {
-                display: flex;
-                flex-basis: 0;
-                flex-grow: 2;
+        main > div.content > table {
+            margin-bottom: 15px;
+            border-collapse: collapse;
+        }
+            main > div.content > table tr:nth-child(2n) {
+                background: #f6f8fa;
             }
-            body > main > div.title > div.left:first-child {
-                margin-left: 15px;
-            }
-                body > main > div.title > div.left > span.icon-right-dir {
-                    display: inline-block;
-                    transform: rotate(0deg);
-                    transition: 0.15s transform linear;
-                    transform-origin: 50% 50%;
-                    width: 23px;
-                    position: absolute;
-                    top: 6px;
-                    left: -6px;
-                    padding: 2px 0;
-                }
-                body > main > div.title > div.left > span.active {
-                    font-size: 14px;
-                    white-space: nowrap;
-                    transform: rotate(90deg);
-                    transition: 0.15s transform linear;
-                }
-                body > main > div.title > div.left > span.static {
-                    margin-right: 5px;
-                    background: #4527A0;
-                    color: #F3E5F5;
-                    padding: 0px 5px;
-                    border-radius: 40px;
+                main > div.content > table tr th {
+                    border: 1px solid #dfe2e5;
                     font-weight: 500;
-                }
-                body > main > div.title > div.left > span.name {
-                    font-weight: 500;
-                    white-space: nowrap;
-                }
-                    body > main > div.title > div.left > span.name > em {
-                        color: #9a9a9a;
-                        font-weight: 300;
-                    }
-                body > main > div.title > div.left > p.args {
-                    margin-left: 10px;
-                    white-space: nowrap;
-                }
-                    body > main > div.title > div.left > p.args > span.arg-name {
-                        color: #3c00b3;
-                        position: relative;
-                    }
-                    body > main > div.title > div.left > p.args > span.opt{
-                        padding-right: 15px;
-                    }
-                        body > main > div.title > div.left > p.args >span > span.opt-chip {
-                            background: #f0d09c;
-                            color: #b1842f;
-                            position: absolute;
-                            top: 0px;
-                            right: 0px;
-                            padding: 1px 5px;
-                            font-size: 9px;
-                            border-radius: 15px
-                        }
-                    body > main > div.title > div.left > p.args > span.type{
-                        color: #388E3C;
-                        font-style: italic;
-                        text-transform: capitalize;
-                        margin-right: -3px;
-                        font-weight: 300;
-                    }
-                    body > main > div.title > div.left > p.args > span.close-p {
-                        margin-left: 5px;
-                    }
-            body > main > div.title > div.middle {
-                display: flex;
-                flex-grow: 1;
-                flex-basis: 0;
-                align-items: center;
-                margin: 0 10px;
-            }
-                body > main > div.title > div.middle > span.icon-return{
-                    font-size: 17px;
-                    color: #16355d;
-                    display: inline-block;
-                    margin-right: 3px;
-                    display: inline-block;
-                }
-            body > main > div.title > span.version{
-                color: #8c8c8c;
-                font-size: 12px;
-                margin-right: 5px;
-                font-weight: 300;
-            }
-
-        body > main > div.content {
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
-            padding: 0 20px;
-            color: #656565;
-            border-bottom: none;
-        }
-
-        body > main > div.open {
-            max-height: 1000px;
-            transition-property: max-height;
-            transition-duration: 0.10s;
-            transition-timing-function: ease-in;
-        }
-
-        body > main > div.close {
-            max-height: 0px;
-            transition-property: max-height;
-            transition-duration: 0.10s;
-            transition-timing-function: ease-out;
-        }
-            body > main > div.content .number {color: #cddc39}
-            body > main > div.content .string {color: #e8b905}
-            body > main > div.content .boolean {color: #ff80ab}
-            body > main > div.content > *:first-child {
-                margin-top: 10px;
-            }
-            body > main > div.content > p:not(.author) {
-                margin-bottom: 10px;
-            }
-            body > main > div.content > div.row {
-                display: flex;
-                font-size: 14px;
-            }
-                body > main > div.content > div.row > span:first-child {
-
-                    flex: 0 0 150px;
-                    text-align: right
-                }
-                body > main > div.content > div.row > span {
-                    padding: 4px 5px;
-                    border-bottom: 1px solid #dfe2e5;
-                }
-                body > main > div.content > div.row > span:last-child {
-                    flex: 2 0 200px;
-                }
-            body > main > div.content > .row:last-of-type {
-                margin-bottom: 15px;
-                background: blue;
-            }
-            body > main > div.content > table {
-                margin-bottom: 15px;
-                border-collapse: collapse;
-            }
-                body > main > div.content > table tr:nth-child(2n) {
-                    background: #f6f8fa;
-                }
-                    body > main > div.content > table tr th {
-                        border: 1px solid #dfe2e5;
-                        font-weight: 500;
-                        font-size: 15px;
-                        padding: 6px 13px;
-                        white-space: nowrap;
-                    }
-                    body > main > div.content > table tr td {
-                        border: 1px solid #dfe2e5;
-                        padding: 6px 13px;
-                        font-size: 14px;
-                    }
-            body > main > div.content >  pre {
-                font-family: 'mononoki';
-                line-height: 1.45;
-                padding: 16px;
-                border: none;
-                margin: 0;
-                border-radius: 3px;
-                background: #e8eaf6;
-            }
-            body > main > div.content > div.throw{
-                display: flex;
-                align-items: baseline;
-                margin-top: 10px;
-            }
-                body > main > div.content > div.throw > p {
-                    display: inline-block;
-                }
-                body > main > div.content > div.throw > ul {
-                    padding-left: 10px;
-                    display: inline-block;
-                    font-family: 'mononoki';
-                    list-style: none;
                     font-size: 15px;
-                    margin: 0;
+                    padding: 6px 13px;
+                    white-space: nowrap;
                 }
-                    body > main > div.content > div.throw > ul  li {
-                        display: inline-block;
-                        /* background: #ece8f6; */
-                        background: #f8f5ff;
-                        border-radius: 5px;
-                        padding: 3px 6px;
-                        color: #b19c9c;
-                        color: #b7abab;
-                        /* border: 1px solid #dcd8d8; */
-                        border: 1px solid #dad5d5;
-                    }
-            body > main > div.content > p.author {
-                align-self: flex-end;
-                color: #8c8c8c;
+                main > div.content > table tr td {
+                    border: 1px solid #dfe2e5;
+                    padding: 6px 13px;
+                    font-size: 14px;
+                }
+        main > div.content >  pre {
+            font-family: 'mononoki';
+            line-height: 1.45;
+            padding: 16px;
+            border: none;
+            margin: 0;
+            border-radius: 3px;
+            background: #e8eaf6;
+        }
+        main > div.content > div.throw{
+            display: flex;
+            align-items: baseline;
+            margin-top: 10px;
+        }
+            main > div.content > div.throw > p {
+                display: inline-block;
+            }
+            main > div.content > div.throw > ul {
+                padding-left: 10px;
+                display: inline-block;
+                font-family: 'mononoki';
+                list-style: none;
                 font-size: 15px;
-                font-weight: 300;
+                margin: 0;
             }
-            body > main > div.content > *:last-child {
-                margin-bottom: 10px;
-            }
+                main > div.content > div.throw > ul  li {
+                    display: inline-block;
+                    /* background: #ece8f6; */
+                    background: #f8f5ff;
+                    border-radius: 5px;
+                    padding: 3px 6px;
+                    color: #b19c9c;
+                    color: #b7abab;
+                    /* border: 1px solid #dcd8d8; */
+                    border: 1px solid #dad5d5;
+                }
+        main > div.content > p.author {
+            align-self: flex-end;
+            color: #8c8c8c;
+            font-size: 15px;
+            font-weight: 300;
+        }
+        main > div.content > *:last-child {
+            margin-bottom: 10px;
+        }
