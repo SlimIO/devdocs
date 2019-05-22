@@ -59,8 +59,8 @@ main {
         position: relative;
         user-select: none;
     }
-    main > h2.method + div.title,
-    main > h2.property + div.title {
+    main > h3.method + div.title,
+    main > h3.property + div.title {
         border-top: none;
     }
         main > div.title > div.left {
@@ -164,47 +164,44 @@ main {
         color: #656565;
         border-bottom: none;
     }
-
     main > div.open {
         max-height: 1000px;
         transition-property: max-height;
         transition-duration: 0.10s;
         transition-timing-function: ease-in;
     }
-
     main > div.close {
         max-height: 0px;
         transition-property: max-height;
         transition-duration: 0.10s;
         transition-timing-function: ease-out;
     }
-        main > div.content .number {color: #cddc39}
-        main > div.content .string {color: #e8b905}
-        main > div.content .boolean {color: #ff80ab}
+        main > div.content .number {color: #9bab05}
+        main > div.content .string {color: #bb9400}
+        main > div.content .boolean {color: #cc1351}
+        main > div.content .obj {color: #512da8}
         main > div.content > *:first-child {
-            margin-top: 10px;
+            margin-top: 15px;
         }
         main > div.content > p:not(.author) {
             margin-bottom: 10px;
         }
         main > div.content > div.default-arg-container {
             display: flex;
-            margin-bottom: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 5px;
         }
             main > div.content > div.default-arg-container > div.item {
                 background: #f8f5ff;
-                    border: 1px solid #dad5d5;
-                    border-right: none;
-                    position: relative;
-                    border-radius: 15px;
-                    padding-left: 7px;
-            }
-            main > div.content > div.default-arg-container > div.item ~ .item {
-                margin-left: 5px;
-                padding-right: 2px;
+                border: 1px solid #dad5d5;
+                border-right: none;
+                position: relative;
+                border-radius: 15px;
+                padding-left: 7px;
+                margin: 0 5px 5px 0;
             }
                 main > div.content > div.default-arg-container > div.item > span:first-child {
-                    color: #7a7a7a;
+                    font-weight: 300;
                 }
                 main > div.content > div.default-arg-container > div.item > span:last-child {
                     background: #fff;
@@ -216,7 +213,6 @@ main {
                 }
         main > div.content > table {
             margin-bottom: 15px;
-            border-collapse: collapse;
         }
             main > div.content > table tr:nth-child(2n) {
                 background: #f6f8fa;
@@ -233,6 +229,12 @@ main {
                     padding: 6px 13px;
                     font-size: 14px;
                 }
+        main > div.content > p.example {
+            margin: 10px 0 0 0;
+        }
+        main > div.content > hr {
+            margin: 0.3em 0;
+        }
         main > div.content >  pre {
             font-family: 'mononoki';
             line-height: 1.45;
@@ -245,7 +247,7 @@ main {
         main > div.content > div.throw{
             display: flex;
             align-items: baseline;
-            margin-top: 10px;
+            margin-top: 15px;
         }
             main > div.content > div.throw > p {
                 display: inline-block;
