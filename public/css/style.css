@@ -96,6 +96,11 @@ main {
                 border-radius: 40px;
                 font-weight: 500;
             }
+            main > div.title > div.left > span.required {
+                color: #7f0000;
+                font-weight: 500;
+                margin-right: 3px;
+            }
             main > div.title > div.left > span.name {
                 font-weight: 500;
                 white-space: nowrap;
@@ -125,16 +130,20 @@ main {
                         font-size: 9px;
                         border-radius: 15px
                     }
-                main > div.title > div.left > p.args > span.type{
-                    color: #388E3C;
-                    font-style: italic;
-                    text-transform: capitalize;
-                    margin-right: -3px;
-                    font-weight: 300;
-                }
-                main > div.title > div.left > p.args > span.close-p {
-                    margin-left: 5px;
-                }
+                    main > div.title > div.left > p.args > span.close-p {
+                        margin-left: 5px;
+                    }
+            main > div.title > div.left span.type{
+                color: #388E3C;
+                font-style: italic;
+                text-transform: capitalize;
+                margin-right: -3px;
+                font-weight: 300;
+            }
+            main > div.title > div.left > span.type {
+                margin-left: 10px;
+            }
+                
         main > div.title > div.middle {
             display: flex;
             flex-grow: 1;
