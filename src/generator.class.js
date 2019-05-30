@@ -1,8 +1,8 @@
-/* eslint-disable require-jsdoc */
+/* eslint-disable require-jsdoc, no-useless-constructor */
 // Require Node.js Dependencies
-const { readFileSync } = require("fs");
-const { join } = require("path");
-
+const { readFileSync, writeFileSync } = require("fs");
+const { join, normalize } = require("path");
+const is = require("@slimio/is");
 // Require Third-party Dependencies
 const jsdoc = require("@slimio/jsdoc");
 
@@ -10,7 +10,7 @@ const jsdoc = require("@slimio/jsdoc");
 const zup = require("zup");
 
 // CONSTANTS
-TEMPLATE_DIR = join(__dirname, "..", "view", "temlate");
+TEMPLATE_DIR = join(__dirname, "..", "view", "template");
 
 /**
  * @class Generator
@@ -28,7 +28,6 @@ class Generator {
      *
      * @throws {Error}
      */
-    // eslint-disable-next-line no-empty-function, no-useless-constructor
     constructor(docs) {
         const hasMembers = Object.prototype.hasOwnProperty.call(docs, "members");
         const hasOrphans = Object.prototype.hasOwnProperty.call(docs, "orphans");
@@ -36,8 +35,18 @@ class Generator {
             throw new Error("the 'members' or 'orphans' properties of the 'docs' argument are missing");
         }
         const { orphans, members } = docs;
-        const classes = Object.keys(members);
-        this.classes = classes;
+        this.members = members;
+        this.orphans = orphans;
+        this.zupObject = {};
+        this.selectedClass = "";
+        // this.htmlProp = readFileSync(join(TEMPLATE_DIR, "property.html"), { encoding: "utf8" });;
+        this.basicHtmlMethod = readFileSync(join(TEMPLATE_DIR, "method.html"), { encoding: "utf8" });
+        this.classes = Object.keys(members);
+
+        this.method = { method: [] };
+        this.properties = { properties: [] };
+
+
     }
 
     /**
@@ -54,15 +63,66 @@ class Generator {
         const xds = this.docs;
 
         const headerFilePath = join(TEMPLATE_DIR, "header.html");
-        const htmlpage = readFileSync(headerFilePath, { encoding: "utf8" });
+        let htmlpage = readFileSync(headerFilePath, { encoding: "utf8" });
 
-        for (const title of this.docs.title) {
-            console.log(`title : ${title}`);
-        }
+        // const template = zup(htmlpage)({ data: { namespace: "New namespace", className: "Manifest" } });
 
         return htmlpage;
     }
+
+    createMethod(name, options = Object.create(null)) {
+        if (!is.string(name)) {
+            throw new Error("name param must be a type of string");
+        }
+        if (!is.plainObject(options)) {
+            throw new Error("options param must be a type of Object");
+        }
+        const { isStatic = false, params = [], typeReturn, version = "0.1.0" } = options;
+        // Verifications des variable destructurés  & params      
+        console.log(params);
+        const methodTemplate = zup(this.basicHtmlMethod)({
+            name,
+            isStatic,
+            params,
+            typeReturn,
+            version
+        });
+        console.log(methodTemplate);
+    }
+
+    buildMain() {
+        const membersList = Object.keys(this.members);
+        for (const member of membersList) {
+            // console.log(JSON.stringify(member));
+            const propHtmlStr = readFileSync(join(TEMPLATE_DIR, "main.html"), { encoding: "utf8" });
+            const data = { member: this.members[member] };
+            console.log(JSON.stringify(data, null, 4));
+            // const propHtmlTemplate = zup(propHtmlStr)(data);
+            // writeFileSync(join(normalize("d:/def-workspace"), "dynamicProp.html"), propHtmlTemplate);
+            // for (const elem of this.members[member]) {
+            //     const hasProperty = Object.prototype.hasOwnProperty.call(elem, "property");
+            //     console.log(hasProperty);
+            //     if (hasProperty) {
+            //         const propHtmlStr = readFileSync(join(TEMPLATE_DIR, "property.html"), { encoding: "utf8" });
+            //         const propHtmlTemplate = zup(propHtmlStr)(elem);
+            //     }
+            // }
+        }
+    }
 }
+
+const docsStr = readFileSync(join(normalize("d:/def-workspace"), "minifiedDocs.json"), { encoding: "utf8" });
+const docs = JSON.parse(docsStr);
+const generator = new Generator(docs);
+
+generator.createMethod("blabla", {
+    params: [
+        ["configFilePath", "string", false],
+        ["options", "Config.Option", true]
+    ],
+    typeReturn: "Manifest",
+    version: "1.2"
+});
 
 // Export class
 module.exports = Generator;

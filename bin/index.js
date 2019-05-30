@@ -32,28 +32,32 @@ const arg = parseArg([
 async function main() {
     // Open local Manifest file
     const config = Manifest.open();
-    const include = new Set(config.doc.include.map((file) => join(cwd, file)));
-    console.log(" > Retrieving all Javascript files");
+    // const include = new Set(config.doc.include.map((file) => join(cwd, file)));
+    // console.log(" > Retrieving all Javascript files");
 
     // Parse ALL JSDoc
-    const docs = await jsdoc(cwd);
-    for (const key of Object.keys(docs)) {
-        if (!include.has(key)) {
-            delete docs[key];
-        }
-    }
+    // const docs = await jsdoc(cwd);
+    // for (const key of Object.keys(docs)) {
+    //     if (!include.has(key)) {
+    //         delete docs[key];
+    //     }
+    // }
 
     // There is no Javascript files to handle (so no documentation available).
-    if (Object.keys(docs).length === 0) {
-        console.log(" > No Javascript files to handle");
-        process.exit(0);
-    }
+    // if (Object.keys(docs).length === 0) {
+    //     console.log(" > No Javascript files to handle");
+    //     process.exit(0);
+    // }
 
     // console.log(JSON.stringify(docs, null, 4));
 
     // Get view and generate final HTML Template
     const HTMLStr = readFileSync(join(VIEW_DIR, "doc.html"), { encoding: "utf8" });
-    const HTMLTemplate = zup(HTMLStr)({ projectName: "test" });
+    const obj = { 
+        projectName: "test",
+        iterable: [{ title: "title1" }, { title: "title2" }]
+    };
+    const HTMLTemplate = zup(HTMLStr)(obj);
 
     // if --http argument is requested
     // Create and serv the documentation with an HTTP Server.

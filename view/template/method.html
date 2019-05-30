@@ -1,0 +1,29 @@
+<div class="title active">
+    <div class="left">
+        [[ if(z.isStatic) { ]]
+            <span class="icon-right-dir"></span>
+        [[ } ]]
+        <span class="static" title="Stactic method">S</span>
+        <span class="name">[[=z.name]]</span>
+        <p class="args">
+            <span class="open-p">(</span>
+            [[ for ( const [i, [arg, type, opt] ] of z.params.entries()) { ]]
+                <span class="arg-name [[=opt ? 'opt' : '']]" title="Default value">[[=arg]]
+                    [[ if (opt){ ]]
+                        <span class="opt-chip" title="Optional">?</span>
+                    [[ } ]]
+                </span>
+                <span class="type">[[=type]]</span>
+                [[if(i < z.params.length-1) { ]],[[ } ]]
+            [[ } ]]
+            <span class="close-p">)</span>
+        </p>
+    </div>
+    [[ if (typeof z.typeReturn !== "undefined") { ]]
+        <div class="middle">
+            <span class="icon-return" title="returned type"></span>
+            <span>[[=z.typeReturn]]</span>
+        </div>
+    [[ } ]]
+    <span class="version">version : [[=z.version]]</span>
+</div>

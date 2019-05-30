@@ -5,22 +5,21 @@ const { parseFile, groupData } = require("@slimio/jsdoc");
 
 
 const docsStr = readFileSync(join(normalize("d:/def-workspace"), "docs.json"), { encoding: "utf8" });
-
 const docs = JSON.parse(docsStr);
 
 const hasMembers = Object.prototype.hasOwnProperty.call(docs, "members");
 console.log(hasMembers);
 if (hasMembers) {
     const { members } = docs;
-    const keys = Object.keys(members);
-    // console.log(JSON.stringify(keys));
-    for (const key of keys) {
-        // console.log(members[key], null, 4);
-        for (const property of members[key]) {
+    const memberss = Object.keys(members);
+    // console.log(JSON.stringify(memberss));
 
+    for (const member of memberss) {
+        // console.log(members[member], null, 4);
+        for (const property of members[member]) {
+            // console.log(property, null, 4);
         }
     }
-    
 }
 const className = "Manifest";
 
