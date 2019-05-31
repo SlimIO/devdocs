@@ -3,9 +3,9 @@
 const { readFileSync, writeFileSync } = require("fs");
 const { join, normalize } = require("path");
 const is = require("@slimio/is");
-// Require Third-party Dependencies
 const jsdoc = require("@slimio/jsdoc");
-
+// Require Third-party Dependencies
+const semver = require("semver");
 // Require Third-party Dependencies
 const zup = require("zup");
 
@@ -46,7 +46,6 @@ class Generator {
         this.method = { method: [] };
         this.properties = { properties: [] };
 
-
     }
 
     /**
@@ -72,14 +71,35 @@ class Generator {
 
     createMethod(name, options = Object.create(null)) {
         if (!is.string(name)) {
-            throw new Error("name param must be a type of string");
+            throw new TypeError("name param must be a type of string");
         }
         if (!is.plainObject(options)) {
-            throw new Error("options param must be a type of Object");
+            throw new TypeError("options param must be a type of Object");
         }
-        const { isStatic = false, params = [], typeReturn, version = "0.1.0" } = options;
-        // Verifications des variable destructurés  & params      
-        console.log(params);
+        const {
+            isStatic = false,
+            params = [],
+            typeReturn
+        } = options;
+        let { version = "0.1.0" } = options;
+        if (!is.boolean(isStatic)) {
+            throw new TypeError("isStatic param must be a type of boolean");
+        }
+        if (!is.array(params)) {
+            throw new TypeError("params parameter must be a type of Array<Array>, check doc");
+        }
+        if (!is.string(typeReturn)) {
+            throw new TypeError("typeReturn param must be a type of string");
+        }
+        if (!is.string(version)) {
+            throw new TypeError("version param must be a type of string");
+        }
+        const { version: coerceVersion } = semver.coerce(version) || { version };
+        version = coerceVersion;
+        if (!semver.valid(version)) {
+            throw new Error("version must match the following pattern : x.x.x");
+        }
+        // console.log(params);
         const methodTemplate = zup(this.basicHtmlMethod)({
             name,
             isStatic,
@@ -116,12 +136,13 @@ const docs = JSON.parse(docsStr);
 const generator = new Generator(docs);
 
 generator.createMethod("blabla", {
+    isStatic: false,
     params: [
         ["configFilePath", "string", false],
         ["options", "Config.Option", true]
     ],
     typeReturn: "Manifest",
-    version: "1.2"
+    version: "salut"
 });
 
 // Export class
