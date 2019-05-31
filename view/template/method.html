@@ -27,3 +27,15 @@
     [[ } ]]
     <span class="version">version : [[=z.version]]</span>
 </div>
+[[ if (z.content) { ]]
+    <div class="content close">
+        [[ if (z.content.desc) { ]]
+            <p class="desc">[[=z.content.desc]]</p>
+        [[}]]
+        [[ if (z.content.example) { ]]
+            <p class="example">Example :</p>
+            <hr>
+            <pre class="prettyprint lang-js">[[=z.content.example]]</pre>
+        [[}]]
+    </div>
+[[ } ]]

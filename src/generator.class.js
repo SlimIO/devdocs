@@ -45,7 +45,6 @@ class Generator {
 
         this.method = { method: [] };
         this.properties = { properties: [] };
-
     }
 
     /**
@@ -79,7 +78,8 @@ class Generator {
         const {
             isStatic = false,
             params = [],
-            typeReturn
+            typeReturn,
+            content
         } = options;
         let { version = "0.1.0" } = options;
         if (!is.boolean(isStatic)) {
@@ -94,10 +94,26 @@ class Generator {
         if (!is.string(version)) {
             throw new TypeError("version param must be a type of string");
         }
+        if (!is.undefined(content) && !is.plainObject(content)) {
+            throw new TypeError("content param must be a type of Object");
+        }
+        if (Object.entries(content).length === 0) {
+            throw new Error("content must not be an empty Object");
+        }
+        // Verify if content contains at least one of the required properties
+        const validProps = new Set(["desc", "example"]);
+        const properties = Object.keys(content);
+        const containValidProp = properties.some((item) => validProps.has(item));
+        if (!containValidProp) {
+            throw new Error(`content must contain at least one of these properties : ${Array.from(validProps).join(", ")}`);
+        }
         const { version: coerceVersion } = semver.coerce(version) || { version };
         version = coerceVersion;
         if (!semver.valid(version)) {
             throw new Error("version must match the following pattern : x.x.x");
+        }
+        if (!is.string(content.desc)) {
+            throw new TypeError("desc property must be a type of String");
         }
         // console.log(params);
         const methodTemplate = zup(this.basicHtmlMethod)({
@@ -105,6 +121,7 @@ class Generator {
             isStatic,
             params,
             typeReturn,
+            content,
             version
         });
         console.log(methodTemplate);
@@ -142,7 +159,15 @@ generator.createMethod("blabla", {
         ["options", "Config.Option", true]
     ],
     typeReturn: "Manifest",
-    version: "salut"
+    version: "0.1",
+    content: {
+        foo: "fff",
+        bar: "bbb",
+        desc: "desc of the method",
+        example: "const foo = true",
+        foobar: "foobar"
+    }
+
 });
 
 // Export class
