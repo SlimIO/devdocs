@@ -32,6 +32,18 @@
         [[ if (z.content.desc) { ]]
             <p class="desc">[[=z.content.desc]]</p>
         [[}]]
+        [[ if (Object.prototype.hasOwnProperty.call(z.content, "defaultVals")) { ]]
+            <div class="default-arg-container">
+                [[ for(const { name, type, value} of z.content.defaultVals) { ]]
+                    <div class="item">
+                        <span class="name">[[=name]]</span>
+                        <span class="[[=type]]">
+                            [[=type === "string" ? '"' : ""]][[-value]][[=type === "string" ? '"' : ""]]
+                        </span>
+                    </div>
+                [[ } ]]
+            </div>
+        [[ } ]]
         [[ if (z.content.example) { ]]
             <p class="example">Example :</p>
             <hr>
