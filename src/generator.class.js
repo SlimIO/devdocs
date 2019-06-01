@@ -35,19 +35,13 @@ class Generator {
             throw new Error("the 'members' or 'orphans' properties of the 'docs' argument are missing");
         }
         const { orphans, members } = docs;
-
-        this.VALID_PROP = new Set(["desc", "example", "defaultVals"]);
-
         this.members = members;
         this.orphans = orphans;
-        this.zupObject = {};
+
         this.selectedClass = "";
         // this.htmlProp = readFileSync(join(TEMPLATE_DIR, "property.html"), { encoding: "utf8" });;
         this.basicHtmlMethod = readFileSync(join(TEMPLATE_DIR, "method.html"), { encoding: "utf8" });
         this.classes = Object.keys(members);
-
-        this.method = { method: [] };
-        this.properties = { properties: [] };
     }
 
     /**
@@ -104,7 +98,7 @@ class Generator {
         const properties = Object.keys(content);
         const containValidProp = properties.some((item) => this.VALID_PROP.has(item));
         if (!containValidProp) {
-            throw new Error(`content must contain at least one of these properties : ${Array.from(this.VALID_PROP).join(", ")}`);
+            throw new Error(`content must contain at least one of properties of the Set: ${Array.from(this.VALID_PROP).join(", ")}`);
         }
 
         let { version = "0.1.0" } = options;
@@ -164,27 +158,10 @@ class Generator {
         });
         console.log(methodTemplate);
     }
-
-    buildMain() {
-        const membersList = Object.keys(this.members);
-        for (const member of membersList) {
-            // console.log(JSON.stringify(member));
-            const propHtmlStr = readFileSync(join(TEMPLATE_DIR, "main.html"), { encoding: "utf8" });
-            const data = { member: this.members[member] };
-            console.log(JSON.stringify(data, null, 4));
-            // const propHtmlTemplate = zup(propHtmlStr)(data);
-            // writeFileSync(join(normalize("d:/def-workspace"), "dynamicProp.html"), propHtmlTemplate);
-            // for (const elem of this.members[member]) {
-            //     const hasProperty = Object.prototype.hasOwnProperty.call(elem, "property");
-            //     console.log(hasProperty);
-            //     if (hasProperty) {
-            //         const propHtmlStr = readFileSync(join(TEMPLATE_DIR, "property.html"), { encoding: "utf8" });
-            //         const propHtmlTemplate = zup(propHtmlStr)(elem);
-            //     }
-            // }
-        }
-    }
 }
+
+/** @type {Readonly<Set<String>>} */
+Generator.VALID_PROP = Object.freeze(new Set(["desc", "example", "defaultVals"]));
 
 const docsStr = readFileSync(join(normalize("d:/def-workspace"), "minifiedDocs.json"), { encoding: "utf8" });
 const docs = JSON.parse(docsStr);
