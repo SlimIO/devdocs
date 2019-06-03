@@ -49,5 +49,15 @@
             <hr>
             <pre class="prettyprint lang-js">[[=z.content.example]]</pre>
         [[}]]
+        [[ if (z.content.throws) { ]]
+            <div class="throw">
+                <p>Throw :</p>
+                <ul>
+                    [[ for (err of z.content.throws) {]] 
+                        <li>[[=err]]</li>
+                    [[}]]
+                </ul>
+            </div>
+        [[ }]]
     </div>
 [[ } ]]

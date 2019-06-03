@@ -11,6 +11,7 @@ const zup = require("zup");
 
 // CONSTANTS
 const TEMPLATE_DIR = join(__dirname, "..", "view", "template");
+const VALID_PROP = new Set(["desc", "example", "defaultVals", "throws"]);
 
 /**
  * @class Generator
@@ -81,6 +82,7 @@ class Generator {
         if (!is.boolean(isStatic)) {
             throw new TypeError("isStatic param must be a type of boolean");
         }
+        // problem empty params
         if (!is.array(params)) {
             throw new TypeError("params parameter must be a type of Array<Array>, check doc");
         }
@@ -96,7 +98,7 @@ class Generator {
         }
         // Verify if content contains at least one of the required properties
         const properties = Object.keys(content);
-        const containValidProp = properties.some((item) => this.VALID_PROP.has(item));
+        const containValidProp = properties.some((item) => VALID_PROP.has(item));
         if (!containValidProp) {
             throw new Error(`content must contain at least one of properties of the Set: ${Array.from(this.VALID_PROP).join(", ")}`);
         }
@@ -111,7 +113,7 @@ class Generator {
         if (!semver.valid(version)) {
             throw new Error("version must match the following pattern : x.x.x");
         }
-        if (!is.string(content.desc)) {
+        if (Object.prototype.hasOwnProperty.call(content, "desc") && !is.string(content.desc)) {
             throw new TypeError("desc property must be a type of String");
         }
 
@@ -147,6 +149,17 @@ class Generator {
                 }
             }
         }
+        if (Object.prototype.hasOwnProperty.call(content, "example") && !is.string(content.example)) {
+            throw new TypeError("content.example must be a type of string");
+        }
+        if (Object.prototype.hasOwnProperty.call(content, "throws")) {
+            if (!is.array(content.throws)) {
+                throw new TypeError("content.throws must be a type of array");
+            }
+            if (content.throws.length === 0) {
+                throw new Error("content.throws must not be an empty");
+            }
+        }
 
         const methodTemplate = zup(this.basicHtmlMethod)({
             name,
@@ -160,19 +173,13 @@ class Generator {
     }
 }
 
-/** @type {Readonly<Set<String>>} */
-Generator.VALID_PROP = Object.freeze(new Set(["desc", "example", "defaultVals"]));
-
 const docsStr = readFileSync(join(normalize("d:/def-workspace"), "minifiedDocs.json"), { encoding: "utf8" });
 const docs = JSON.parse(docsStr);
 const generator = new Generator(docs);
 
 generator.createMethod("blabla", {
     isStatic: false,
-    params: [
-        ["configFilePath", "string", false],
-        ["options", "Config.Option", true]
-    ],
+    params: [],
     typeReturn: "Manifest",
     version: "0.1",
     content: {
@@ -188,9 +195,9 @@ generator.createMethod("blabla", {
             { name: "name5", type: "Other", value: [25, 50] },
             { name: "name5", type: "Other", value: { name: "test" } }
         ],
-        example: "const foo = true"
+        example: "const foo = true",
+        throws: ["Error", "TypeError", "Other"]
     }
-
 });
 
 // Export class
