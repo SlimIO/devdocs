@@ -11,7 +11,7 @@ const zup = require("zup");
 
 // CONSTANTS
 const TEMPLATE_DIR = join(__dirname, "..", "view", "template");
-const VALID_PROP = new Set(["desc", "example", "defaultVals", "throws"]);
+const VALID_PROP = new Set(["desc", "defaultVals", "argsDef", "example", "throws"]);
 
 /**
  * @class Generator
@@ -152,6 +152,10 @@ class Generator {
         if (Object.prototype.hasOwnProperty.call(content, "example") && !is.string(content.example)) {
             throw new TypeError("content.example must be a type of string");
         }
+        if (!is.map(content.argsDef)) {
+            throw new TypeError("content.argsDef must be a type of Map");
+        }
+        // for of argsdef to verify type of map values
         if (Object.prototype.hasOwnProperty.call(content, "throws")) {
             if (!is.array(content.throws)) {
                 throw new TypeError("content.throws must be a type of array");
@@ -195,6 +199,20 @@ generator.createMethod("blabla", {
             { name: "name5", type: "Other", value: [25, 50] },
             { name: "name5", type: "Other", value: { name: "test" } }
         ],
+        argsDef: new Map([
+            ["object1",
+                [
+                    { name: "Prop1", type: "String", default: "default", desc: "description" },
+                    { name: "Prop2", type: "Boolean", default: true, desc: "description" },
+                    { name: "Prop3", type: "Number", default: 52, desc: "description" }
+                ]
+            ],
+            ["object2",
+                [
+                    { name: "Prop2", type: "String", default: "default", desc: "description" }
+                ]
+            ]
+        ]),
         example: "const foo = true",
         throws: ["Error", "TypeError", "Other"]
     }

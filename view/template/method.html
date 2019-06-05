@@ -44,6 +44,33 @@
                 [[ } ]]
             </div>
         [[ } ]]
+
+        [[ if (z.content.argsDef) { 
+            for (const [obj, properties] of z.content.argsDef) { ]]
+                <p class="arg-definition">Object arg description <em>[[=obj]]</em> :</p>
+                <table class="arg-desc">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Type</th>
+                            <th>default Value</th>
+                            <th>description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        [[ for (const prop of properties) { ]]
+                            <tr>
+                                <td>[[=prop.name]]</td>
+                                <td>[[=prop.type]]</td>
+                                <td>[[=prop.default]]</td>
+                                <td>[[=prop.desc]]</td>
+                            </tr>
+                        [[ } ]]
+                    </tbody>
+                </table>
+            [[ }
+        } ]]
+
         [[ if (z.content.example) { ]]
             <p class="example">Example :</p>
             <hr>
