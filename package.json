@@ -30,7 +30,7 @@
         "@slimio/arg-parser": "^0.3.2",
         "@slimio/is": "^1.5.0",
         "@slimio/jsdoc": "^0.3.0",
-        "@slimio/manifest": "^0.4.0",
+        "@slimio/manifest": "^0.5.0",
         "dotenv": "^8.0.0",
         "kleur": "^3.0.3",
         "polka": "^0.5.2",
