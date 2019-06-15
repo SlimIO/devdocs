@@ -42,6 +42,7 @@ class Generator {
         this.selectedClass = "";
         // this.htmlProp = readFileSync(join(TEMPLATE_DIR, "property.html"), { encoding: "utf8" });;
         this.basicHtmlMethod = readFileSync(join(TEMPLATE_DIR, "method.html"), { encoding: "utf8" });
+        this.basicHtmlProp = readFileSync(join(TEMPLATE_DIR, "property.html"), { encoding: "utf8" });
         this.classes = Object.keys(members);
     }
 
@@ -57,7 +58,7 @@ class Generator {
      */
     createHTML() {
         const xds = this.docs;
-
+        const h3 = "<h3 class='property'><span class='icon-cube-10'></span>Property</h3>";
         const headerFilePath = join(TEMPLATE_DIR, "header.html");
         let htmlpage = readFileSync(headerFilePath, { encoding: "utf8" });
 
@@ -152,10 +153,9 @@ class Generator {
         if (Object.prototype.hasOwnProperty.call(content, "example") && !is.string(content.example)) {
             throw new TypeError("content.example must be a type of string");
         }
-        if (!is.map(content.argsDef)) {
-            throw new TypeError("content.argsDef must be a type of Map");
-        }
-        // for of argsdef to verify type of map values
+        
+        this.argumentDefCheck(content.argsDef);
+
         if (Object.prototype.hasOwnProperty.call(content, "throws")) {
             if (!is.array(content.throws)) {
                 throw new TypeError("content.throws must be a type of array");
@@ -164,7 +164,7 @@ class Generator {
                 throw new Error("content.throws must not be an empty");
             }
         }
-
+        
         const methodTemplate = zup(this.basicHtmlMethod)({
             name,
             isStatic,
@@ -173,7 +173,39 @@ class Generator {
             content,
             version
         });
-        console.log(methodTemplate);
+        // console.log(methodTemplate);
+    }
+
+    // eslint-disable-next-line class-methods-use-this
+    createProperty(propDefinition) {
+        const { required, name, type, version, desc } = propDefinition;
+        const propertyTemplate = zup(this.basicHtmlProp)({ required, name, type, version, desc });
+        console.log(propertyTemplate);
+    }
+    // eslint-disable-next-line class-methods-use-this
+    argumentDefCheck(argsDef) {
+        if (!is.map(argsDef)) {
+            throw new TypeError("content.argsDef must be a type of Map");
+        }
+        if (argsDef.sizel === 0) {
+            throw new Error("content.argsDef must not be empty");
+        }
+        // for of argsdef to verify type of map values
+        for (const [obj, properties] of argsDef) {
+            if (!is.string(obj)) {
+                throw new TypeError("content.argsDef keys must be type of string");
+            }
+            if (!is.array(properties)) {
+                throw new TypeError(`${obj} value must be an array`);
+            }
+            // for (const property of properties) {
+            //     const { name, type, default: dftValue, desc } = property;
+
+            //     if (!is.string("name")) {
+            //         throw new TypeError("name ")
+            //     }
+            // }
+        }
     }
 }
 
@@ -216,6 +248,14 @@ generator.createMethod("blabla", {
         example: "const foo = true",
         throws: ["Error", "TypeError", "Other"]
     }
+});
+
+generator.createProperty({
+    required: false,
+    name: "propertie1",
+    type: "String",
+    version: "0.2.0",
+    desc: "Description of the property"
 });
 
 // Export class
