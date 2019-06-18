@@ -4,8 +4,11 @@ const { readFileSync, writeFileSync } = require("fs");
 const { join, normalize } = require("path");
 const is = require("@slimio/is");
 const jsdoc = require("@slimio/jsdoc");
+const argc = require("@slimio/arg-checker");
+
 // Require Third-party Dependencies
 const semver = require("semver");
+
 // Require Third-party Dependencies
 const zup = require("zup");
 
@@ -114,6 +117,7 @@ class Generator {
         if (!semver.valid(version)) {
             throw new Error("version must match the following pattern : x.x.x");
         }
+
         if (Object.prototype.hasOwnProperty.call(content, "desc") && !is.string(content.desc)) {
             throw new TypeError("desc property must be a type of String");
         }
@@ -178,16 +182,41 @@ class Generator {
 
     // eslint-disable-next-line class-methods-use-this
     createProperty(propDefinition) {
-        const { required, name, type, version, desc } = propDefinition;
-        const propertyTemplate = zup(this.basicHtmlProp)({ required, name, type, version, desc });
-        console.log(propertyTemplate);
+        const { required, name, type, desc } = propDefinition;
+        if (!is.boolean(required)) {
+            throw new TypeError("required param must be a type of Boolean");
+        }
+        if (!is.string(name)) {
+            throw new TypeError("name param must be a type of string");
+        }
+        if (!is.string(type)) {
+            throw new TypeError("type param must be a type of string");
+        }
+        if (!is.string(desc)) {
+            throw new TypeError("desc param must be a type of string");
+        }
+
+        // duplicate code !
+        let { version = "0.1.0" } = propDefinition;
+        if (!is.string(version)) {
+            throw new TypeError("version param must be a type of string");
+        }
+        // Check if the version complies with the semver standards
+        const { version: coerceVersion } = semver.coerce(version) || { version };
+        version = coerceVersion;
+        if (!semver.valid(version)) {
+            throw new Error("version must match the following pattern : x.x.x");
+        }
+        
+        return zup(this.basicHtmlProp)({ required, name, type, version, desc });
     }
+
     // eslint-disable-next-line class-methods-use-this
     argumentDefCheck(argsDef) {
         if (!is.map(argsDef)) {
             throw new TypeError("content.argsDef must be a type of Map");
         }
-        if (argsDef.sizel === 0) {
+        if (argsDef.size === 0) {
             throw new Error("content.argsDef must not be empty");
         }
         // for of argsdef to verify type of map values
@@ -251,10 +280,10 @@ generator.createMethod("blabla", {
 });
 
 generator.createProperty({
-    required: false,
-    name: "propertie1",
+    required: true,
+    name: "propertyName",
     type: "String",
-    version: "0.2.0",
+    version: "0.2",
     desc: "Description of the property"
 });
 
