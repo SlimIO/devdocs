@@ -4,8 +4,11 @@
 const { readFileSync, mkdirSync, writeFileSync } = require("fs");
 const { join } = require("path");
 
+// Require Internal Dependencies
+const Generator = require("../src/generator.class");
+
 // Require Third-party Dependencies
-const jsdoc = require("@slimio/jsdoc");
+const { parseFile, groupData } = require("@slimio/jsdoc");
 const { argDefinition, parseArg } = require("@slimio/arg-parser");
 const Manifest = require("@slimio/manifest");
 const zup = require("zup");
@@ -35,13 +38,7 @@ async function main() {
     // const include = new Set(config.doc.include.map((file) => join(cwd, file)));
     // console.log(" > Retrieving all Javascript files");
 
-    // Parse ALL JSDoc
-    // const docs = await jsdoc(cwd);
-    // for (const key of Object.keys(docs)) {
-    //     if (!include.has(key)) {
-    //         delete docs[key];
-    //     }
-    // }
+    // Get all javascript files
 
     // There is no Javascript files to handle (so no documentation available).
     // if (Object.keys(docs).length === 0) {
@@ -49,7 +46,16 @@ async function main() {
     //     process.exit(0);
     // }
 
-    // console.log(JSON.stringify(docs, null, 4));
+    // Parse ALL JSDoc
+    const fileBlocks = [];
+    for await (const block of parseFile("./index.js")) {
+        fileBlocks.push(block);
+    }
+
+    const docs = groupData(fileBlocks);
+    // console.log(JSON.stringify(docs));
+    const generator = new Generator(docs);
+
 
     // Get view and generate final HTML Template
     const HTMLStr = readFileSync(join(VIEW_DIR, "doc.html"), { encoding: "utf8" });

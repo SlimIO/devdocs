@@ -45,8 +45,8 @@
             </div>
         [[ } ]]
         [[ if (z.content.argsDef) { 
-            for (const [obj, properties] of z.content.argsDef) { ]]
-                <p class="arg-definition">Object arg description <em>[[=obj]]</em> :</p>
+            for (const [objName, args] of z.content.argsDef) { ]]
+                <p class="arg-definition">Object arg description <em>[[=objName]]</em> :</p>
                 <table class="arg-desc">
                     <thead>
                         <tr>
@@ -57,12 +57,12 @@
                         </tr>
                     </thead>
                     <tbody>
-                        [[ for (const prop of properties) { ]]
+                        [[ for (const arg of args) { ]]
                             <tr>
-                                <td>[[=prop.name]]</td>
-                                <td>[[=prop.type]]</td>
-                                <td>[[=prop.default]]</td>
-                                <td>[[=prop.desc]]</td>
+                                <td>[[=arg.name]]</td>
+                                <td>[[=arg.value]]</td>
+                                <td>[[=arg.default === null ? "" : arg.default]]</td>
+                                <td>[[=arg.desc]]</td>
                             </tr>
                         [[ } ]]
                     </tbody>

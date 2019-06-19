@@ -1,49 +1,70 @@
-// Require Node.js Dependencies
-const { readFileSync, writeFileSync } = require("fs");
-const { join, normalize } = require("path");
-const { parseFile, groupData } = require("@slimio/jsdoc");
+//  Test 1
+// const symName = Symbol("name");
+// const obj = {};
 
+// console.log("symName");
+// console.log(symName);
 
-const docsStr = readFileSync(join(normalize("d:/def-workspace"), "docs.json"), { encoding: "utf8" });
-const docs = JSON.parse(docsStr);
+// const isReflect = Reflect.defineProperty(obj, symName, { value: "marko" });
+// console.log(obj);
+// console.log("symName 2:");
+// console.log(symName);
 
-const hasMembers = Object.prototype.hasOwnProperty.call(docs, "members");
-console.log(hasMembers);
-if (hasMembers) {
-    const { members } = docs;
-    const memberss = Object.keys(members);
-    // console.log(JSON.stringify(memberss));
+// Test 2
+// const orphan = { orphan: { title: "test1" } };
+// const hasName = Object.prototype.hasOwnProperty.call(obj.orphan, "name");
+// const hasTitle = Object.prototype.hasOwnProperty.call(obj.test, "title");
+// console.log(`${hasName} - ${hasTitle}`);
 
-    for (const member of memberss) {
-        // console.log(members[member], null, 4);
-        for (const property of members[member]) {
-            // console.log(property, null, 4);
-        }
+// Test 3
+// const ret = [1, 2, 3];
+// {
+//     const ret = "string";
+//     console.log(ret);
+// }
+
+// console.log(ret);
+
+// Test 4 
+// const is = require("@slimio/is");
+// const argsDef = new Map();
+// const ret = new Map();
+// ret.set("Payload", { value: "psp", default: null, required: true, name: "psp" });
+// ret.set("Payload2", { value: "psp2", default: "true", required: true, name: "psp2" });
+// for (const [key, val] of ret.entries()) {
+//     argsDef.set(key, val);
+// }
+// argsDef.set([...ret.keys(), ...ret.values()]);
+// console.log(argsDef);
+// console.log(ret);
+
+// Test 5 
+const argsDef = [
+    [
+        "Payload",
+        [
+            {
+                value: "String",
+                default: null,
+                required: true,
+                name: "name",
+                desc: "Name config"
+            },
+            {
+                value: "String",
+                default: null,
+                required: true,
+                name: "version",
+                desc: "Version config"
+            }
+        ]
+    ]
+]
+
+for (const [key, vals] of argsDef) {
+    console.log(key);
+    for (const obj of vals) {
+        console.log(obj.name);
+        
     }
 }
-const className = "Manifest";
-
-// members[className].length;
-/*
-// CONSTANTS
-const PROJECT_DIR = join(__dirname, "..");
-const TEMPLATE_DIR = join(PROJECT_DIR, "view", "template");
-const MANIFEST_PATH = join(PROJECT_DIR, "..", "Manifest");
-const HEADER_FILE = join(TEMPLATE_DIR, "header.html");
-
-
-async function main() {
-    const header = readFileSync(HEADER_FILE, { encoding: "utf8" });
-    const fileBlocks = [];
-    const indexPath = join(MANIFEST_PATH, "index.js");
-    for await (const block of parseFile(indexPath)) {
-        fileBlocks.push(block);
-    }
-    const finalResult = groupData(fileBlocks);
-    // writeFileSync(join(normalize("d:/def-workspace"), "docs.json"), JSON.stringify(finalResult, null, 4));
-    // console.log(JSON.stringify(finalResult, null, 4));
-}
-
-main().catch(console.error);
-
-*/
