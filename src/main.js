@@ -1,70 +1,49 @@
-//  Test 1
-// const symName = Symbol("name");
-// const obj = {};
-
-// console.log("symName");
-// console.log(symName);
-
-// const isReflect = Reflect.defineProperty(obj, symName, { value: "marko" });
-// console.log(obj);
-// console.log("symName 2:");
-// console.log(symName);
-
-// Test 2
-// const orphan = { orphan: { title: "test1" } };
-// const hasName = Object.prototype.hasOwnProperty.call(obj.orphan, "name");
-// const hasTitle = Object.prototype.hasOwnProperty.call(obj.test, "title");
-// console.log(`${hasName} - ${hasTitle}`);
-
-// Test 3
-// const ret = [1, 2, 3];
-// {
-//     const ret = "string";
-//     console.log(ret);
-// }
-
-// console.log(ret);
-
-// Test 4 
-// const is = require("@slimio/is");
-// const argsDef = new Map();
-// const ret = new Map();
-// ret.set("Payload", { value: "psp", default: null, required: true, name: "psp" });
-// ret.set("Payload2", { value: "psp2", default: "true", required: true, name: "psp2" });
-// for (const [key, val] of ret.entries()) {
-//     argsDef.set(key, val);
-// }
-// argsDef.set([...ret.keys(), ...ret.values()]);
-// console.log(argsDef);
-// console.log(ret);
-
-// Test 5 
-const argsDef = [
-    [
-        "Payload",
-        [
-            {
-                value: "String",
-                default: null,
-                required: true,
-                name: "name",
-                desc: "Name config"
-            },
-            {
-                value: "String",
-                default: null,
-                required: true,
-                name: "version",
-                desc: "Version config"
-            }
-        ]
-    ]
-]
-
-for (const [key, vals] of argsDef) {
-    console.log(key);
-    for (const obj of vals) {
-        console.log(obj.name);
-        
+const metohd = gen.genHtmlMethod("blabla", {
+    isStatic: false,
+    params: [
+        ["param1", "string"],
+        ["param2", "boolean", true]
+    ],
+    typeReturn: "Manifest",
+    version: "0.1",
+    content: {
+        foo: "fff",
+        bar: "bbb",
+        foobar: "foobar",
+        desc: "desc of the method",
+        defaultVals: [
+            { name: "nameArg", type: "String", value: "default value" },
+            { name: "isSecure", type: "boolean", value: true },
+            { name: "nbTime", type: "number", value: 50 },
+            { name: "name3", type: "Payload", value: "Payload" },
+            { name: "name5", type: "Other", value: [25, 50] },
+            { name: "name5", type: "Other", value: { name: "test" } }
+        ],
+        argsDef: [
+            ["object1",
+                [
+                    { name: "Prop1", type: "String", default: "default", desc: "description" },
+                    { name: "Prop2", type: "Boolean", default: true, desc: "description" },
+                    { name: "Prop3", type: "Number", default: 52, desc: "description" }
+                ]
+            ],
+            ["object2",
+                [
+                    { name: "Prop2", type: "String", default: "default", desc: "description" }
+                ]
+            ]
+        ],
+        example: "const foo = true",
+        throws: ["Error", "TypeError", "Other"]
     }
-}
+});
+console.log(metohd);
+
+
+const prop = gen.genHtmlProperty({
+    required: true,
+    name: "propertyName",
+    type: "String",
+    version: "0.2",
+    desc: "Description of the property"
+});

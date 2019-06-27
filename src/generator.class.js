@@ -32,8 +32,8 @@ class Generator {
      * @throws {Error}
      */
     constructor(docs) {
-        const hasMembers = Object.prototype.hasOwnProperty.call(docs, "members");
-        const hasOrphans = Object.prototype.hasOwnProperty.call(docs, "orphans");
+        const hasMembers = Reflect.has(docs, "members");
+        const hasOrphans = Reflect.has(docs, "orphans");
         if (!hasMembers || !hasOrphans) {
             throw new Error("the 'members' or 'orphans' properties of the 'docs' argument are missing");
         }
@@ -61,18 +61,22 @@ class Generator {
     // eslint-disable-next-line class-methods-use-this
     genHTML() {
         const h3 = "<h3 class='property'><span class='icon-cube-10'></span>Property</h3>";
+        const endFile = "</main></body></html>";
         const headerPath = join(TEMPLATE_DIR, "header.html");
         let htmlPage = readFileSync(headerPath, { encoding: "utf8" });
 
         const ret = this.buildMethodOptions("Manifest");
-        console.log(JSON.stringify(ret));
+        // console.log(JSON.stringify(ret));
         for (const el of ret) {
             htmlPage += this.genHtmlMethod(el.name, el.options);
             // console.log(el);
         }
+
         // htmlPage += this.createMethod();
-        // htmlPage += h3;
+        htmlPage += h3;
+        htmlPage += endFile;
         // htmlPage += this.createProperty();
+        htmlPage = htmlPage.replace(/(\n)\1+/g, "$1");
 
         return htmlPage;
     }
@@ -87,7 +91,7 @@ class Generator {
 
         const ret = [];
         for (const method of this.members[className]) {
-            if (Object.prototype.hasOwnProperty.call(method, "method")) {
+            if (Reflect.has(method, "method")) {
                 const options = { params: [] };
                 const content = {};
                 const defaultVals = [];
@@ -98,7 +102,7 @@ class Generator {
                     options.isStatic = true;
                 }
 
-                // Essayer avec les yield & si possibilité de combiner avec la methode paramArgsDescription
+                // Essayer avec les yield & si possibilitÃ© de combiner avec la methode paramArgsDescription
                 if (is.array(method.param)) {
                     for (const param of method.param) {
                         const { name, value: type, required, default: value } = param;
@@ -108,19 +112,12 @@ class Generator {
                         }
                         options.params.push([name, type, required]);
                         const ret = this.paramArgsDescription(type);
-                        // eslint-disable-next-line max-depth
                         // console.log(ret);
-                        
                         // eslint-disable-next-line max-depth
-                        if (ret) {
-                            // eslint-disable-next-line max-depth
-                            for (const args of ret.entries()) {
-                                // console.log(args);
-                                
-                                argsDef.push(args);
-                            }
+                        for (const args of ret.entries()) {
+                            // console.log(args);
+                            argsDef.push(args);
                         }
-                        // console.log(argsDef);
                     }
                 }
                 if (is.plainObject(method.param)) {
@@ -145,6 +142,23 @@ class Generator {
                     content.desc = method.desc.value;
                 }
 
+                if (!is.nullOrUndefined(method.example)) {
+                    const ex = method.example.value.replace(/\s{6}/g, "<br>");
+                    content.example = ex;
+                }
+
+                if (is.array(method.throws)) {
+                    content.throws = method.throws.map((obj) => obj.value);
+                }
+                else if (is.plainObject(method.throws)) {
+                    content.throws = [method.throws.value];
+                }
+
+                if (!is.nullOrUndefined(method.author)) {
+                    const authInfos = method.author.value.split(" <");
+                    content.author = authInfos[0];
+                }
+
                 if (defaultVals.length !== 0) {
                     content.defaultVals = defaultVals;
                 }
@@ -165,10 +179,12 @@ class Generator {
     paramArgsDescription(paramType) {
         const ret = new Map();
         for (const orphan of this.orphans) {
-            const isTypedef = Object.prototype.hasOwnProperty.call(orphan, "typedef");
-            const hasProperty = Object.prototype.hasOwnProperty.call(orphan, "property");
+            const isTypedef = Reflect.has(orphan, "typedef");
+            // Object.prototype.hasOwnProperty.call(orphan, "typedef");
+            const hasProperty = Reflect.has(orphan, "property");
+            // Object.prototype.hasOwnProperty.call(orphan, "property");
             if (isTypedef) {
-                const hasName = Object.prototype.hasOwnProperty.call(orphan.typedef, "name");
+                // const hasName = Object.prototype.hasOwnProperty.call(orphan.typedef, "name");
                 if (paramType === orphan.typedef.name && hasProperty) {
                     const properties = [];
                     for (const prop of orphan.property) {
@@ -177,16 +193,19 @@ class Generator {
                             prop.desc = "";
                         }
                         properties.push(prop);
+                        // const test = prop || "";
+                        // properties.push(test);
                     }
                     ret.set(orphan.typedef.name, properties);
                 }
             }
         }
-        if (ret.size !== 0) {
-            return ret;
-        }
+        // if (ret.size !== 0) {
 
-        return null;
+        return ret;
+        // }
+
+        // return null;
     }
 
     genHtmlMethod(name, options = Object.create(null)) {
@@ -223,6 +242,7 @@ class Generator {
         const properties = Object.keys(content);
         const containValidProp = properties.some((item) => VALID_PROP.has(item));
         if (!containValidProp) {
+            // eslint-disable-next-line max-len
             throw new Error(`content must contain at least one of properties of the Set: ${Array.from(this.VALID_PROP).join(", ")}`);
         }
 
@@ -237,11 +257,11 @@ class Generator {
             throw new Error("version must match the following pattern : x.x.x");
         }
 
-        if (Object.prototype.hasOwnProperty.call(content, "desc") && !is.string(content.desc)) {
+        if (Reflect.has(content, "desc") && !is.string(content.desc)) {
             throw new TypeError("desc property must be a type of String");
         }
 
-        if (Object.prototype.hasOwnProperty.call(content, "defaultVals")) {
+        if (Reflect.has(content, "defaultVals")) {
             if (!is.array(content.defaultVals)) {
                 throw new TypeError("defaultVals must be a type of Array<Object>, check doc");
             }
@@ -251,6 +271,7 @@ class Generator {
             // eslint-disable-next-line prefer-const
             for (let [i, { name, type, value }] of content.defaultVals.entries()) {
                 if (is.undefined(name) || is.undefined(type) || is.undefined(value)) {
+                    // eslint-disable-next-line max-len
                     throw new Error("DefaultVals is an array of Object, each object must contain these keys : name, type and value");
                 }
 
@@ -273,14 +294,14 @@ class Generator {
                 }
             }
         }
-        if (Object.prototype.hasOwnProperty.call(content, "example") && !is.string(content.example)) {
+        if (Reflect.has(content, "example") && !is.string(content.example)) {
             throw new TypeError("content.example must be a type of string");
         }
         if (!is.nullOrUndefined(content.argsDef)) {
             this.argumentDefCheck(content.argsDef);
         }
 
-        if (Object.prototype.hasOwnProperty.call(content, "throws")) {
+        if (Reflect.has(content, "throws")) {
             if (!is.array(content.throws)) {
                 throw new TypeError("content.throws must be a type of array");
             }
@@ -326,7 +347,7 @@ class Generator {
         if (!semver.valid(version)) {
             throw new Error("version must match the following pattern : x.x.x");
         }
-        
+
         return zup(this.templateProp)({ required, name, type, version, desc });
     }
 
@@ -348,7 +369,6 @@ class Generator {
             }
             // for (const property of properties) {
             //     console.log(property.desc);
-                
             //     const { name, type, default: dftValue, desc } = property;
 
             //     if (!is.string("name")) {

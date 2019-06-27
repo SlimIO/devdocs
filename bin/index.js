@@ -53,13 +53,13 @@ async function main() {
     }
 
     const docs = groupData(fileBlocks);
-    // console.log(JSON.stringify(docs));
+    console.log(JSON.stringify(docs));
     const generator = new Generator(docs);
 
 
     // Get view and generate final HTML Template
     const HTMLStr = readFileSync(join(VIEW_DIR, "doc.html"), { encoding: "utf8" });
-    const obj = { 
+    const obj = {
         projectName: "test",
         iterable: [{ title: "title1" }, { title: "title2" }]
     };

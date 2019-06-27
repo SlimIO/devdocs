@@ -72,7 +72,7 @@
         [[ if (z.content.example) { ]]
             <p class="example">Example :</p>
             <hr>
-            <pre class="prettyprint lang-js">[[=z.content.example]]</pre>
+            <pre class="prettyprint lang-js">[[-z.content.example]]</pre>
         [[}]]
         [[ if (z.content.throws) { ]]
             <div class="throw">
@@ -84,5 +84,8 @@
                 </ul>
             </div>
         [[ }]]
+        [[if (z.content.author) { ]]
+            <p class="author">Author : [[=z.content.author]]</p>
+        [[ } ]]
     </div>
 [[ } ]]
