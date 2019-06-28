@@ -65,17 +65,18 @@ class Generator {
         const headerPath = join(TEMPLATE_DIR, "header.html");
         let htmlPage = readFileSync(headerPath, { encoding: "utf8" });
 
-        const ret = this.buildMethodOptions("Manifest");
+        const optionsMethods = this.buildMethodOptions("Manifest");
         // console.log(JSON.stringify(ret));
-        for (const el of ret) {
-            htmlPage += this.genHtmlMethod(el.name, el.options);
+        for (const elem of optionsMethods) {
+            htmlPage += this.genHtmlMethod(elem.name, elem.options);
             // console.log(el);
         }
-
-        // htmlPage += this.createMethod();
         htmlPage += h3;
+        const properties = this.buildPropDefinition("Manifest");
+        for (const prop of properties) {
+            htmlPage += this.genHtmlProperty(prop);
+        }
         htmlPage += endFile;
-        // htmlPage += this.createProperty();
         htmlPage = htmlPage.replace(/(\n)\1+/g, "$1");
 
         return htmlPage;
@@ -175,7 +176,6 @@ class Generator {
         return ret;
     }
 
-    // eslint-disable-next-line class-methods-use-this
     paramArgsDescription(paramType) {
         const ret = new Map();
         for (const orphan of this.orphans) {
@@ -200,12 +200,8 @@ class Generator {
                 }
             }
         }
-        // if (ret.size !== 0) {
 
         return ret;
-        // }
-
-        // return null;
     }
 
     genHtmlMethod(name, options = Object.create(null)) {
@@ -320,7 +316,19 @@ class Generator {
         });
     }
 
-    // eslint-disable-next-line class-methods-use-this
+    buildPropDefinition(className) {
+        const memberClass = this.members[className].find((elem) => Reflect.has(elem, "class"));
+        const properties = memberClass.property;
+        console.log(properties);
+        for (const [index, prop] of properties.entries()) {
+            prop.value = /\|/g.test(prop.value) ? prop.value.replace("|", " | ") : prop.value;
+            Reflect.set(properties[index], "type", prop.value);
+            Reflect.deleteProperty(properties[index], "value");
+        }
+
+        return properties;
+    }
+
     genHtmlProperty(propDefinition) {
         const { required, name, type, desc } = propDefinition;
         if (!is.boolean(required)) {
