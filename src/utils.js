@@ -1,7 +1,6 @@
 
-const { join } = require("path");
+const { join, extname } = require("path");
 const { readdirSync, lstatSync } = require("fs");
-const { extname } = require("path");
 
 function* getRecursifJsFile(rootPath) {
     const allFiles = readdirSync(rootPath);

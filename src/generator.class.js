@@ -2,25 +2,26 @@
 // Require Node.js Dependencies
 const { readFileSync } = require("fs");
 const { join } = require("path");
-const is = require("@slimio/is");
-const argc = require("@slimio/arg-checker");
 
 // Require Third-party Dependencies
 const semver = require("semver");
-
-// Require Third-party Dependencies
 const zup = require("zup");
+const is = require("@slimio/is");
+const argc = require("@slimio/arg-checker");
 
 // CONSTANTS
 const TEMPLATE_DIR = join(__dirname, "..", "view", "template");
 const VALID_PROP = new Set(["desc", "defaultVals", "argsDef", "example", "throws"]);
+const TEMPLATE_HEADER = readFileSync(join(TEMPLATE_DIR, "header.html"), { encoding: "utf8" });
+const TEMPLATE_METHOD = readFileSync(join(TEMPLATE_DIR, "method.html"), { encoding: "utf8" });
+const TEMPLATE_PROP = readFileSync(join(TEMPLATE_DIR, "property.html"), { encoding: "utf8" });
 
 /**
  * @class Generator
  * @classdesc Generate web page from js documentation
  *
  * @author Mark MALAJ <malaj1.mark@gmail.com>
- * @version 0.0.1
+ * @version 0.1.1
  */
 class Generator {
     /**
@@ -41,11 +42,8 @@ class Generator {
         // Vérifier la contenance de members et orphans
         this.members = members;
         this.orphans = orphans;
-
         this.selectedClass = "";
-        this.templateHeader = readFileSync(join(TEMPLATE_DIR, "header.html"), { encoding: "utf8" });
-        this.templateMethod = readFileSync(join(TEMPLATE_DIR, "method.html"), { encoding: "utf8" });
-        this.templateProp = readFileSync(join(TEMPLATE_DIR, "property.html"), { encoding: "utf8" });
+
         // si members n'est pas null
         this.classes = Object.keys(members);
     }
@@ -63,16 +61,15 @@ class Generator {
     genHTML() {
         const h3 = "<h3 class='property'><span class='icon-cube-10'></span>Property</h3>";
         const endFile = "</main></body></html>";
-        // gen header
-        let htmlPage = this.genHtmlHeader(null, this.classes[0]);
 
+        let htmlPage = Generator.genHtmlHeader(null, this.classes[0]);
         const optionsMethods = this.buildMethodOptions(this.classes[0]);
         if (optionsMethods.length === 0) {
             htmlPage += "<div class='empty'>There is no methodes for this class</div>";
         }
         else {
             for (const elem of optionsMethods) {
-                htmlPage += this.genHtmlMethod(elem.name, elem.options);
+                htmlPage += Generator.genHtmlMethod(elem.name, elem.options);
             }
         }
         htmlPage += h3;
@@ -82,7 +79,7 @@ class Generator {
         }
         else {
             for (const prop of properties) {
-                htmlPage += this.genHtmlProperty(prop);
+                htmlPage += Generator.genHtmlProperty(prop);
             }
         }
         htmlPage += endFile;
@@ -90,11 +87,11 @@ class Generator {
         return htmlPage;
     }
 
-    genHtmlHeader(namespace, classname) {
+    static genHtmlHeader(namespace, classname) {
         const className = classname || "Orphans";
         const nameSpace = namespace || "No namespace";
 
-        return zup(this.templateHeader)({ nameSpace, className });
+        return zup(TEMPLATE_HEADER)({ nameSpace, className });
     }
 
     buildMethodOptions(className) {
@@ -110,85 +107,85 @@ class Generator {
 
         const ret = [];
         for (const method of this.members[className]) {
-            if (Reflect.has(method, "method")) {
-                const options = { params: [] };
-                const content = {};
-                const defaultVals = [];
-                const argsDef = [];
-                const { method: { value: name } } = method;
+            if (!Reflect.has(method, "method")) {
+                continue;
+            }
+            const options = { params: [] };
+            const content = {};
+            const defaultVals = [];
+            const argsDef = [];
+            const { method: { value: name } } = method;
 
-                if (!is.nullOrUndefined(method.static)) {
-                    options.isStatic = true;
-                }
+            if (!is.nullOrUndefined(method.static)) {
+                options.isStatic = true;
+            }
 
-                // Essayer avec les yield & si possibilité de combiner avec la methode paramArgsDescription
-                if (is.array(method.param)) {
-                    for (const param of method.param) {
-                        const { name, value: type, required, default: value } = param;
-                        // eslint-disable-next-line max-depth
-                        if (!is.nullOrUndefined(value)) {
-                            defaultVals.push({ name, type, value });
-                        }
-                        options.params.push([name, type, required]);
-                        const ret = this.paramArgsDescription(type);
-                        // console.log(ret);
-                        // eslint-disable-next-line max-depth
-                        for (const args of ret.entries()) {
-                            // console.log(args);
-                            argsDef.push(args);
-                        }
-                    }
-                }
-                if (is.plainObject(method.param)) {
-                    const { name, value: type, required, default: value } = method.param;
+            // Essayer avec les yield & si possibilité de combiner avec la methode paramArgsDescription
+            if (is.array(method.param)) {
+                for (const param of method.param) {
+                    const { name, value: type, required, default: value } = param;
                     if (!is.nullOrUndefined(value)) {
                         defaultVals.push({ name, type, value });
                     }
                     options.params.push([name, type, required]);
+                    const ret = this.paramArgsDescription(type);
+                    // console.log(ret);
+                    console.log(...ret.entries());
+                    argsDef.push(...ret.entries());
+                    // for (const args of ret.entries()) {
+                    //     argsDef.push(args);
+                    // }
                 }
-
-                if (!is.nullOrUndefined(method.returns) && method.returns.value !== "void") {
-                    options.typeReturn = method.returns.value;
-                }
-                if (!is.nullOrUndefined(method.version)) {
-                    options.version = method.version.value;
-                }
-
-                if (is.nullOrUndefined(method.desc)) {
-                    content.desc = `No description avaible for ${name}`;
-                }
-                else {
-                    content.desc = method.desc.value;
-                }
-
-                if (!is.nullOrUndefined(method.example)) {
-                    const ex = method.example.value.replace(/\s{6}/g, "<br>");
-                    content.example = ex;
-                }
-
-                if (is.array(method.throws)) {
-                    content.throws = method.throws.map((obj) => obj.value);
-                }
-                else if (is.plainObject(method.throws)) {
-                    content.throws = [method.throws.value];
-                }
-
-                if (!is.nullOrUndefined(method.author)) {
-                    const authInfos = method.author.value.split(" <");
-                    content.author = authInfos[0];
-                }
-
-                if (defaultVals.length !== 0) {
-                    content.defaultVals = defaultVals;
-                }
-                // console.log(argsDef);
-                if (argsDef.length !== 0) {
-                    content.argsDef = argsDef;
-                    // console.log(content.argsDef);
-                }
-                options.content = content;
-                ret.push({ name, options });
             }
+            if (is.plainObject(method.param)) {
+                const { name, value: type, required, default: value } = method.param;
+                if (!is.nullOrUndefined(value)) {
+                    defaultVals.push({ name, type, value });
+                }
+                options.params.push([name, type, required]);
+            }
+
+            if (!is.nullOrUndefined(method.returns) && method.returns.value !== "void") {
+                options.typeReturn = method.returns.value;
+            }
+            if (!is.nullOrUndefined(method.version)) {
+                options.version = method.version.value;
+            }
+
+            if (is.nullOrUndefined(method.desc)) {
+                content.desc = `No description avaible for ${name}`;
+            }
+            else {
+                content.desc = method.desc.value;
+            }
+
+            if (!is.nullOrUndefined(method.example)) {
+                const ex = method.example.value.replace(/\s{6}/g, "<br>");
+                content.example = ex;
+            }
+
+            if (is.array(method.throws)) {
+                content.throws = method.throws.map((obj) => obj.value);
+            }
+            else if (is.plainObject(method.throws)) {
+                content.throws = [method.throws.value];
+            }
+
+            if (!is.nullOrUndefined(method.author)) {
+                const authInfos = method.author.value.split(" <");
+                content.author = authInfos[0];
+            }
+
+            if (defaultVals.length !== 0) {
+                content.defaultVals = defaultVals;
+            }
+            // console.log(argsDef);
+            if (argsDef.length !== 0) {
+                content.argsDef = argsDef;
+                // console.log(content.argsDef);
+            }
+            options.content = content;
+            ret.push({ name, options });
         }
 
         return ret;
@@ -199,25 +196,24 @@ class Generator {
         for (const orphan of this.orphans) {
             const isTypedef = Reflect.has(orphan, "typedef");
             const hasProperty = Reflect.has(orphan, "property");
-            if (isTypedef) {
-                if (paramType === orphan.typedef.name && hasProperty) {
-                    const properties = [];
-                    for (const prop of orphan.property) {
-                        // eslint-disable-next-line max-depth
-                        if (is.nullOrUndefined(prop.desc)) {
-                            prop.desc = "";
-                        }
-                        properties.push(prop);
-                    }
-                    ret.set(orphan.typedef.name, properties);
-                }
+            if (!isTypedef || paramType !== orphan.typedef.name || !hasProperty) {
+                continue;
             }
+            const properties = [];
+            for (const prop of orphan.property) {
+                // eslint-disable-next-line max-depth
+                if (is.nullOrUndefined(prop.desc)) {
+                    prop.desc = "";
+                }
+                properties.push(prop);
+            }
+            ret.set(orphan.typedef.name, properties);
         }
 
         return ret;
     }
 
-    genHtmlMethod(name, options = Object.create(null)) {
+    static genHtmlMethod(name, options = Object.create(null)) {
         if (!is.string(name)) {
             throw new TypeError("name param must be a type of string");
         }
@@ -307,7 +303,7 @@ class Generator {
             throw new TypeError("content.example must be a type of string");
         }
         if (!is.nullOrUndefined(content.argsDef)) {
-            this.argumentDefCheck(content.argsDef);
+            Generator.argumentDefCheck(content.argsDef);
         }
 
         if (Reflect.has(content, "throws")) {
@@ -319,19 +315,13 @@ class Generator {
             }
         }
 
-        return zup(this.templateMethod)({
-            name,
-            isStatic,
-            params,
-            typeReturn,
-            content,
-            version
+        return zup(TEMPLATE_METHOD)({
+            name, isStatic, params, typeReturn, content, version
         });
     }
 
     buildPropDefinition(className) {
-        // si pas de properties
-        if (!className) {
+        if (className === undefined) {
             return [];
         }
         const memberClass = this.members[className].find((elem) => Reflect.has(elem, "class"));
@@ -345,7 +335,7 @@ class Generator {
         return properties;
     }
 
-    genHtmlProperty(propDefinition) {
+    static genHtmlProperty(propDefinition) {
         const { required, name, type, desc } = propDefinition;
         if (!is.boolean(required)) {
             throw new TypeError("required param must be a type of Boolean");
@@ -372,11 +362,10 @@ class Generator {
             throw new Error("version must match the following pattern : x.x.x");
         }
 
-        return zup(this.templateProp)({ required, name, type, version, desc });
+        return zup(TEMPLATE_PROP)({ required, name, type, version, desc });
     }
 
-    // eslint-disable-next-line class-methods-use-this
-    argumentDefCheck(argsDef) {
+    static argumentDefCheck(argsDef) {
         if (!is.array(argsDef)) {
             throw new TypeError("content.argsDef must be a type of array");
         }
