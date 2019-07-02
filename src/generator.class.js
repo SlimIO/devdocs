@@ -38,13 +38,15 @@ class Generator {
             throw new Error("the 'members' or 'orphans' properties of the 'docs' argument are missing");
         }
         const { orphans, members } = docs;
+        // Vérifier la contenance de members et orphans
         this.members = members;
         this.orphans = orphans;
 
         this.selectedClass = "";
-        // this.htmlProp = readFileSync(join(TEMPLATE_DIR, "property.html"), { encoding: "utf8" });;
+        this.templateHeader = readFileSync(join(TEMPLATE_DIR, "header.html"), { encoding: "utf8" });
         this.templateMethod = readFileSync(join(TEMPLATE_DIR, "method.html"), { encoding: "utf8" });
         this.templateProp = readFileSync(join(TEMPLATE_DIR, "property.html"), { encoding: "utf8" });
+        // si members n'est pas null
         this.classes = Object.keys(members);
     }
 
@@ -58,31 +60,47 @@ class Generator {
      *
      * @returns {void}
      */
-    // eslint-disable-next-line class-methods-use-this
     genHTML() {
         const h3 = "<h3 class='property'><span class='icon-cube-10'></span>Property</h3>";
         const endFile = "</main></body></html>";
-        const headerPath = join(TEMPLATE_DIR, "header.html");
-        let htmlPage = readFileSync(headerPath, { encoding: "utf8" });
+        // gen header
+        let htmlPage = this.genHtmlHeader(null, this.classes[0]);
 
-        const optionsMethods = this.buildMethodOptions("Manifest");
-        // console.log(JSON.stringify(ret));
-        for (const elem of optionsMethods) {
-            htmlPage += this.genHtmlMethod(elem.name, elem.options);
-            // console.log(el);
+        const optionsMethods = this.buildMethodOptions(this.classes[0]);
+        if (optionsMethods.length === 0) {
+            htmlPage += "<div class='empty'>There is no methodes for this class</div>";
+        }
+        else {
+            for (const elem of optionsMethods) {
+                htmlPage += this.genHtmlMethod(elem.name, elem.options);
+            }
         }
         htmlPage += h3;
-        const properties = this.buildPropDefinition("Manifest");
-        for (const prop of properties) {
-            htmlPage += this.genHtmlProperty(prop);
+        const properties = this.buildPropDefinition(this.classes[0]);
+        if (properties.length === 0) {
+            htmlPage += "<div class='empty'>There is no properties for this class</div>";
+        }
+        else {
+            for (const prop of properties) {
+                htmlPage += this.genHtmlProperty(prop);
+            }
         }
         htmlPage += endFile;
-        htmlPage = htmlPage.replace(/(\n)\1+/g, "$1");
 
         return htmlPage;
     }
 
+    genHtmlHeader(namespace, classname) {
+        const className = classname || "Orphans";
+        const nameSpace = namespace || "No namespace";
+
+        return zup(this.templateHeader)({ nameSpace, className });
+    }
+
     buildMethodOptions(className) {
+        if (is.nullOrUndefined(className)) {
+            return [];
+        }
         if (!is.string(className)) {
             throw new TypeError("className param must be a type of string");
         }
@@ -180,11 +198,8 @@ class Generator {
         const ret = new Map();
         for (const orphan of this.orphans) {
             const isTypedef = Reflect.has(orphan, "typedef");
-            // Object.prototype.hasOwnProperty.call(orphan, "typedef");
             const hasProperty = Reflect.has(orphan, "property");
-            // Object.prototype.hasOwnProperty.call(orphan, "property");
             if (isTypedef) {
-                // const hasName = Object.prototype.hasOwnProperty.call(orphan.typedef, "name");
                 if (paramType === orphan.typedef.name && hasProperty) {
                     const properties = [];
                     for (const prop of orphan.property) {
@@ -193,8 +208,6 @@ class Generator {
                             prop.desc = "";
                         }
                         properties.push(prop);
-                        // const test = prop || "";
-                        // properties.push(test);
                     }
                     ret.set(orphan.typedef.name, properties);
                 }
@@ -239,7 +252,7 @@ class Generator {
         const containValidProp = properties.some((item) => VALID_PROP.has(item));
         if (!containValidProp) {
             // eslint-disable-next-line max-len
-            throw new Error(`content must contain at least one of properties of the Set: ${Array.from(this.VALID_PROP).join(", ")}`);
+            throw new Error(`content must contain at least one of properties of the Set: ${Array.from(VALID_PROP).join(", ")}`);
         }
 
         let { version = "0.1.0" } = options;
@@ -317,9 +330,12 @@ class Generator {
     }
 
     buildPropDefinition(className) {
+        // si pas de properties
+        if (!className) {
+            return [];
+        }
         const memberClass = this.members[className].find((elem) => Reflect.has(elem, "class"));
         const properties = memberClass.property;
-        console.log(properties);
         for (const [index, prop] of properties.entries()) {
             prop.value = /\|/g.test(prop.value) ? prop.value.replace("|", " | ") : prop.value;
             Reflect.set(properties[index], "type", prop.value);
