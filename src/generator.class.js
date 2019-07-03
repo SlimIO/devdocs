@@ -98,9 +98,8 @@ class Generator {
         if (is.nullOrUndefined(className)) {
             return [];
         }
-        if (!is.string(className)) {
-            throw new TypeError("className param must be a type of string");
-        }
+        argc(className, is.string);
+        // argc(this.members[className], is.nullOrUndefined);
         if (is.nullOrUndefined(this.members[className])) {
             throw new Error(`There is no class ${className}`);
         }
@@ -129,12 +128,7 @@ class Generator {
                     }
                     options.params.push([name, type, required]);
                     const ret = this.paramArgsDescription(type);
-                    // console.log(ret);
-                    console.log(...ret.entries());
                     argsDef.push(...ret.entries());
-                    // for (const args of ret.entries()) {
-                    //     argsDef.push(args);
-                    // }
                 }
             }
             if (is.plainObject(method.param)) {
@@ -337,24 +331,13 @@ class Generator {
 
     static genHtmlProperty(propDefinition) {
         const { required, name, type, desc } = propDefinition;
-        if (!is.boolean(required)) {
-            throw new TypeError("required param must be a type of Boolean");
-        }
-        if (!is.string(name)) {
-            throw new TypeError("name param must be a type of string");
-        }
-        if (!is.string(type)) {
-            throw new TypeError("type param must be a type of string");
-        }
-        if (!is.string(desc)) {
-            throw new TypeError("desc param must be a type of string");
-        }
-
+        argc(required, is.boolean);
+        argc(name, is.string);
+        argc(type, is.string);
+        argc(desc, is.string);
+        argc(version, is.string);
         // duplicate code !
         let { version = "0.1.0" } = propDefinition;
-        if (!is.string(version)) {
-            throw new TypeError("version param must be a type of string");
-        }
         // Check if the version complies with the semver standards
         const { version: coerceVersion } = semver.coerce(version) || { version };
         version = coerceVersion;
@@ -366,28 +349,18 @@ class Generator {
     }
 
     static argumentDefCheck(argsDef) {
-        if (!is.array(argsDef)) {
-            throw new TypeError("content.argsDef must be a type of array");
-        }
-        if (argsDef.length === 0) {
-            throw new Error("content.argsDef must not be empty");
-        }
+        argc(argsDef, is.array, (arr) => arr.length > 0);
         // for of argsdef to verify type of map values
         for (const [obj, properties] of argsDef) {
-            if (!is.string(obj)) {
-                throw new TypeError("content.argsDef keys must be type of string");
+            argc(obj, is.string);
+            argc(properties, is.array);
+            for (const property of properties) {
+                const { desc, name, required, value } = property;
+                argc(desc, is.string);
+                argc(name, is.string);
+                argc(required, is.boolean);
+                argc(value, is.string);
             }
-            if (!is.array(properties)) {
-                throw new TypeError(`${obj} value must be an array`);
-            }
-            // for (const property of properties) {
-            //     console.log(property.desc);
-            //     const { name, type, default: dftValue, desc } = property;
-
-            //     if (!is.string("name")) {
-            //         throw new TypeError("name ")
-            //     }
-            // }
         }
     }
 }
