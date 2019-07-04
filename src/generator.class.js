@@ -99,10 +99,7 @@ class Generator {
             return [];
         }
         argc(className, is.string);
-        // argc(this.members[className], is.nullOrUndefined);
-        if (is.nullOrUndefined(this.members[className])) {
-            throw new Error(`There is no class ${className}`);
-        }
+        argc(this.members[className], !is.nullOrUndefined);
 
         const ret = [];
         for (const method of this.members[className]) {
@@ -208,48 +205,27 @@ class Generator {
     }
 
     static genHtmlMethod(name, options = Object.create(null)) {
-        if (!is.string(name)) {
-            throw new TypeError("name param must be a type of string");
-        }
-        if (!is.plainObject(options)) {
-            throw new TypeError("options param must be a type of Object");
-        }
+        argc(name, is.string);
+        argc(options, is.plainObject);
         const {
             isStatic = false,
             params = [],
             typeReturn,
             content
         } = options;
-        if (!is.boolean(isStatic)) {
-            throw new TypeError("isStatic param must be a type of boolean");
-        }
-        // problem empty params
-        if (!is.array(params)) {
-            throw new TypeError("params parameter must be a type of Array<Array>, check doc");
-        }
-        if (!is.nullOrUndefined(typeReturn) && !is.string(typeReturn)) {
-            throw new TypeError("typeReturn param must be a type of string");
-        }
+        argc(isStatic, is.boolean);
+        argc(params, is.array);
+        argc(typeReturn, [is.nullOrUndefined, is.string]);
+        argc(content, is.plainObject, (obj) => Object.entries(obj).length > 0);
 
-        if (!is.undefined(content) && !is.plainObject(content)) {
-            throw new TypeError("content param must be a type of Object");
-        }
-        if (Object.entries(content).length === 0) {
-            throw new Error("content must not be an empty Object");
-        }
-        // Verify if content contains at least one of the required properties
         const properties = Object.keys(content);
         const containValidProp = properties.some((item) => VALID_PROP.has(item));
-        if (!containValidProp) {
-            // eslint-disable-next-line max-len
+        if (containValidProp == false) {
             throw new Error(`content must contain at least one of properties of the Set: ${Array.from(VALID_PROP).join(", ")}`);
         }
 
         let { version = "0.1.0" } = options;
-        if (!is.string(version)) {
-            throw new TypeError("version param must be a type of string");
-        }
-        // Check if the version complies with the semver standards
+        argc(version, is.string);
         const { version: coerceVersion } = semver.coerce(version) || { version };
         version = coerceVersion;
         if (!semver.valid(version)) {
@@ -257,30 +233,19 @@ class Generator {
         }
 
         if (Reflect.has(content, "desc") && !is.string(content.desc)) {
-            throw new TypeError("desc property must be a type of String");
+            argc(content.desc, is.string);
         }
 
         if (Reflect.has(content, "defaultVals")) {
-            if (!is.array(content.defaultVals)) {
-                throw new TypeError("defaultVals must be a type of Array<Object>, check doc");
-            }
-            if (content.defaultVals.length === 0) {
-                throw new Error("defaultVals must not be an empty Array");
-            }
+            argc(content.defaultVals, is.array, (arr) => arr.length > 0);
             // eslint-disable-next-line prefer-const
             for (let [i, { name, type, value }] of content.defaultVals.entries()) {
                 if (is.undefined(name) || is.undefined(type) || is.undefined(value)) {
                     // eslint-disable-next-line max-len
                     throw new Error("DefaultVals is an array of Object, each object must contain these keys : name, type and value");
                 }
-
-                if (!is.string(name)) {
-                    throw new TypeError(`defaultVals.name must be a type of String
-                    Look the ${i} element of content.Default array`);
-                }
-                if (!is.string(type)) {
-                    throw new TypeError("defaultVals.type must be a type of String");
-                }
+                argc(name, is.string);
+                argc(type, is.string);
                 type = type.toLowerCase();
                 if (type === "string" || type === "boolean" || type === "number") {
                     content.defaultVals[i].type = type;
@@ -293,20 +258,15 @@ class Generator {
                 }
             }
         }
-        if (Reflect.has(content, "example") && !is.string(content.example)) {
-            throw new TypeError("content.example must be a type of string");
+        if (Reflect.has(content, "example")) {
+            argc(content.example, is.string);
         }
         if (!is.nullOrUndefined(content.argsDef)) {
             Generator.argumentDefCheck(content.argsDef);
         }
 
         if (Reflect.has(content, "throws")) {
-            if (!is.array(content.throws)) {
-                throw new TypeError("content.throws must be a type of array");
-            }
-            if (content.throws.length === 0) {
-                throw new Error("content.throws must not be an empty");
-            }
+            argc(content.throws, is.array, (arr) => arr.length > 0);
         }
 
         return zup(TEMPLATE_METHOD)({
@@ -335,10 +295,8 @@ class Generator {
         argc(name, is.string);
         argc(type, is.string);
         argc(desc, is.string);
-        argc(version, is.string);
-        // duplicate code !
         let { version = "0.1.0" } = propDefinition;
-        // Check if the version complies with the semver standards
+        argc(version, is.string);
         const { version: coerceVersion } = semver.coerce(version) || { version };
         version = coerceVersion;
         if (!semver.valid(version)) {
@@ -350,7 +308,6 @@ class Generator {
 
     static argumentDefCheck(argsDef) {
         argc(argsDef, is.array, (arr) => arr.length > 0);
-        // for of argsdef to verify type of map values
         for (const [obj, properties] of argsDef) {
             argc(obj, is.string);
             argc(properties, is.array);
