@@ -6,7 +6,7 @@ const { join, basename } = require("path");
 
 // Require Internal Dependencies
 const Generator = require("../src/generator.class");
-const getJsFiles = require("../src/utils");
+const { getRecursifJsFile } = require("../src/utils");
 
 // Require Third-party Dependencies
 const { parseFile, groupData } = require("@slimio/jsdoc");
@@ -37,7 +37,7 @@ async function main() {
     const jsFiles = [];
     let defaultFile = "";
     // Get all javascript files
-    const gen = getJsFiles(cwd);
+    const gen = getRecursifJsFile(cwd);
     for (const jsFile of gen) {
         jsFiles.push(...jsFile);
         const isDefault = jsFile.find((file) => basename(file) === "index.js");

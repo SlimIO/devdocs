@@ -10,7 +10,7 @@
             [[ for ( const [i, [arg, type, opt] ] of z.params.entries()) { ]]
                 <span class="arg-name [[=opt ? 'opt' : '']]">[[=arg]][[ if (opt){ ]]<span class="opt-chip" title="Optional argument">?</span>[[ } ]]</span>
                 <span class="type">[[=type]]</span>
-                [[if(i < z.params.length-1) { ]],[[ } ]]
+                [[if(i < z.params.length-1) { ]]<span class="comma">,</span>[[ } ]]
             [[ } ]]
             <span class="close-p">)</span>
         </p>
@@ -29,6 +29,7 @@
             <p class="desc">[[=z.content.desc]]</p>
         [[}]]
         [[ if (Object.prototype.hasOwnProperty.call(z.content, "defaultVals")) { ]]
+            <p class="default-arg-title">Default arguments values :</p>
             <div class="default-arg-container">
                 [[ for(const { name, type, value} of z.content.defaultVals) { ]]
                     <div class="item">
@@ -42,7 +43,7 @@
         [[ } ]]
         [[ if (z.content.argsDef) {
             for (const [objName, args] of z.content.argsDef) { ]]
-                <p class="arg-definition">Object arg description <em>[[=objName]]</em> :</p>
+                <p class="arg-definition"><em>[[=objName]]</em> definition:</p>
                 <table class="arg-desc">
                     <thead>
                         <tr>

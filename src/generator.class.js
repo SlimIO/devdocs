@@ -3,6 +3,9 @@
 const { readFileSync } = require("fs");
 const { join } = require("path");
 
+// Require Internal Dependencies
+const { isSemver } = require("../src/utils");
+
 // Require Third-party Dependencies
 const semver = require("semver");
 const zup = require("zup");
@@ -210,6 +213,7 @@ class Generator {
         const {
             isStatic = false,
             params = [],
+            version = "0.1.0",
             typeReturn,
             content
         } = options;
@@ -217,19 +221,12 @@ class Generator {
         argc(params, is.array);
         argc(typeReturn, [is.nullOrUndefined, is.string]);
         argc(content, is.plainObject, (obj) => Object.entries(obj).length > 0);
+        argc(version, is.string, isSemver);
 
         const properties = Object.keys(content);
         const containValidProp = properties.some((item) => VALID_PROP.has(item));
-        if (containValidProp == false) {
+        if (containValidProp === false) {
             throw new Error(`content must contain at least one of properties of the Set: ${Array.from(VALID_PROP).join(", ")}`);
-        }
-
-        let { version = "0.1.0" } = options;
-        argc(version, is.string);
-        const { version: coerceVersion } = semver.coerce(version) || { version };
-        version = coerceVersion;
-        if (!semver.valid(version)) {
-            throw new Error("version must match the following pattern : x.x.x");
         }
 
         if (Reflect.has(content, "desc") && !is.string(content.desc)) {
@@ -270,7 +267,7 @@ class Generator {
         }
 
         return zup(TEMPLATE_METHOD)({
-            name, isStatic, params, typeReturn, content, version
+            name, isStatic, params, typeReturn, content, version: isSemver(version)
         });
     }
 
@@ -290,20 +287,14 @@ class Generator {
     }
 
     static genHtmlProperty(propDefinition) {
-        const { required, name, type, desc } = propDefinition;
+        const { required, name, type, desc, version = "0.1.0" } = propDefinition;
         argc(required, is.boolean);
         argc(name, is.string);
         argc(type, is.string);
         argc(desc, is.string);
-        let { version = "0.1.0" } = propDefinition;
-        argc(version, is.string);
-        const { version: coerceVersion } = semver.coerce(version) || { version };
-        version = coerceVersion;
-        if (!semver.valid(version)) {
-            throw new Error("version must match the following pattern : x.x.x");
-        }
+        argc(version, is.string, isSemver);
 
-        return zup(TEMPLATE_PROP)({ required, name, type, version, desc });
+        return zup(TEMPLATE_PROP)({ required, name, type, version: isSemver(version), desc });
     }
 
     static argumentDefCheck(argsDef) {
