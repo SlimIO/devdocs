@@ -32,8 +32,8 @@ const arg = parseArg([
 async function main() {
     // Open local Manifest file
     const config = Manifest.open();
-    // const include = new Set(config.doc.include.map((file) => join(cwd, file)));
-    // console.log(" > Retrieving all Javascript files");
+
+    console.log(" > Retrieving all Javascript files");
     const jsFiles = [];
     let defaultFile = "";
     // Get all javascript files
@@ -46,22 +46,20 @@ async function main() {
         }
     }
     // There is no Javascript files to handle (so no documentation available).
-    // if (Object.keys(docs).length === 0) {
-    //     console.log(" > No Javascript files to handle");
-    //     process.exit(0);
-    // }
+    if (jsFiles.length === 0) {
+        console.log(" > No Javascript files to handle");
+        process.exit(0);
+    }
 
     // Parse ALL JSDoc
     const fileBlocks = [];
     for await (const block of parseFile(defaultFile)) {
         fileBlocks.push(block);
     }
-
     const docs = groupData(fileBlocks);
-    const generator = new Generator(docs);
-
 
     // Get view and generate final HTML Template
+    const generator = new Generator(docs);
     const HTMLTemplate = generator.genHTML(docs);
 
     // if --http argument is requested

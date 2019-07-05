@@ -42,12 +42,9 @@ class Generator {
             throw new Error("the 'members' or 'orphans' properties of the 'docs' argument are missing");
         }
         const { orphans, members } = docs;
-        // Vérifier la contenance de members et orphans
         this.members = members;
         this.orphans = orphans;
         this.selectedClass = "";
-
-        // si members n'est pas null
         this.classes = Object.keys(members);
     }
 
@@ -66,6 +63,7 @@ class Generator {
         const endFile = "</main></body></html>";
 
         let htmlPage = Generator.genHtmlHeader(null, this.classes[0]);
+        htmlPage += this.genConstructor(this.classes[0]);
         const optionsMethods = this.buildMethodOptions(this.classes[0]);
         if (optionsMethods.length === 0) {
             htmlPage += "<div class='empty'>There is no methodes for this class</div>";
@@ -97,6 +95,57 @@ class Generator {
         return zup(TEMPLATE_HEADER)({ nameSpace, className });
     }
 
+    genConstructor(className) {
+        argc(className, is.string);
+        argc(this.members[className], !is.nullOrUndefined);
+        const name = "Constructor";
+        const construct = this.members[className].find((elem) => Object.prototype.hasOwnProperty.call(elem, "constructor"));
+        const content = {};
+        const defaultVals = [];
+        const params = [];
+        const argsDef = [];
+
+        const gen = this.getParams(construct.param);
+        for (const [key, value] of gen) {
+            switch (key) {
+                case "default":
+                    defaultVals.push(value);
+                    break;
+                case "params":
+                    params.push(value);
+                    break;
+                case "argsDesc":
+                    argsDef.push(...value.entries());
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        if (!is.nullOrUndefined(construct.example)) {
+            const ex = construct.example.value.replace(/\s{6}/g, "<br>");
+            content.example = ex;
+        }
+        if (!is.nullOrUndefined(construct.author)) {
+            const authInfos = construct.author.value.split(" <");
+            content.author = authInfos[0];
+        }
+        if (is.array(construct.throws)) {
+            content.throws = construct.throws.map((obj) => obj.value);
+        }
+        else if (is.plainObject(construct.throws)) {
+            content.throws = [construct.throws.value];
+        }
+        if (defaultVals.length !== 0) {
+            content.defaultVals = defaultVals;
+        }
+        if (argsDef.length !== 0) {
+            content.argsDef = argsDef;
+        }
+
+        return zup(TEMPLATE_METHOD)({ name, params, content });
+    }
+
     buildMethodOptions(className) {
         if (is.nullOrUndefined(className)) {
             return [];
@@ -119,24 +168,21 @@ class Generator {
                 options.isStatic = true;
             }
 
-            // Essayer avec les yield & si possibilité de combiner avec la methode paramArgsDescription
-            if (is.array(method.param)) {
-                for (const param of method.param) {
-                    const { name, value: type, required, default: value } = param;
-                    if (!is.nullOrUndefined(value)) {
-                        defaultVals.push({ name, type, value });
-                    }
-                    options.params.push([name, type, required]);
-                    const ret = this.paramArgsDescription(type);
-                    argsDef.push(...ret.entries());
+            const gen = this.getParams(method.param);
+            for (const [key, value] of gen) {
+                switch (key) {
+                    case "default":
+                        defaultVals.push(value);
+                        break;
+                    case "params":
+                        options.params.push(value);
+                        break;
+                    case "argsDesc":
+                        argsDef.push(...value.entries());
+                        break;
+                    default:
+                        break;
                 }
-            }
-            if (is.plainObject(method.param)) {
-                const { name, value: type, required, default: value } = method.param;
-                if (!is.nullOrUndefined(value)) {
-                    defaultVals.push({ name, type, value });
-                }
-                options.params.push([name, type, required]);
             }
 
             if (!is.nullOrUndefined(method.returns) && method.returns.value !== "void") {
@@ -173,10 +219,8 @@ class Generator {
             if (defaultVals.length !== 0) {
                 content.defaultVals = defaultVals;
             }
-            // console.log(argsDef);
             if (argsDef.length !== 0) {
                 content.argsDef = argsDef;
-                // console.log(content.argsDef);
             }
             options.content = content;
             ret.push({ name, options });
@@ -185,26 +229,24 @@ class Generator {
         return ret;
     }
 
-    paramArgsDescription(paramType) {
-        const ret = new Map();
-        for (const orphan of this.orphans) {
-            const isTypedef = Reflect.has(orphan, "typedef");
-            const hasProperty = Reflect.has(orphan, "property");
-            if (!isTypedef || paramType !== orphan.typedef.name || !hasProperty) {
-                continue;
-            }
-            const properties = [];
-            for (const prop of orphan.property) {
-                // eslint-disable-next-line max-depth
-                if (is.nullOrUndefined(prop.desc)) {
-                    prop.desc = "";
+    * getParams(params) {
+        if (is.array(params)) {
+            for (const param of params) {
+                const { name, value: type, required, default: value } = param;
+                if (!is.nullOrUndefined(value)) {
+                    yield ["default", { name, type, value }];
                 }
-                properties.push(prop);
+                yield ["params", [name, type, required]];
+                yield ["argsDesc", this.paramArgsDescription(type)];
             }
-            ret.set(orphan.typedef.name, properties);
         }
-
-        return ret;
+        if (is.plainObject(params)) {
+            const { name, value: type, required, default: value } = params;
+            if (!is.nullOrUndefined(value)) {
+                yield ["default", { name, type, value }];
+            }
+            yield ["params", [name, type, required]];
+        }
     }
 
     static genHtmlMethod(name, options = Object.create(null)) {
@@ -259,7 +301,18 @@ class Generator {
             argc(content.example, is.string);
         }
         if (!is.nullOrUndefined(content.argsDef)) {
-            Generator.argumentDefCheck(content.argsDef);
+            argc(content.argsDef, is.array, (arr) => arr.length > 0);
+            for (const [obj, properties] of content.argsDef) {
+                argc(obj, is.string);
+                argc(properties, is.array);
+                for (const property of properties) {
+                    const { desc, name, required, value } = property;
+                    argc(desc, is.string);
+                    argc(name, is.string);
+                    argc(required, is.boolean);
+                    argc(value, is.string);
+                }
+            }
         }
 
         if (Reflect.has(content, "throws")) {
@@ -269,6 +322,28 @@ class Generator {
         return zup(TEMPLATE_METHOD)({
             name, isStatic, params, typeReturn, content, version: isSemver(version)
         });
+    }
+
+    paramArgsDescription(paramType) {
+        const ret = new Map();
+        for (const orphan of this.orphans) {
+            const isTypedef = Reflect.has(orphan, "typedef");
+            const hasProperty = Reflect.has(orphan, "property");
+            if (!isTypedef || paramType !== orphan.typedef.name || !hasProperty) {
+                continue;
+            }
+            const properties = [];
+            for (const prop of orphan.property) {
+                // eslint-disable-next-line max-depth
+                if (is.nullOrUndefined(prop.desc)) {
+                    prop.desc = "";
+                }
+                properties.push(prop);
+            }
+            ret.set(orphan.typedef.name, properties);
+        }
+
+        return ret;
     }
 
     buildPropDefinition(className) {
@@ -295,21 +370,6 @@ class Generator {
         argc(version, is.string, isSemver);
 
         return zup(TEMPLATE_PROP)({ required, name, type, version: isSemver(version), desc });
-    }
-
-    static argumentDefCheck(argsDef) {
-        argc(argsDef, is.array, (arr) => arr.length > 0);
-        for (const [obj, properties] of argsDef) {
-            argc(obj, is.string);
-            argc(properties, is.array);
-            for (const property of properties) {
-                const { desc, name, required, value } = property;
-                argc(desc, is.string);
-                argc(name, is.string);
-                argc(required, is.boolean);
-                argc(value, is.string);
-            }
-        }
     }
 }
 

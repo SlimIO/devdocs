@@ -10,7 +10,7 @@
             [[ for ( const [i, [arg, type, opt] ] of z.params.entries()) { ]]
                 <span class="arg-name [[=opt ? 'opt' : '']]">[[=arg]][[ if (opt){ ]]<span class="opt-chip" title="Optional argument">?</span>[[ } ]]</span>
                 <span class="type">[[=type]]</span>
-                [[if(i < z.params.length-1) { ]]<span class="comma">,</span>[[ } ]]
+                [[ if (i < z.params.length-1) { ]]<span class="comma">,</span>[[ } ]]
             [[ } ]]
             <span class="close-p">)</span>
         </p>
@@ -21,7 +21,9 @@
             <span>[[=z.typeReturn]]</span>
         </div>
     [[ } ]]
-    <span class="version">version : [[=z.version]]</span>
+    [[ if (typeof z.version !== "undefined") { ]]
+        <span class="version">version : [[=z.version]]</span>
+    [[ } ]]
 </div>
 [[ if (z.content) { ]]
     <div class="content close">
@@ -81,8 +83,6 @@
                 </ul>
             </div>
         [[ }]]
-        [[if (z.content.author) { ]]
-            <p class="author">Author : [[=z.content.author]]</p>
-        [[ } ]]
+        <p class="author">Author : [[=z.content.author ? z.content.author : "unknow"]]</p>
     </div>
 [[ } ]]

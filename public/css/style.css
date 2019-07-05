@@ -44,6 +44,7 @@ main {
         color: #0D47A1;
         font-weight: 400;
         text-shadow: 1px 1px 3px rgba(204, 117, 255, 0.3);
+        letter-spacing: 1px;
     }
         main > h3 > span{
             margin-left: -5px;
@@ -104,6 +105,7 @@ main {
             main > div.title > div.left > span.name {
                 font-weight: 500;
                 white-space: nowrap;
+                letter-spacing: 0.6px;
             }
                 main > div.title > div.left > span.name > em {
                     color: #9a9a9a;
