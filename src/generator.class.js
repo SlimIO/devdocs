@@ -1,3 +1,5 @@
+"use strict";
+
 /* eslint-disable require-jsdoc */
 // Require Node.js Dependencies
 const { readFileSync } = require("fs");
@@ -30,7 +32,7 @@ class Generator {
     /**
      * @version 0.1.0
      *
-     * @constructor
+     * @class
      * @param {LinkedBlock} docs boject result from groupData() method
      *
      * @throws {Error}
@@ -52,8 +54,8 @@ class Generator {
      * @version 0.1.0
      *
      * @public
-     * @method read
-     * @desc
+     * @function read
+     * @description
      * @memberof Generator#
      *
      * @returns {void}

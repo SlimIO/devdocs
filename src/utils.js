@@ -1,7 +1,8 @@
+"use strict";
 
 /**
  * @namespace utils
- * @desc utils methods
+ * @description utils methods
  */
 
 // Require Node.js Dependencies
@@ -10,7 +11,11 @@ const { readdirSync, lstatSync } = require("fs");
 
 // Require Third-party Dependencies
 const semver = require("semver");
-
+/**
+ * @function
+ * @generator
+ * @param {!string} rootPath path to the root
+ */
 function* getRecursifJsFile(rootPath) {
     const allFiles = readdirSync(rootPath);
     let jsFiles = allFiles.filter((file) => extname(file) === ".js");
@@ -30,9 +35,9 @@ function* getRecursifJsFile(rootPath) {
 /**
  * @function isSemver
  * @memberof utils#
- * @desc Check if the version complies with the semver standards
- * @param {!String} version version
- * @returns {String|null}
+ * @description Check if the version complies with the semver standards
+ * @param {!string} version version
+ * @returns {string|null}
  *
  * @example
  * isSemver("1.0.5"); // "1.0.5"

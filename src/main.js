@@ -1,3 +1,5 @@
+"use strict";
+
 const metohd = gen.genHtmlMethod("blabla", {
     isStatic: false,
     params: [

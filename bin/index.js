@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+"use strict";
 
 // Require Node.js Dependencies
 const { mkdirSync, writeFileSync } = require("fs");
@@ -26,7 +27,7 @@ const arg = parseArg([
 
 /**
  * @async
- * @func main
+ * @function main
  * @returns {Promise<void>}
  */
 async function main() {
