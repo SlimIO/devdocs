@@ -7,6 +7,10 @@
     },
     "source": {
         "include": [
+            "public/js/home.js",
+            "src/main.js",
+            "src/utils.js",
+            "src/test.js",
             "bin/index.js",
             "src/generator.class.js"
         ],
