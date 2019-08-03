@@ -19,6 +19,11 @@
         "SlimIO",
         "documentation"
     ],
+    "files": [
+        "bin/index.js",
+        "src/*.js",
+        "public"
+    ],
     "author": "SlimIO",
     "license": "MIT",
     "bugs": {
