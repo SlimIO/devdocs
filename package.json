@@ -38,6 +38,8 @@
         "@slimio/jsdoc": "^0.4.0",
         "@slimio/manifest": "^0.7.1",
         "kleur": "^3.0.3",
+        "make-promises-safe": "^5.0.0",
+        "open": "^6.4.0",
         "polka": "^0.5.2",
         "semver": "^6.3.0",
         "sirv": "^0.4.2",

@@ -1,19 +1,22 @@
 #!/usr/bin/env node
 "use strict";
 
+require("make-promises-safe");
+
 // Require Node.js Dependencies
 const { mkdirSync, writeFileSync } = require("fs");
-const { join, basename } = require("path");
+const { join, relative } = require("path");
+
+// Require Third-party Dependencies
+const Manifest = require("@slimio/manifest");
+const { parseFile, groupData } = require("@slimio/jsdoc");
+const { argDefinition, parseArg } = require("@slimio/arg-parser");
+const { white, gray, cyan, yellow } = require("kleur");
+const open = require("open");
 
 // Require Internal Dependencies
 const Generator = require("../src/generator.class");
-const { getRecursifJsFile } = require("../src/utils");
-
-// Require Third-party Dependencies
-const { parseFile, groupData } = require("@slimio/jsdoc");
-const { argDefinition, parseArg } = require("@slimio/arg-parser");
-const Manifest = require("@slimio/manifest");
-const kleur = require("kleur");
+const { getFilesRecursive } = require("../src/utils");
 
 // if the current working directory is equal to __dirname, then exit!
 const cwd = process.cwd();
@@ -27,41 +30,56 @@ const arg = parseArg([
 
 /**
  * @async
+ * @function parseJSDocOf
+ * @param {!string} filePath path to the file we have to parse
+ * @returns {Promise<object>}
+ */
+async function parseJSDocOf(filePath) {
+    const fileBlocks = [];
+
+    for await (const block of parseFile(filePath)) {
+        fileBlocks.push(block);
+    }
+
+    return { path: filePath, docs: groupData(fileBlocks) };
+}
+
+/**
+ * @async
  * @function main
  * @returns {Promise<void>}
  */
 async function main() {
-    // Open local Manifest file
+    console.log(gray().bold(`\n > Generating documentation for/at: '${cyan().bold(cwd)}'\n`));
+    const allFilesPromises = [];
     const config = Manifest.open();
 
-    console.log(" > Retrieving all Javascript files");
-    const jsFiles = [];
-    let defaultFile = "";
-    // Get all javascript files
-    const gen = getRecursifJsFile(cwd);
-    for (const jsFile of gen) {
-        jsFiles.push(...jsFile);
-        const isDefault = jsFile.find((file) => basename(file) === "index.js");
-        if (isDefault && defaultFile === "") {
-            defaultFile = isDefault;
+    // Retrieve the files we want to process for the documentation
+    {
+        const include = new Set(config.doc.include.map((name) => relative(cwd, name)));
+        for await (const [, filePath] of getFilesRecursive(cwd)) {
+            if (include.size !== 0 && !include.has(relative(cwd, filePath))) {
+                continue;
+            }
+
+            allFilesPromises.push(parseJSDocOf(filePath));
         }
     }
-    // There is no Javascript files to handle (so no documentation available).
-    if (jsFiles.length === 0) {
-        console.log(" > No Javascript files to handle");
+
+    // There is no Javascript files, then exit...
+    if (allFilesPromises.length === 0) {
+        console.log(yellow().bold("No javascript files detected, exiting because we have nothing to document here!\n"));
         process.exit(0);
     }
 
-    // Parse ALL JSDoc
-    const fileBlocks = [];
-    for await (const block of parseFile(defaultFile)) {
-        fileBlocks.push(block);
-    }
-    const docs = groupData(fileBlocks);
+    const documentedFiles = await Promise.all(allFilesPromises);
 
-    // Get view and generate final HTML Template
-    const generator = new Generator(docs);
-    const HTMLTemplate = generator.genHTML(docs);
+    let HTMLTemplate = "";
+    for (const { docs } of documentedFiles) {
+        HTMLTemplate = new Generator(docs).genHTML();
+
+        break;
+    }
 
     // if --http argument is requested
     // Create and serv the documentation with an HTTP Server.
@@ -78,8 +96,10 @@ async function main() {
             .use(sirv(join(__dirname, "..", "public")))
             .get("/", (req, res) => {
                 send(res, 200, HTMLTemplate, { "Content-Type": "text/html" });
-            }).listen(port, () => {
-                console.log(`HTTP Server now listening: ${kleur.yellow(`http://localhost:${port}`)}`);
+            }).listen(port, async() => {
+                const httpURL = `http://localhost:${port}`;
+                console.log(white().bold(`Documentation online at ${yellow(httpURL)}`));
+                await open(httpURL);
             });
     }
 
@@ -95,7 +115,7 @@ async function main() {
         }
 
         writeFileSync(join(lDir, "index.html"), HTMLTemplate);
-        console.log(`Documentation writed at: ${kleur.yellow(lDir)}`);
+        console.log(white().bold(`Documentation writed on disk at ${yellow(lDir)}`));
     }
 }
 main().catch(console.error);

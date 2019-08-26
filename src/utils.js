@@ -6,29 +6,40 @@
  */
 
 // Require Node.js Dependencies
+const { readdir } = require("fs").promises;
 const { join, extname } = require("path");
-const { readdirSync, lstatSync } = require("fs");
 
 // Require Third-party Dependencies
 const semver = require("semver");
+
+// CONSTANTS
+const EXCLUDE_DIRS = new Set(["node_modules", ".vscode", ".git", "test", "coverage", ".nyc_output"]);
+
 /**
- * @function
+ * @async
  * @generator
- * @param {!string} rootPath path to the root
+ * @function getFilesRecursive
+ * @memberof Utils#
+ * @param {!string} dir root directory
+ * @returns {AsyncIterableIterator<string>}
  */
-function* getRecursifJsFile(rootPath) {
-    const allFiles = readdirSync(rootPath);
-    let jsFiles = allFiles.filter((file) => extname(file) === ".js");
-    jsFiles = jsFiles.map((fileName) => join(rootPath, fileName));
-    for (const file of allFiles) {
-        const filePath = join(rootPath, file);
-        const stat = lstatSync(filePath);
-        if (stat.isDirectory() && file !== "node_modules") {
-            yield* getRecursifJsFile(filePath);
+async function* getFilesRecursive(dir) {
+    const dirents = await readdir(dir, { withFileTypes: true });
+
+    for (const dirent of dirents) {
+        if (EXCLUDE_DIRS.has(dirent.name)) {
+            continue;
         }
-    }
-    if (jsFiles.length !== 0) {
-        yield jsFiles;
+
+        if (dirent.isFile()) {
+            if (extname(dirent.name) !== ".js" || dirent.name === "commitlint.config.js") {
+                continue;
+            }
+            yield [dirent.name, join(dir, dirent.name)];
+        }
+        else if (dirent.isDirectory()) {
+            yield* getFilesRecursive(join(dir, dirent.name));
+        }
     }
 }
 
@@ -51,4 +62,4 @@ function isSemver(version) {
     return semver.valid(result.version);
 }
 
-module.exports = { getRecursifJsFile, isSemver };
+module.exports = { getFilesRecursive, isSemver };

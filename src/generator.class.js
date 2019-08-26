@@ -9,7 +9,6 @@ const { join } = require("path");
 const { isSemver } = require("../src/utils");
 
 // Require Third-party Dependencies
-const semver = require("semver");
 const zup = require("zup");
 const is = require("@slimio/is");
 const argc = require("@slimio/arg-checker");
@@ -43,6 +42,7 @@ class Generator {
         if (!hasMembers || !hasOrphans) {
             throw new Error("the 'members' or 'orphans' properties of the 'docs' argument are missing");
         }
+
         const { orphans, members } = docs;
         this.members = members;
         this.orphans = orphans;
@@ -100,8 +100,9 @@ class Generator {
     genConstructor(className) {
         argc(className, is.string);
         argc(this.members[className], !is.nullOrUndefined);
+
         const name = "Constructor";
-        const construct = this.members[className].find((elem) => Object.prototype.hasOwnProperty.call(elem, "constructor"));
+        const construct = this.members[className].find((elem) => Reflect.has(elem, "constructor") || Reflect.has(elem, "class"));
         const content = {};
         const defaultVals = [];
         const params = [];
@@ -349,10 +350,15 @@ class Generator {
     }
 
     buildPropDefinition(className) {
-        if (className === undefined) {
+        if (is.nullOrUndefined(className)) {
             return [];
         }
+
         const memberClass = this.members[className].find((elem) => Reflect.has(elem, "class"));
+        if (!Reflect.has(memberClass, "property")) {
+            return [];
+        }
+
         const properties = memberClass.property;
         for (const [index, prop] of properties.entries()) {
             prop.value = /\|/g.test(prop.value) ? prop.value.replace("|", " | ") : prop.value;
