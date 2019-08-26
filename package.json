@@ -48,7 +48,7 @@
         "@commitlint/config-conventional": "^8.1.0",
         "@slimio/eslint-config": "^3.0.3",
         "@types/node": "^12.6.8",
-        "ava": "^2.2.0",
+        "ava": "^2.3.0",
         "eslint": "^6.1.0",
         "husky": "^3.0.2",
         "minami": "^1.2.3"
