@@ -36,7 +36,7 @@
         "@slimio/arg-parser": "^0.3.2",
         "@slimio/is": "^1.5.1",
         "@slimio/jsdoc": "^0.4.0",
-        "@slimio/manifest": "^0.7.0",
+        "@slimio/manifest": "^0.7.1",
         "kleur": "^3.0.3",
         "polka": "^0.5.2",
         "semver": "^6.3.0",
