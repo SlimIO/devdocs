@@ -1,386 +1,381 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="../public/css/fontello-embedded.css">
-    <link rel="stylesheet" href="../public/css/reset.css">
-    <link rel="stylesheet" href="../public/css/style.css">
-    <link href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
-    <script src="../public/js/home.js"></script>
-    <title>Prototype</title>
-</head>
-<body>
-    <header>
-        <div class="center">
-            <span class="icon-cubes"></span>
-            <h1 class="namespace">Namespace</h1>
-            <h2 class="className">ClassName</h2>
-        </div>
-    </header>
-    <main>
-        <h3 class="method"><span class="icon-cube-9"></span>Method</h3>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<link rel="stylesheet" href="../public/css/fontello-embedded.css">
+<link rel="stylesheet" href="../public/css/reset.css">
+<link rel="stylesheet" href="../public/css/style.css">
+<link href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+<script src="../public/js/home.js"></script>
+<title>Prototype</title>
 
-        <div class="title active">
-            <div class="left">
-                <span class="icon-right-dir"></span>
-                <span class="static" title="Stactic method">S</span>
-                <span class="name" >nomMethod</span>
-                <p class="args">
-                    <span class="open-p">(</span>
-                    <span class="arg-name" title="Default value">nameArgument</span>
-                    <span class="type">type</span>
-                    <span class="close-p">)</span>
-                </p>
-            </div>
-            <div class="middle">
-                <span class="icon-return" title="returned type"></span>
-                <span>TypeReturned</span>
-            </div>
-            <span class="version">version : 1.2.0</span>
+<header>
+    <div class="center">
+        <span class="icon-cubes"></span>
+        <h1 class="namespace">Namespace</h1>
+        <h2 class="className">ClassName</h2>
+    </div>
+</header>
+
+<main>
+    <h3 class="method"><span class="icon-cube-9"></span>Method</h3>
+
+    <div class="title active">
+        <div class="left">
+            <span class="icon-right-dir"></span>
+            <span class="static" title="Stactic method">S</span>
+            <span class="name" >nomMethod</span>
+            <p class="args">
+                <span class="open-p">(</span>
+                <span class="arg-name" title="Default value">nameArgument</span>
+                <span class="type">type</span>
+                <span class="close-p">)</span>
+            </p>
         </div>
-        <div class="content close">
-            <p class="desc">Description of the method here</p>
-            <div class="default-arg-container">
-                <div class="item">
-                    <span class="name">nameArgument</span>
-                    <span class="string">"default val"</span>
-                </div>
-                <div class="item">
-                    <span class="name">nbTime</span>
-                    <span class="number">500</span>
-                </div>
-                <div class="item">
-                        <span class="name">isRefresh</span>
-                        <span class="boolean">true</span>
-                </div>
-                <div class="item">
-                        <span class="name">plainObject</span>
-                        <span class="obj">Object</span>
-                </div>
-            </div>
-            <p class="arg-definition">Object arg description <em>[[argName.obj]]</em> :</p>
-            <table class="arg-desc">
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Type</th>
-                        <th>default Value</th>
-                        <th>description</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                    <td>createOnNoEntry</td>
-                    <td>boolean</td>
-                    <td>false</td>
-                    <td>Create the file with default payload value if he doesn't exist on the local disk</td>
-                    </tr>
-                    <tr>
-                    <td>writeOnSet</td>
-                    <td>boolean</td>
-                    <td>false</td>
-                    <td>Write the file on the disk after each time .set() is called</td>
-                    </tr>
-                    <tr>
-                    <td>autoReload</td>
-                    <td>boolean</td>
-                    <td>false</td>
-                    <td>Setup hot reload of the configuration file</td>
-                    </tr>
-                    <tr>
-                    <td>reloadDelay</td>
-                    <td>number</td>
-                    <td>500</td>
-                    <td>The delay to wait before hot reloading the configuration, it's a security to avoid event spamming</td>
-                    </tr>
-                    <tr>
-                    <td>defaultSchema</td>
-                    <td>plainObject</td>
-                    <td>null</td>
-                    <td>The default JSON Schema for the configuration</td>
-                    </tr>
-                </tbody>
-            </table>
-            <p class="example">Example :</p>
-            <hr>
-            <pre class="prettyprint lang-js">const ex = new Example("./path/to/file.json", {<br>createOnNoEntry: true,<br>autoReload: true<br>});</pre>
-            <div class="throw">
-                <p>Throw :</p>
-                <ul>
-                    <li>Error</li>
-                    <li>TypeError</li>
-                </ul>
-            </div>
-            <p class="author">Author : Mark</p>
+        <div class="middle">
+            <span class="icon-return" title="returned type"></span>
+            <span>TypeReturned</span>
         </div>
-        <div class="title">
-            <div class="left">
-                <span class="icon-right-dir"></span>
-                <span class="name">constructor &lt;<em> T </em>&gt;</span>
-                <p class="args">
-                    <span class="open-p">(</span>
-                    <span class="arg-name">configFilePath</span>
-                    <span class="type">string</span>
-                    , 
-                    <span class="arg-name opt">options<span class="opt-chip" title="Optional">?</span></span>
-                    <span class="type">Config.Options</span>
-                    <span class="close-p">)</span>
-                </p>
+        <span class="version">version : 1.2.0</span>
+    </div>
+    <div class="content close">
+        <p class="desc">Description of the method here</p>
+        <div class="default-arg-container">
+            <div class="item">
+                <span class="name">nameArgument</span>
+                <span class="string">"default val"</span>
             </div>
-            <span class="version">version : 1.3.0</span>
+            <div class="item">
+                <span class="name">nbTime</span>
+                <span class="number">500</span>
+            </div>
+            <div class="item">
+                    <span class="name">isRefresh</span>
+                    <span class="boolean">true</span>
+            </div>
+            <div class="item">
+                    <span class="name">plainObject</span>
+                    <span class="obj">Object</span>
+            </div>
         </div>
-        <div class="content close">
-            <p class="desc">Description of the method here</p>
-            <p class="example">Example :</p>
-            <hr>
-            <pre class="prettyprint lang-js">const ex = new Example("./path/to/file.json", {<br>&#9;createOnNoEntry: true,<br>&#9;autoReload: true<br>});</pre>
-            <div class="throw">
-                <p>Throw :</p>
-                <ul>
-                    <li>Error</li>
-                    <li>TypeError</li>
-                </ul>
-            </div>
-            <p class="author">Author : Alex</p>
+        <p class="arg-definition">Object arg description <em>[[argName.obj]]</em> :</p>
+        <table class="arg-desc">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Type</th>
+                    <th>default Value</th>
+                    <th>description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                <td>createOnNoEntry</td>
+                <td>boolean</td>
+                <td>false</td>
+                <td>Create the file with default payload value if he doesn't exist on the local disk</td>
+                </tr>
+                <tr>
+                <td>writeOnSet</td>
+                <td>boolean</td>
+                <td>false</td>
+                <td>Write the file on the disk after each time .set() is called</td>
+                </tr>
+                <tr>
+                <td>autoReload</td>
+                <td>boolean</td>
+                <td>false</td>
+                <td>Setup hot reload of the configuration file</td>
+                </tr>
+                <tr>
+                <td>reloadDelay</td>
+                <td>number</td>
+                <td>500</td>
+                <td>The delay to wait before hot reloading the configuration, it's a security to avoid event spamming</td>
+                </tr>
+                <tr>
+                <td>defaultSchema</td>
+                <td>plainObject</td>
+                <td>null</td>
+                <td>The default JSON Schema for the configuration</td>
+                </tr>
+            </tbody>
+        </table>
+        <p class="example">Example :</p>
+        <hr>
+        <pre class="prettyprint lang-js">const ex = new Example("./path/to/file.json", {<br>createOnNoEntry: true,<br>autoReload: true<br>});</pre>
+        <div class="throw">
+            <p>Throw :</p>
+            <ul>
+                <li>Error</li>
+                <li>TypeError</li>
+            </ul>
+        </div>
+        <p class="author">Author : Mark</p>
+    </div>
+    <div class="title">
+        <div class="left">
+            <span class="icon-right-dir"></span>
+            <span class="name">constructor &lt;<em> T </em>&gt;</span>
+            <p class="args">
+                <span class="open-p">(</span>
+                <span class="arg-name">configFilePath</span>
+                <span class="type">string</span>
+                ,
+                <span class="arg-name opt">options<span class="opt-chip" title="Optional">?</span></span>
+                <span class="type">Config.Options</span>
+                <span class="close-p">)</span>
+            </p>
+        </div>
+        <span class="version">version : 1.3.0</span>
+    </div>
+    <div class="content close">
+        <p class="desc">Description of the method here</p>
+        <p class="example">Example :</p>
+        <hr>
+        <pre class="prettyprint lang-js">const ex = new Example("./path/to/file.json", {<br>&#9;createOnNoEntry: true,<br>&#9;autoReload: true<br>});</pre>
+        <div class="throw">
+            <p>Throw :</p>
+            <ul>
+                <li>Error</li>
+                <li>TypeError</li>
+            </ul>
+        </div>
+        <p class="author">Author : Alex</p>
+    </div>
+
+    <div class="title">
+        <div class="left">
+            <span class="icon-right-dir"></span>
+            <span class="static" title="Stactic method">S</span>
+            <span class="name">create</span>
+            <p class="args">
+                <span class="open-p">(</span>
+                <span class="arg-name">payload</span>
+                <span class="type">Manifest.Payload</span>
+                ,
+                <span class="arg-name opt">filePath<span class="opt-chip" title="Optional">?</span></span>
+                <span class="type">string</span>
+                <span class="close-p">)</span>
+            </p>
+        </div>
+        <div class="middle">
+            <span class="icon-return" title="returned type"></span>
+            <span>Manifest</span>
+        </div>
+        <span class="version">version : 1.3.0</span>
+    </div>
+    <div class="content close">
+        <p class="desc">Description of the method here</p>
+        <p class="example">Example :</p>
+        <hr>
+        <pre class="prettyprint lang-js">const ex = new Example("./path/to/file.json", {<br>&#9;createOnNoEntry: true,<br>&#9;autoReload: true<br>});</pre>
+        <div class="throw">
+            <p>Throw :</p>
+            <ul>
+                <li>Error</li>
+                <li>TypeError</li>
+            </ul>
+        </div>
+        <p class="author">Author : frax</p>
+    </div>
+
+    <div class="title active">
+        <div class="left">
+            <span class="icon-right-dir"></span>
+
+            <span class="name">blabla</span>
+            <p class="args">
+                <span class="open-p">(</span>
+
+                <span class="close-p">)</span>
+            </p>
         </div>
 
-        <div class="title">
-            <div class="left">
-                <span class="icon-right-dir"></span>
-                <span class="static" title="Stactic method">S</span>
-                <span class="name">create</span>
-                <p class="args">
-                    <span class="open-p">(</span>
-                    <span class="arg-name">payload</span>
-                    <span class="type">Manifest.Payload</span>
-                    ,
-                    <span class="arg-name opt">filePath<span class="opt-chip" title="Optional">?</span></span>
-                    <span class="type">string</span>
-                    <span class="close-p">)</span>
-                </p>
-            </div>
             <div class="middle">
                 <span class="icon-return" title="returned type"></span>
                 <span>Manifest</span>
             </div>
-            <span class="version">version : 1.3.0</span>
-        </div>
-        <div class="content close">
-            <p class="desc">Description of the method here</p>
+
+        <span class="version">version : 0.1.0</span>
+    </div>
+    <div class="content close">
+
+            <p class="desc">desc of the method</p>
+
+
+            <div class="default-arg-container">
+
+                    <div class="item">
+                        <span class="name">nameArg</span>
+                        <span class="string">
+                            &#34;default value&#34;
+                        </span>
+                    </div>
+
+                    <div class="item">
+                        <span class="name">isSecure</span>
+                        <span class="boolean">
+                            true
+                        </span>
+                    </div>
+
+                    <div class="item">
+                        <span class="name">nbTime</span>
+                        <span class="number">
+                            50
+                        </span>
+                    </div>
+
+                    <div class="item">
+                        <span class="name">name3</span>
+                        <span class="obj">
+                            Payload
+                        </span>
+                    </div>
+
+                    <div class="item">
+                        <span class="name">name5</span>
+                        <span class="obj">
+                            25,50
+                        </span>
+                    </div>
+
+                    <div class="item">
+                        <span class="name">name5</span>
+                        <span class="obj">
+                            {"name":"test"}
+                        </span>
+                    </div>
+
+            </div>
+
+
+
+                <p class="arg-definition">Object arg description <em>object1</em> :</p>
+                <table class="arg-desc">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Type</th>
+                            <th>default Value</th>
+                            <th>description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                            <tr>
+                                <td>Prop1</td>
+                                <td>String</td>
+                                <td>default</td>
+                                <td>description</td>
+                            </tr>
+
+                            <tr>
+                                <td>Prop2</td>
+                                <td>Boolean</td>
+                                <td>true</td>
+                                <td>description</td>
+                            </tr>
+
+                            <tr>
+                                <td>Prop3</td>
+                                <td>Number</td>
+                                <td>52</td>
+                                <td>description</td>
+                            </tr>
+
+                    </tbody>
+                </table>
+
+                <p class="arg-definition">Object arg description <em>object2</em> :</p>
+                <table class="arg-desc">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Type</th>
+                            <th>default Value</th>
+                            <th>description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                            <tr>
+                                <td>Prop2</td>
+                                <td>String</td>
+                                <td>default</td>
+                                <td>description</td>
+                            </tr>
+
+                    </tbody>
+                </table>
+
+
+
             <p class="example">Example :</p>
             <hr>
-            <pre class="prettyprint lang-js">const ex = new Example("./path/to/file.json", {<br>&#9;createOnNoEntry: true,<br>&#9;autoReload: true<br>});</pre>
+            <pre class="prettyprint lang-js">const foo = true</pre>
+
+
             <div class="throw">
                 <p>Throw :</p>
                 <ul>
-                    <li>Error</li>
-                    <li>TypeError</li>
+
+                        <li>Error</li>
+
+                        <li>TypeError</li>
+
+                        <li>Other</li>
+
                 </ul>
             </div>
-            <p class="author">Author : frax</p>
-        </div>
 
-        <div class="title active">
-            <div class="left">
-                <span class="icon-right-dir"></span>
-        
-                <span class="name">blabla</span>
-                <p class="args">
-                    <span class="open-p">(</span>
-        
-                    <span class="close-p">)</span>
-                </p>
-            </div>
-        
-                <div class="middle">
-                    <span class="icon-return" title="returned type"></span>
-                    <span>Manifest</span>
-                </div>
-        
-            <span class="version">version : 0.1.0</span>
-        </div>
-        <div class="content close">
-    
-                <p class="desc">desc of the method</p>
-    
-    
-                <div class="default-arg-container">
-    
-                        <div class="item">
-                            <span class="name">nameArg</span>
-                            <span class="string">
-                                &#34;default value&#34;
-                            </span>
-                        </div>
-    
-                        <div class="item">
-                            <span class="name">isSecure</span>
-                            <span class="boolean">
-                                true
-                            </span>
-                        </div>
-    
-                        <div class="item">
-                            <span class="name">nbTime</span>
-                            <span class="number">
-                                50
-                            </span>
-                        </div>
-    
-                        <div class="item">
-                            <span class="name">name3</span>
-                            <span class="obj">
-                                Payload
-                            </span>
-                        </div>
-    
-                        <div class="item">
-                            <span class="name">name5</span>
-                            <span class="obj">
-                                25,50
-                            </span>
-                        </div>
-    
-                        <div class="item">
-                            <span class="name">name5</span>
-                            <span class="obj">
-                                {"name":"test"}
-                            </span>
-                        </div>
-    
-                </div>
-    
-    
-    
-                    <p class="arg-definition">Object arg description <em>object1</em> :</p>
-                    <table class="arg-desc">
-                        <thead>
-                            <tr>
-                                <th>Name</th>
-                                <th>Type</th>
-                                <th>default Value</th>
-                                <th>description</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-    
-                                <tr>
-                                    <td>Prop1</td>
-                                    <td>String</td>
-                                    <td>default</td>
-                                    <td>description</td>
-                                </tr>
-    
-                                <tr>
-                                    <td>Prop2</td>
-                                    <td>Boolean</td>
-                                    <td>true</td>
-                                    <td>description</td>
-                                </tr>
-    
-                                <tr>
-                                    <td>Prop3</td>
-                                    <td>Number</td>
-                                    <td>52</td>
-                                    <td>description</td>
-                                </tr>
-    
-                        </tbody>
-                    </table>
-    
-                    <p class="arg-definition">Object arg description <em>object2</em> :</p>
-                    <table class="arg-desc">
-                        <thead>
-                            <tr>
-                                <th>Name</th>
-                                <th>Type</th>
-                                <th>default Value</th>
-                                <th>description</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-    
-                                <tr>
-                                    <td>Prop2</td>
-                                    <td>String</td>
-                                    <td>default</td>
-                                    <td>description</td>
-                                </tr>
-    
-                        </tbody>
-                    </table>
-    
-    
-    
-                <p class="example">Example :</p>
-                <hr>
-                <pre class="prettyprint lang-js">const foo = true</pre>
-    
-    
-                <div class="throw">
-                    <p>Throw :</p>
-                    <ul>
-    
-                            <li>Error</li>
-    
-                            <li>TypeError</li>
-    
-                            <li>Other</li>
-    
-                    </ul>
-                </div>
-    
-        </div>
+    </div>
 
 
-        <h3 class="property"><span class="icon-cube-10"></span>Property</h3>
+    <h3 class="property"><span class="icon-cube-10"></span>Property</h3>
 
-        <div class="title">
-            <div class="left">
-                <span class="icon-right-dir"></span>
-                <span class="required">!</span>
-                <span class="name">PROPERTY_NAME</span>
-                <span class="type">String</span>
-            </div>
-            <div class="middle">
+    <div class="title">
+        <div class="left">
+            <span class="icon-right-dir"></span>
+            <span class="required">!</span>
+            <span class="name">PROPERTY_NAME</span>
+            <span class="type">String</span>
+        </div>
+        <div class="middle">
 
-            </div>
-            <span class="version">version : 8.0.54.76</span>
         </div>
-        <div class="content close">
+        <span class="version">version : 8.0.54.76</span>
+    </div>
+    <div class="content close">
 
-            <p class="desc">The STRINGIFY_SPACE property allow you to redine the espace used internaly for JSON.stringify method. The default value is 4.</p>
-        </div>
+        <p class="desc">The STRINGIFY_SPACE property allow you to redine the espace used internaly for JSON.stringify method. The default value is 4.</p>
+    </div>
 
-        <div class="title">
-            <div class="left">
-                <span class="icon-right-dir"></span>
-                <span class="name">STRINGIFY_SPACE</span>
-            </div>
-            <span class="version">version : 10.0.4587.578</span>
+    <div class="title">
+        <div class="left">
+            <span class="icon-right-dir"></span>
+            <span class="name">STRINGIFY_SPACE</span>
         </div>
-        <div class="content close">
-            <p class="desc">The STRINGIFY_SPACE property allow you to redine the espace used internaly for JSON.stringify method. The default value is 4.</p>
-        </div>
+        <span class="version">version : 10.0.4587.578</span>
+    </div>
+    <div class="content close">
+        <p class="desc">The STRINGIFY_SPACE property allow you to redine the espace used internaly for JSON.stringify method. The default value is 4.</p>
+    </div>
 
-        <div class="title">
-            <div class="left">
-                <span class="icon-right-dir"></span>
-                <span class="required">!</span>
-                <span class="name">propertie1</span>
-                <span class="type">String</span>
-            </div>
-            <div class="middle">
-        
-            </div>
-            <span class="version">version : 0.2.0</span>
+    <div class="title">
+        <div class="left">
+            <span class="icon-right-dir"></span>
+            <span class="required">!</span>
+            <span class="name">propertie1</span>
+            <span class="type">String</span>
         </div>
-        <div class="content close">
-            <p class="desc">Description of the property</p>
+        <div class="middle">
+
         </div>
-    </main>
-</body>
-</html>
+        <span class="version">version : 0.2.0</span>
+    </div>
+    <div class="content close">
+        <p class="desc">Description of the property</p>
+    </div>
+</main>

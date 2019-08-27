@@ -1,24 +1,18 @@
+/* eslint-disable jsdoc/require-jsdoc */
+/* eslint-disable no-invalid-this */
 "use strict";
 
-document.addEventListener("DOMContentLoaded", () => {
-    const titles = document.querySelectorAll(".title");
+function sectionClick() {
+    const spanClass = this.querySelector(".icon-right-dir").classList;
+    const content = this.nextElementSibling.classList;
 
-    for (const title of titles) {
-        title.addEventListener("click", function test(event) {
-            const spanClass = this.querySelector(".icon-right-dir").classList;
-            const content = this.nextElementSibling.classList;
-            if (spanClass.contains("active")) {
-                spanClass.remove("active");
-                content.add("close");
-                content.remove("open");
-                this.classList.remove("active");
-            }
-            else {
-                spanClass.add("active");
-                content.remove("close");
-                content.add("open");
-                this.classList.add("active");
-            }
-        });
-    }
+    spanClass.toggle("active");
+    content.toggle("close");
+    content.toggle("open");
+    this.classList.toggle("active");
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+    document.querySelectorAll(".title")
+        .forEach((el) => el.addEventListener("click", sectionClick));
 });
