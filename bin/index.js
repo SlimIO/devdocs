@@ -24,15 +24,10 @@ if (cwd === __dirname) {
     process.exit(0);
 }
 
-const prog = sade("", true);
-prog
+sade("", true)
     .option("--http", "Serve documentation with an HTTP Server", false)
-    .action((options) => {
-        main({
-            http: Boolean(options.http)
-        });
-    });
-prog.parse(process.argv);
+    .action(main)
+    .parse(process.argv);
 
 /**
  * @async
@@ -53,10 +48,13 @@ async function parseJSDocOf(filePath) {
 /**
  * @async
  * @function main
+ * @param {object} [options] CLI options of documentation
+ * @param {boolean} [options.http] launch documentation as a http server
  * @returns {Promise<void>}
- * @param {object} options CLI options of documentation
  */
 async function main(options = Object.create(null)) {
+    const startHttpServer = Boolean(options.http);
+
     console.log(gray().bold(`\n > Generating documentation for/at: '${cyan().bold(cwd)}'\n`));
     const allFilesPromises = [];
     const config = Manifest.open();
@@ -91,7 +89,7 @@ async function main(options = Object.create(null)) {
     // if --http argument is requested
     // Create and serv the documentation with an HTTP Server.
     // Included files and http port can be configured in the SlimIO Manifest file (slimio.toml).
-    if (options.http) {
+    if (startHttpServer) {
         // Require HTTP Dependencies
         const polka = require("polka");
         const send = require("@polka/send-type");
@@ -125,4 +123,3 @@ async function main(options = Object.create(null)) {
         console.log(white().bold(`Documentation writed on disk at ${yellow(lDir)}`));
     }
 }
-main().catch(console.error);
