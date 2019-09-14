@@ -33,7 +33,6 @@
     "dependencies": {
         "@polka/send-type": "^0.5.2",
         "@slimio/arg-checker": "^0.1.1",
-        "@slimio/arg-parser": "^0.3.2",
         "@slimio/is": "^1.5.1",
         "@slimio/jsdoc": "^0.4.0",
         "@slimio/manifest": "^0.7.1",

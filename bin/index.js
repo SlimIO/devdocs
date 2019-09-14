@@ -10,7 +10,7 @@ const { join, relative } = require("path");
 // Require Third-party Dependencies
 const Manifest = require("@slimio/manifest");
 const { parseFile, groupData } = require("@slimio/jsdoc");
-const { argDefinition, parseArg } = require("@slimio/arg-parser");
+const sade = require("sade");
 const { white, gray, cyan, yellow } = require("kleur");
 const open = require("open");
 
@@ -24,9 +24,15 @@ if (cwd === __dirname) {
     process.exit(0);
 }
 
-const arg = parseArg([
-    argDefinition("-h --http", "Serve documentation with an HTTP Server")
-]);
+const prog = sade("", true);
+prog
+    .option("--http", "Serve documentation with an HTTP Server", false)
+    .action((options) => {
+        main({
+            http: Boolean(options.http)
+        });
+    });
+prog.parse(process.argv);
 
 /**
  * @async
@@ -48,8 +54,9 @@ async function parseJSDocOf(filePath) {
  * @async
  * @function main
  * @returns {Promise<void>}
+ * @param {object} options CLI options of documentation
  */
-async function main() {
+async function main(options = Object.create(null)) {
     console.log(gray().bold(`\n > Generating documentation for/at: '${cyan().bold(cwd)}'\n`));
     const allFilesPromises = [];
     const config = Manifest.open();
@@ -84,7 +91,7 @@ async function main() {
     // if --http argument is requested
     // Create and serv the documentation with an HTTP Server.
     // Included files and http port can be configured in the SlimIO Manifest file (slimio.toml).
-    if (arg.get("http")) {
+    if (options.http) {
         // Require HTTP Dependencies
         const polka = require("polka");
         const send = require("@polka/send-type");
