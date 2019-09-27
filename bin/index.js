@@ -56,28 +56,26 @@ async function main(options = Object.create(null)) {
     const startHttpServer = Boolean(options.http);
 
     console.log(gray().bold(`\n > Generating documentation for/at: '${cyan().bold(cwd)}'\n`));
-    const allFilesPromises = [];
+    const filesPaths = [];
     const config = Manifest.open();
+    const include = new Set(config.doc.include.map((name) => relative(cwd, name)));
 
     // Retrieve the files we want to process for the documentation
-    {
-        const include = new Set(config.doc.include.map((name) => relative(cwd, name)));
-        for await (const [, filePath] of getFilesRecursive(cwd)) {
-            if (include.size !== 0 && !include.has(relative(cwd, filePath))) {
-                continue;
-            }
-
-            allFilesPromises.push(parseJSDocOf(filePath));
+    for await (const [, filePath] of getFilesRecursive(cwd)) {
+        if (include.size !== 0 && !include.has(relative(cwd, filePath))) {
+            continue;
         }
+
+        filesPaths.push(filePath);
     }
 
     // There is no Javascript files, then exit...
-    if (allFilesPromises.length === 0) {
+    if (filesPaths.length === 0) {
         console.log(yellow().bold("No javascript files detected, exiting because we have nothing to document here!\n"));
         process.exit(0);
     }
 
-    const documentedFiles = await Promise.all(allFilesPromises);
+    const documentedFiles = await Promise.all(filesPaths.map(parseJSDocOf));
 
     let HTMLTemplate = "";
     for (const { docs } of documentedFiles) {
