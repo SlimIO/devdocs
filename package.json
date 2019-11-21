@@ -52,7 +52,7 @@
         "@slimio/psp": "^0.9.2",
         "@types/node": "^12.12.11",
         "ava": "^2.4.0",
-        "cross-env": "^5.2.0",
+        "cross-env": "^5.2.1",
         "eslint": "^6.2.2",
         "husky": "^3.0.2",
         "minami": "^1.2.3"
