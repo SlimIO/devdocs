@@ -1,3 +1,6 @@
 name = "documentation"
 version = "0.1.1"
 type = "CLI"
+
+[psp]
+exclude=["public"]
