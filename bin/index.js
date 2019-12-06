@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+/* eslint-disable global-require */
 "use strict";
 
 require("make-promises-safe");
