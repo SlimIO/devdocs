@@ -65,7 +65,9 @@ class Generator {
         const endFile = "</main></body></html>";
 
         let htmlPage = Generator.genHtmlHeader(null, this.classes[0]);
-        htmlPage += this.genConstructor(this.classes[0]);
+        if (typeof this.classes[0] !== "undefined") {
+            htmlPage += this.genConstructor(this.classes[0]);
+        }
         const optionsMethods = this.buildMethodOptions(this.classes[0]);
         if (optionsMethods.length === 0) {
             htmlPage += "<div class='empty'>There is no methodes for this class</div>";
