@@ -95,6 +95,11 @@ table th {
     background-color: #eee;
 }
 
+.title h2 {
+    display: flex;
+    justify-content: space-between;
+}
+
 .title .static {
     border-radius: 10px;
     border: 1px solid #eee;
@@ -107,6 +112,11 @@ table th {
 .title .name,
 .title .type {
     color: #337ab7;
+}
+
+.title .right {
+    display: inline-block;
+    text-align: right;
 }
 
 .prettyprint {
