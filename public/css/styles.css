@@ -1,0 +1,155 @@
+* {
+    font-family: "Roboto", sans-serif;
+}
+html {
+    height: 100%;
+}
+body {
+    height: 100%;
+    overflow: hidden;
+    margin: 0px;
+    display: flex;
+}
+hr {
+    border: 1px solid rgb(226, 226, 226);
+}
+.column {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid rgb(226, 226, 226);
+}
+#left {
+    flex-shrink: 0;
+    width: 25%;
+    background-color: white;
+}
+#right {
+    width: 75%;
+    background-color: #ffffff;
+}
+.top-left {
+    flex-shrink: 0;
+    border: 1px solid rgb(226, 226, 226);
+
+    padding: 20px;
+}
+.top-right {
+    display: inline-flex;
+    flex-shrink: 0;
+    border: 1px solid rgb(226, 226, 226);
+    padding: 20px;
+}
+.bottom {
+    flex-grow: 1;
+    overflow-y: auto;
+    padding: 20px;
+}
+
+.method,
+.property {
+    display: none;
+}
+.active {
+    display: block;
+}
+
+.method__link,
+.property__link {
+    display: block;
+    width: 100%;
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.method__link:hover,
+.property__link:hover {
+    background-color: rgb(226, 226, 226);
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+    border: 1px solid rgb(226, 226, 226);
+}
+
+table td,
+table th {
+    padding: 8px;
+}
+
+table tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+table tr:hover {
+    background-color: #eee;
+}
+
+table th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #eee;
+}
+
+.title .static {
+    border-radius: 10px;
+    border: 1px solid #eee;
+    padding: 0 10px;
+    background: rebeccapurple;
+    font-weight: 600;
+    color: white;
+    border: none;
+}
+.title .name,
+.title .type {
+    color: #337ab7;
+}
+
+.prettyprint {
+    padding: 20px !important;
+    border: none !important;
+    background: #eee;
+}
+
+.string {
+    color: green;
+}
+.number {
+    color: yellowgreen;
+}
+.boolean {
+    color: red;
+}
+.obj {
+    color: rebeccapurple;
+}
+
+.throw ul {
+    display: flex;
+}
+
+.arg,
+.throw ul {
+    display: flex;
+    list-style: none;
+    padding: 0px;
+}
+.arg .item,
+.throw ul li {
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+    padding: 5px;
+    margin-right: 20px;
+}
+
+.throw ul li {
+    color: red;
+}
+
+.author {
+    text-align: right;
+}

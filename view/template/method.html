@@ -1,52 +1,56 @@
-<div class="title active">
-    <div class="left">
-        <span class="icon-right-dir"></span>
-        [[ if(z.isStatic) { ]]
-            <span class="static" title="Stactic method">S</span>
-        [[ } ]]
-        <span class="name">[[=z.name]]</span>
-        <p class="args">
-            <span class="open-p">(</span>
-            [[ for ( const [i, [arg, type, opt] ] of z.params.entries()) { ]]
-                <span class="arg-name [[=opt ? 'opt' : '']]">[[=arg]][[ if (opt){ ]]<span class="opt-chip" title="Optional argument">?</span>[[ } ]]</span>
-                <span class="type">[[=type]]</span>
-                [[ if (i < z.params.length-1) { ]]<span class="comma">,</span>[[ } ]]
-            [[ } ]]
-            <span class="close-p">)</span>
-        </p>
-    </div>
-    [[ if (typeof z.typeReturn !== "undefined") { ]]
-        <div class="middle">
-            <span class="icon-return" title="returned type"></span>
-            <span>[[=z.typeReturn]]</span>
-        </div>
-    [[ } ]]
-    [[ if (typeof z.version !== "undefined") { ]]
-        <span class="version">version : [[=z.version]]</span>
-    [[ } ]]
-</div>
-[[ if (z.content) { ]]
-    <div class="content close">
-        [[ if (z.content.desc) { ]]
-            <p class="desc">[[=z.content.desc]]</p>
-        [[}]]
-        [[ if (Object.prototype.hasOwnProperty.call(z.content, "defaultVals")) { ]]
-            <p class="default-arg-title">Default arguments values :</p>
-            <div class="default-arg-container">
-                [[ for(const { name, type, value} of z.content.defaultVals) { ]]
-                    <div class="item">
+        <div class="method active">
+            <div class="title">
+                <h2>
+                    <span class="icon-right-dir"></span>
+                    [[ if(z.isStatic) { ]]
+                    <span class="static" title="Stactic method">S</span>
+                    [[ } ]]
+                    <span class="name">[[=z.name]]</span>
+                    <span class="open-p">(</span>
+                    [[ for ( const [i, [arg, type, opt] ] of z.params.entries())
+                    { ]]
+                    <span class="arg-name [[=opt ? 'opt' : '']]"
+                        >[[=arg]][[ if (opt){ ]]<span
+                            class="opt-chip"
+                            title="Optional argument"
+                            >?</span
+                        >[[ } ]]</span
+                    >
+                    <span class="type">[[=type]]</span>
+                    [[ if (i < z.params.length-1) { ]]<span class="comma"
+                        >,</span
+                    >[[ } ]] [[ } ]]
+                    <span class="close-p">)</span>
+                    [[ if (typeof z.typeReturn !== "undefined") { ]]
+                    <span class="icon-return" title="returned type"></span>
+                    <span>[[=z.typeReturn]]</span>
+                    [[ } ]] [[ if (typeof z.version !== "undefined") { ]]
+                    <span class="version">version : [[=z.version]]</span>
+                    [[ } ]]
+                </h2>
+            </div>
+            <div class="content">
+                [[ if (z.content.desc) { ]]
+                <h3 class="desc">[[=z.content.desc]]</h3>
+                [[}]] [[ if (Object.prototype.hasOwnProperty.call(z.content,
+                "defaultVals")) { ]]
+                <h3 class="default-arg-title">Default arguments values :</h3>
+                <ul>
+                    [[ for(const { name, type, value} of z.content.defaultVals)
+                    { ]]
+                    <li class="item">
                         <span class="name">[[=name]]</span>
                         <span class="[[=type]]">
-                            [[=type === "string" ? '"' : ""]][[-value]][[=type === "string" ? '"' : ""]]
+                            [[=type === "string" ? '"' : ""]][[-value]][[=type
+                            === "string" ? '"' : ""]]
                         </span>
                     </div>
-                [[ } ]]
-            </div>
-        [[ } ]]
-        [[ if (z.content.argsDef) {
-            for (const [objName, args] of z.content.argsDef) { ]]
-                <p class="arg-definition"><em>[[=objName]]</em> definition:</p>
-                <table class="arg-desc">
+                    [[ } ]]
+                </div>
+                [[ } ]] [[ if (z.content.argsDef) { for (const [objName, args]
+                of z.content.argsDef) { ]]
+                <h3 class="arg-definition"><em>[[=objName]]</em> definition:</h3>
+                <table>
                     <thead>
                         <tr>
                             <th>Name</th>
@@ -57,32 +61,32 @@
                     </thead>
                     <tbody>
                         [[ for (const arg of args) { ]]
-                            <tr>
-                                <td>[[=arg.name]]</td>
-                                <td>[[=arg.value]]</td>
-                                <td>[[=arg.default === null ? "" : arg.default]]</td>
-                                <td>[[=arg.desc]]</td>
-                            </tr>
+                        <tr>
+                            <td>[[=arg.name]]</td>
+                            <td>[[=arg.value]]</td>
+                            <td>
+                                [[=arg.default === null ? "" : arg.default]]
+                            </td>
+                            <td>[[=arg.desc]]</td>
+                        </tr>
                         [[ } ]]
                     </tbody>
                 </table>
-            [[ }
-        } ]]
-        [[ if (z.content.example) { ]]
-            <p class="example">Example :</p>
-            <hr>
-            <pre class="prettyprint lang-js">[[-z.content.example]]</pre>
-        [[}]]
-        [[ if (z.content.throws) { ]]
-            <div class="throw">
-                <p>Throw :</p>
-                <ul>
-                    [[ for (err of z.content.throws) {]]
+                [[ } } ]] [[ if (z.content.example) { ]]
+                <h3 class="example">Example :</h3>
+                <pre class="prettyprint lang-js">[[-z.content.example]]</pre>
+                [[}]] [[ if (z.content.throws) { ]]
+                <div class="throw">
+                    <p>Throw :</p>
+                    <ul>
+                        [[ for (err of z.content.throws) {]]
                         <li>[[=err]]</li>
-                    [[}]]
-                </ul>
+                        [[}]]
+                    </ul>
+                </div>
+                [[ }]]
+                <p class="author">
+                    Author : [[=z.content.author ? z.content.author : "unknow"]]
+                </p>
             </div>
-        [[ }]]
-        <p class="author">Author : [[=z.content.author ? z.content.author : "unknow"]]</p>
-    </div>
-[[ } ]]
+        </div>
