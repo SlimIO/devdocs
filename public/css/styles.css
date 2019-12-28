@@ -95,6 +95,10 @@ table th {
     background-color: #eee;
 }
 
+.title {
+    cursor: pointer;
+}
+
 .title h2 {
     display: flex;
     justify-content: space-between;
@@ -112,11 +116,6 @@ table th {
 .title .name,
 .title .type {
     color: #337ab7;
-}
-
-.title .right {
-    display: inline-block;
-    text-align: right;
 }
 
 .prettyprint {
@@ -162,4 +161,26 @@ table th {
 
 .author {
     text-align: right;
+}
+
+.slideup {
+    max-height: 0;
+    overflow-y: hidden;
+    -webkit-transition: max-height 0.2s ease-in-out;
+    -moz-transition: max-height 0.2s ease-in-out;
+    -o-transition: max-height 0.2s ease-in-out;
+    transition: max-height 0.2s ease-in-out;
+}
+
+.slidedown {
+    max-height: 0;
+    overflow-y: hidden;
+    -webkit-transition: max-height 0.4s ease-in-out;
+    -moz-transition: max-height 0.4s ease-in-out;
+    -o-transition: max-height 0.4s ease-in-out;
+    transition: max-height 0.4s ease-in-out;
+}
+
+.slidedown {
+    max-height: 2000px;
 }

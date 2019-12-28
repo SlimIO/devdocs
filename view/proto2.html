@@ -59,7 +59,7 @@
                             </div>
                         </h2>
                     </div>
-                    <div class="content">
+                    <div class="content slideup">
                         <h4 class="desc">Description of the method here</h4>
                         <ul class="arg">
                             <li class="item">
@@ -185,7 +185,7 @@
                             </div>
                         </h2>
                     </div>
-                    <div class="content">
+                    <div class="content slideup">
                         <h4 class="desc">Description of the method here</h4>
                         <h4 class="example">Example :</h4>
                         <pre
@@ -236,7 +236,7 @@
                             </div>
                         </h2>
                     </div>
-                    <div class="content">
+                    <div class="content slideup">
                         <h4 class="desc">Description of the method here</h4>
                         <h4 class="example">Example :</h4>
                         <pre
@@ -274,7 +274,7 @@
                             </div>
                         </h2>
                     </div>
-                    <div class="content">
+                    <div class="content slideup">
                         <h4 class="desc">desc of the method</h4>
                         <ul class="arg">
                             <li class="item">
@@ -397,7 +397,7 @@
                             </div>
                         </h2>
                     </div>
-                    <div class="content">
+                    <div class="content slideup">
                         <p class="desc">
                             The STRINGIFY_SPACE property allow you to redine the
                             espace used internaly for JSON.stringify method. The
@@ -420,7 +420,7 @@
                             </div>
                         </h2>
                     </div>
-                    <div class="content">
+                    <div class="content slideup">
                         <p class="desc">
                             The STRINGIFY_SPACE property allow you to redine the
                             espace used internaly for JSON.stringify method. The
@@ -443,7 +443,7 @@
                             </div>
                         </h2>
                     </div>
-                    <div class="content">
+                    <div class="content slideup">
                         <p class="desc">Description of the property</p>
                     </div>
                 </div>
@@ -456,6 +456,8 @@
         const propertyLink = document.querySelector(".property__link");
         let methodBlock = document.querySelector(".method");
         let propertyBlock = document.querySelector(".property");
+        let titleBlock = document.querySelectorAll(".title");
+        // let contentBlock = document.querySelector(".content");
 
         methodLink.addEventListener("click", function(e) {
             e.preventDefault();
@@ -470,5 +472,21 @@
             methodBlock.classList.remove("active");
             propertyBlock.classList.add("active");
         });
+
+        titleBlock.forEach(function(element) {
+            const contentBlock = element.nextElementSibling;
+
+            element.addEventListener('click', function(e) {
+                e.preventDefault();
+
+                if (contentBlock.classList.contains('slideup')) {
+                    contentBlock.classList.remove('slideup');
+                    contentBlock.classList.add('slidedown');
+                } else {
+                    contentBlock.classList.remove('slidedown');
+                    contentBlock.classList.add('slideup');
+                }
+            })
+        })
     </script>
 </html>
