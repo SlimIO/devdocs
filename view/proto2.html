@@ -474,15 +474,20 @@
         });
 
         titleBlock.forEach(function(element) {
+            const arrow = element.children[0].children[0].children[0];
             const contentBlock = element.nextElementSibling;
 
             element.addEventListener('click', function(e) {
                 e.preventDefault();
 
                 if (contentBlock.classList.contains('slideup')) {
+                    arrow.classList.remove('icon-right-dir');
+                    arrow.classList.add('icon-down-dir');
                     contentBlock.classList.remove('slideup');
                     contentBlock.classList.add('slidedown');
                 } else {
+                    arrow.classList.remove('icon-down-dir');
+                    arrow.classList.add('icon-right-dir');
                     contentBlock.classList.remove('slidedown');
                     contentBlock.classList.add('slideup');
                 }
