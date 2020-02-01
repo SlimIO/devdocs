@@ -1,0 +1,106 @@
+/*
+ * SEARCH BAR
+ */
+.search-bar-container {
+    height: 40px;
+    display: flex;
+    flex-shrink: 0;
+    border-bottom: 2px solid var(--secondary-background-color);
+}
+    .search-bar-container > i {
+        width: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--secondary-background-color);
+        flex-shrink: 0;
+    }
+    .search-bar-container > input[type="search"] {
+        border: none;
+        outline: none;
+        flex-grow: 1;
+        background: none;
+        color: var(--primary-text-color);
+    }
+    .search-bar-container > input[type="search"]::placeholder {
+        color: var(--primary-text-color);
+    }
+
+.members-container {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    margin: 10px 0;
+}
+    .members-container div.title + ul {
+        margin-bottom: 15px;
+    }
+
+    .members-container > div.title {
+        height: 30px;
+        display: flex;
+        align-items: center;
+        font-weight: bold;
+        display: flex;
+        color: var(--h1-text-color);
+        border-bottom: 1px dotted rgba(200, 200, 200, 0.1);
+        margin-bottom: 10px;
+    }
+        .members-container > div.title > i {
+            margin-right: 5px;
+        }
+
+    .members-container > ul li {
+        padding-left: 0;
+        height: 30px;
+        display: flex;
+        align-items: center;
+        padding: 0 10px;
+        font-size: 15px;
+    }
+    .members-container > ul li:hover {
+        cursor: pointer;
+        background: rgba(200, 200, 200, 0.05);
+    }
+    .members-container > ul li:hover p {
+        color: var(--hover-text-color);
+    }
+
+    .members-container > ul li > p {
+        color: var(--primary-text-color);
+    }
+    .members-container > ul li > span {
+        width: 20px;
+        height: 20px;
+        border-radius: 4px;
+        margin-right: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        font-size: 14px;
+    }
+
+.nav-footer {
+    display: flex;
+    height: 40px;
+    flex-shrink: 0;
+    align-items: center;
+}
+    .nav-footer .contrast-btn {
+        width: 35px;
+        height: 35px;
+        border-radius: 35px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: #212121;
+        cursor: pointer;
+        margin-left: auto;
+        color: #FFF;
+    }
+
+    .nav-footer .contrast-btn.white {
+        background: #FFF;
+        color: #212121;
+    }

@@ -1,0 +1,22 @@
+:root {
+    --main-background-color: #37474F;
+    --secondary-background-color: #455A64;
+    --h1-text-color: #ECEFF1;
+    --primary-text-color: #B0BEC5;
+    --hover-text-color: #FFEB3B;
+}
+
+.function-color {
+    background: #1565C0;
+    color: #FFF;
+}
+
+.interface-color {
+    background: #673AB7;
+    color: #FFF;
+}
+
+.class-color {
+    background: #D81B60;
+    color: #FFF;
+}

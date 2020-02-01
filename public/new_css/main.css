@@ -1,0 +1,24 @@
+body {
+    background-color: var(--main-background-color);
+}
+
+nav, main {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+nav {
+    flex-shrink: 0;
+    width: 30%;
+    max-width: 360px;
+    min-width: 270px;
+    padding: 10px;
+    background: #263238;
+}
+
+main {
+    flex-grow: 1;
+}
+
+

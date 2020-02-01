@@ -91,12 +91,11 @@ input, select {
 em {
     font-style: normal;
 }
+
 html, body {
     height: 100vh;
 }
 body {
     display: flex;
-    flex-direction: column;
     font-family: 'Roboto', Arial, Helvetica, sans-serif;
-    /* line-height: 1; */
 }
