@@ -1,18 +1,32 @@
 /* eslint-disable jsdoc/require-jsdoc */
-/* eslint-disable no-invalid-this */
 "use strict";
 
-function sectionClick() {
-    const spanClass = this.querySelector(".icon-right-dir").classList;
-    const content = this.nextElementSibling.classList;
+class ExpandingList extends HTMLElement {
+    connectedCallback() {
+        /** @type {HTMLTemplateElement} */
+        const template = document.getElementById("expanding-list");
+        const clone = template.content.cloneNode(true);
 
-    spanClass.toggle("active");
-    content.toggle("close");
-    content.toggle("open");
-    this.classList.toggle("active");
+        const listItems = clone.querySelector(".list-items");
+        const listBtn = clone.querySelector(".list-btn");
+        clone.querySelector(".sub-title").addEventListener("click", () => {
+            const isClosed = listItems.classList.contains("closed");
+
+            listBtn.textContent = isClosed ? "-" : "+";
+            listItems.classList.toggle("closed");
+        });
+
+        this.attachShadow({ mode: "open" }).appendChild(clone);
+
+        const paragraphElement = document.createElement("p");
+        paragraphElement.setAttribute("slot", "title");
+        paragraphElement.appendChild(document.createTextNode(this.getAttribute("title")));
+        this.appendChild(paragraphElement);
+    }
 }
 
+customElements.define("expanding-list", ExpandingList);
+
 document.addEventListener("DOMContentLoaded", () => {
-    document.querySelectorAll(".title")
-        .forEach((el) => el.addEventListener("click", sectionClick));
+    // do something
 });
