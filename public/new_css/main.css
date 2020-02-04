@@ -19,6 +19,19 @@ nav {
 
 main {
     flex-grow: 1;
+    display: flex;
+    flex-direction: column;
 }
 
-
+    main > h1 {
+        height: 80px;
+        font-size: 30px;
+        display: flex;
+        align-items: center;
+        padding-left: 20px;
+        color: var(--h1-text-color);
+        user-select: none;
+    }
+    main jsdoc-descriptor + jsdoc-descriptor {
+        margin-top: 5px;
+    }

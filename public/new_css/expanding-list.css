@@ -9,13 +9,13 @@ div.sub-title {
         cursor: pointer;
     }
     div.sub-title > slot {
-        color: #FFF;
+        color: var(--h2-text-color);
     }
     div.sub-title > span {
         height: 15px;
         width: 15px;
-        color: #FFF;
-        border: 1px solid #FFF;
+        color: var(--h2-text-color);
+        border: 1px solid var(--h2-text-color);
         border-radius: 4px;
         display: flex;
         justify-content: center;
@@ -26,11 +26,12 @@ div.sub-title {
     }
 
 ul {
-    padding-top: 5px;
-    padding-bottom: 10px;
+    margin-top: 5px;
+    margin-bottom: 10px;
 }
 ul.closed {
     display: none;
+    height: 0;
 }
 
 ul li {

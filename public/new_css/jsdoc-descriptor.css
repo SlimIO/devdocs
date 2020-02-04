@@ -1,0 +1,56 @@
+.jsdoc-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.jsdoc-header {
+    height: 75px;
+    background: rgba(20, 20, 20, 0.25);
+    display: flex;
+}
+    .jsdoc-header > .actions-area {
+        padding: 0 10px;
+        flex-shrink: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+        .jsdoc-header > .actions-area span {
+            width: 30px;
+            height: 30px;
+            border: 1px solid #1e272c6e;
+            color: #c7d2da;
+            border-radius: 1px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 4px;
+        }
+        .jsdoc-header > .actions-area span + span {
+            margin-left: 10px;
+        }
+
+    .jsdoc-header > .description-area {
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        user-select: none;
+        padding-left: 10px;
+    }
+        .jsdoc-header > .description-area > .tags {
+            margin-bottom: 2.5px;
+        }
+        .jsdoc-header > .description-area > .tags span {
+            font-size: 12px;
+            padding: 1px 4px;
+            border-radius: 4px;
+        }
+        .jsdoc-header > .description-area > .tags span + span {
+            margin-left: 5px;
+        }
+        .jsdoc-header > .description-area > p {
+            font-size: 20px;
+            color: #FFF;
+            letter-spacing: 0.6;
+        }

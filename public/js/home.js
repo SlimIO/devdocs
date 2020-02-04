@@ -25,7 +25,18 @@ class ExpandingList extends HTMLElement {
     }
 }
 
+class JSDocDescriptor extends HTMLElement {
+    connectedCallback() {
+        /** @type {HTMLTemplateElement} */
+        const template = document.getElementById("jsdoc-descriptor");
+        const clone = template.content.cloneNode(true);
+
+        this.attachShadow({ mode: "open" }).appendChild(clone);
+    }
+}
+
 customElements.define("expanding-list", ExpandingList);
+customElements.define("jsdoc-descriptor", JSDocDescriptor);
 
 document.addEventListener("DOMContentLoaded", () => {
     // do something
