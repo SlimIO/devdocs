@@ -1,4 +1,4 @@
-.jsdoc-container {
+.jsdoc {
     display: flex;
     flex-direction: column;
 }
@@ -7,7 +7,17 @@
     height: 75px;
     background: rgba(20, 20, 20, 0.25);
     display: flex;
+    transition: 0.1s linear all;
 }
+    .jsdoc-header:hover {
+        background: rgba(20, 20, 20, 0.35);
+        cursor: pointer;
+    }
+    .jsdoc-header:hover > .actions-area span:first-child {
+        background: var(--hover-text-color);
+        color: #FFF;
+        cursor: pointer;
+    }
     .jsdoc-header > .actions-area {
         padding: 0 10px;
         flex-shrink: 0;
@@ -18,7 +28,7 @@
         .jsdoc-header > .actions-area span {
             width: 30px;
             height: 30px;
-            border: 1px solid #1e272c6e;
+            background: #1e272c6e;
             color: #c7d2da;
             border-radius: 1px;
             display: flex;
@@ -26,6 +36,12 @@
             justify-content: center;
             border-radius: 4px;
         }
+        .jsdoc-header > .actions-area span:hover {
+            background: var(--hover-text-color);
+            color: #FFF;
+            cursor: pointer;
+        }
+
         .jsdoc-header > .actions-area span + span {
             margin-left: 10px;
         }
@@ -37,7 +53,15 @@
         justify-content: center;
         user-select: none;
         padding-left: 10px;
+        position: relative;
     }
+        .jsdoc-header > .description-area > .version {
+            position: absolute;
+            right: 5px;
+            bottom: 2px;
+            font-size: 14px;
+            color: #78909C;
+        }
         .jsdoc-header > .description-area > .tags {
             margin-bottom: 2.5px;
         }
@@ -50,7 +74,18 @@
             margin-left: 5px;
         }
         .jsdoc-header > .description-area > p {
-            font-size: 20px;
-            color: #FFF;
-            letter-spacing: 0.6;
+            font-size: 18px;
+            /* font-size: calc(0.9vw + 0.45vmin); */
+            color: #B0BEC5;
+            font-family: "mononoki";
         }
+
+.jsdoc-container {
+    display: flex;
+    flex-direction: column;
+    height: 0;
+    transition: height 0.35s ease;
+}
+.jsdoc-container.open {
+    height: 300px;
+}

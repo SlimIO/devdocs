@@ -7,6 +7,21 @@
     --hover-text-color: #448AFF;
 }
 
+.link {
+    color: #00B0FF;
+    cursor: pointer;
+    font-weight: 300;
+}
+
+.type {
+    color: #FFEA00;
+    font-weight: 300;
+}
+
+.optional {
+    color: #1DE9B6;
+}
+
 .static-color {
     background: #673AB7;
     color: #FFF;

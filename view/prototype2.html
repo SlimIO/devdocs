@@ -18,7 +18,7 @@
     </div>
     <div class="members-container">
         <div class="title">
-            <i class="icon-cube"></i>
+            <i class="icon-folder"></i>
             <p>Namespaces</p>
         </div>
         <ul>
@@ -32,7 +32,7 @@
         </ul>
 
         <div class="title">
-            <i class="icon-method"></i>
+            <i class="icon-code"></i>
             <p>Class</p>
         </div>
         <ul>
@@ -47,6 +47,7 @@
         </ul>
 
         <div class="title">
+            <i class="icon-cube"></i>
             <p>Orphans</p>
         </div>
         <ul>
@@ -63,11 +64,15 @@
     </div>
 </nav>
 <main>
-    <h1>Methods</h1>
+    <div class="buttons">
+        <button>Open All</button>
+        <button>Close All</button>
+    </div>
+    <h1><i class="icon-method"></i><p>Methods</p></h1>
     <jsdoc-descriptor></jsdoc-descriptor>
     <jsdoc-descriptor></jsdoc-descriptor>
     <jsdoc-descriptor></jsdoc-descriptor>
-    <h1>Properties</h1>
+    <h1><i class="icon-iconmonstr-cube-18"></i><p>Properties</p></h1>
 </main>
 
 <template id="jsdoc-descriptor">
@@ -77,10 +82,10 @@
     <link rel="stylesheet" href="../public/new_css/colors.css">
     <link rel="stylesheet" href="../public/new_css/jsdoc-descriptor.css">
 
-    <div class="jsdoc-container">
+    <div class="jsdoc">
         <div class="jsdoc-header">
             <div class="actions-area">
-                <span><i class="icon-right-dir"></i></span>
+                <span><i class="open-btn icon-right-open"></i></span>
                 <span><i class="icon-link"></i></span>
             </div>
             <div class="description-area">
@@ -88,7 +93,8 @@
                     <span class="static-color">static</span>
                     <span class="function-color">function</span>
                 </div>
-                <p>constructor< T >(configFilePath: string, options?: any): this</p>
+                <div class="version">v1.0.0</div>
+                <p>constructor< <b class="link">T</b> >(configFilePath: <b class="type">string</b>, options<b class="optional">?</b>: <b class="link">Config.Options</b>): <b class="type">this</b></p>
             </div>
         </div>
         <div class="jsdoc-container">
