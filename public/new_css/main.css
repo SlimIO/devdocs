@@ -24,23 +24,45 @@ main {
     overflow-x: hidden;
     overflow-y: auto;
     position: relative;
+    padding-right: 10px;
 }
     main > .buttons {
         position: fixed;
-        right: 27px;
-        top: 10px;
+        right: 35px;
+        top: 20px;
         height: 40px;
         display: flex;
     }
         main > .buttons > button {
             border-radius: 4px;
-            border: 2px solid #37474F;
-            background: #263238;
+            background: #37474F;
+            border: none;
             color: #FFF;
             font-family: roboto;
             outline: none;
             padding: 0 10px;
+            display: flex;
+            align-items: center;
             box-shadow: 1px 1px 10px rgba(20, 20, 20, 0.5);
+            font-weight: bold;
+            box-sizing: border-box;
+            border: 1px solid transparent;
+        }
+        main > .buttons > button:hover {
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            cursor: pointer;
+        }
+        main > .buttons > button i {
+            margin-right: 10px;
+            background: #FFF;
+            width: 20px;
+            height: 20px;
+            border-radius: 20px;
+            color: #455A64;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
         }
         main > .buttons > button + button {
             margin-left: 10px;

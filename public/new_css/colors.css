@@ -41,3 +41,12 @@
     background: #D81B60;
     color: #FFF;
 }
+
+.open-color {
+    background: #4CAF50 !important;
+    color: #FFF;
+}
+.close-color {
+    background: #D81B60 !important;
+    color: #FFF;
+}
