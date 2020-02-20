@@ -32,29 +32,58 @@ class JSDocDescriptor extends HTMLElement {
         const clone = template.content.cloneNode(true);
 
         const jsdocHeader = clone.querySelector(".jsdoc-header");
-        const jsdocContainer = clone.querySelector(".jsdoc-container");
-        const openBtn = clone.querySelector(".open-btn");
-        jsdocHeader.addEventListener("click", () => {
-            const isOpen = jsdocContainer.classList.contains("open");
-            jsdocContainer.classList.toggle("open");
+        this.jsdocContainer = clone.querySelector(".jsdoc-container");
+        this.openBtn = clone.querySelector(".open-btn");
+        clone.querySelectorAll("pre code").forEach((block) => {
+            hljs.highlightBlock(block);
+        });
 
-            if (isOpen) {
-                openBtn.classList.remove("icon-down-open");
-                openBtn.classList.add("icon-right-open");
-            }
-            else {
-                openBtn.classList.remove("icon-right-open");
-                openBtn.classList.add("icon-down-open");
-            }
+        jsdocHeader.addEventListener("click", () => {
+            const isOpen = this.jsdocContainer.classList.contains("open");
+            this.jsdocContainer.classList.toggle("close");
+            this.jsdocContainer.classList.toggle("open");
+
+            this.openBtn.classList.remove(isOpen ? "icon-down-open" : "icon-right-open");
+            this.openBtn.classList.add(isOpen ? "icon-right-open" : "icon-down-open");
         });
 
         this.attachShadow({ mode: "open" }).appendChild(clone);
+        this.addEventListener("open", () => {
+            const isOpen = this.jsdocContainer.classList.contains("open");
+            if (isOpen) {
+                return;
+            }
+            this.jsdocContainer.classList.toggle("close");
+            this.jsdocContainer.classList.toggle("open");
+
+            this.openBtn.classList.remove("icon-right-open");
+            this.openBtn.classList.add("icon-down-open");
+        });
+        this.addEventListener("close", () => {
+            const isOpen = this.jsdocContainer.classList.contains("open");
+            if (!isOpen) {
+                return;
+            }
+            this.jsdocContainer.classList.toggle("close");
+            this.jsdocContainer.classList.toggle("open");
+
+            this.openBtn.classList.remove("icon-down-open");
+            this.openBtn.classList.add("icon-right-open");
+        });
     }
 }
 
 customElements.define("expanding-list", ExpandingList);
 customElements.define("jsdoc-descriptor", JSDocDescriptor);
 
+function dispatchEventToDescriptor(eventName) {
+    document.querySelectorAll("jsdoc-descriptor")
+        .forEach((descriptor) => descriptor.dispatchEvent(new Event(eventName)));
+}
+
 document.addEventListener("DOMContentLoaded", () => {
-    // do something
+    document.getElementById("open-all-descriptor")
+        .addEventListener("click", () => dispatchEventToDescriptor("open"));
+    document.getElementById("close-all-descriptor")
+        .addEventListener("click", () => dispatchEventToDescriptor("close"));
 });

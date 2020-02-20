@@ -7,8 +7,9 @@
 <link rel="stylesheet" href="../public/new_css/colors.css">
 <link rel="stylesheet" href="../public/new_css/main.css">
 <link rel="stylesheet" href="../public/new_css/navigation.css">
-<link href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i" rel="stylesheet">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i">
 <script src="../public/js/home.js" defer></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/highlight.min.js"></script>
 <title>SlimIO Doc</title>
 
 <nav>
@@ -65,11 +66,11 @@
 </nav>
 <main>
     <div class="buttons">
-        <button class="close-color">
+        <button class="close-color" id="close-all-descriptor">
             <i class="icon-right-open"></i>
             <p>Close All</p>
         </button>
-        <button class="open-color">
+        <button class="open-color" id="open-all-descriptor">
             <i class="icon-down-open"></i>
             <p>Open All</p>
         </button>
@@ -87,6 +88,7 @@
     <link rel="stylesheet" href="../public/css/reset.css">
     <link rel="stylesheet" href="../public/new_css/colors.css">
     <link rel="stylesheet" href="../public/new_css/jsdoc-descriptor.css">
+    <link rel="stylesheet" href="../public/new_css/code-highlight.css">
 
     <div class="jsdoc">
         <div class="jsdoc-header">
@@ -103,8 +105,47 @@
                 <p>constructor< <b class="link">T</b> >(configFilePath: <b class="type">string</b>, options<b class="optional">?</b>: <b class="link">Config.Options</b>): <b class="type">this</b></p>
             </div>
         </div>
-        <div class="jsdoc-container">
-
+        <div class="jsdoc-container close">
+            <div class="jsdoc-inner-container">
+                <p>Description de la méthode</p>
+                <div class="default-values">
+                    <div class="arg"><p>name arg</p><p>"default val"</p></div>
+                    <div class="arg"><p>name arg</p><p>"default val"</p></div>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Type</th>
+                            <th>default Value</th>
+                            <th>description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                            <tr>
+                                <td>Prop1</td>
+                                <td>String</td>
+                                <td>default</td>
+                                <td>description</td>
+                            </tr>
+                            <tr>
+                                <td>Prop2</td>
+                                <td>Boolean</td>
+                                <td>true</td>
+                                <td>description</td>
+                            </tr>
+                            <tr>
+                                <td>Prop3</td>
+                                <td>Number</td>
+                                <td>52</td>
+                                <td>description</td>
+                            </tr>
+                    </tbody>
+                </table>
+                <pre>
+                    <code class="javascript">const ex = new Example("./path/to/file.json", {<br>&nbsp;&nbsp;&nbsp;&nbsp;createOnNoEntry: true,<br>&nbsp;&nbsp;&nbsp;&nbsp;autoReload: true<br>});</code>
+                </pre>
+            </div>
         </div>
     </div>
 </template>

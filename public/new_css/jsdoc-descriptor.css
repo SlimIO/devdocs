@@ -1,3 +1,20 @@
+* {
+    font-family: 'Roboto', Arial, Helvetica, sans-serif;
+}
+
+pre, code {
+    margin: 0;
+    font-family: "mononoki";
+}
+pre {
+    display: flex;
+    flex-direction: column;
+}
+code {
+    padding: 10px;
+    border-radius: 4px;
+}
+
 .jsdoc {
     display: flex;
     flex-direction: column;
@@ -83,9 +100,71 @@
 .jsdoc-container {
     display: flex;
     flex-direction: column;
-    height: 0;
-    transition: height 0.35s ease;
+    overflow: hidden;
+    max-height: 0px;
+    transition: max-height 0.4s ease;
 }
 .jsdoc-container.open {
-    height: 300px;
+    max-height: 500px;
 }
+.jsdoc-inner-container {
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+}
+    .jsdoc-inner-container > p {
+        color: #ECEFF1;
+    }
+    .jsdoc-inner-container > .default-values {
+        display: flex;
+    }
+    .jsdoc-inner-container > .default-values .arg {
+        background: #CFD8DC;
+        display: flex;
+        margin: 10px 0;
+    }
+    .jsdoc-inner-container > .default-values .arg + .arg {
+        margin-left: 10px;
+    }
+        .jsdoc-inner-container > .default-values .arg > p {
+            padding: 3px 5px;
+            font-size: 14px;
+        }
+        .jsdoc-inner-container > .default-values .arg > p:first-child {
+            background: #263238;
+        }
+        .jsdoc-inner-container > .default-values .arg > p + p {
+            margin-left: 5px;
+        }
+
+
+table {
+    margin-bottom: 15px;
+    overflow: hidden;
+    color: var(--primary-text-color);
+    border-radius: 2px;
+    box-shadow: 1px 1px 10px rgba(20, 20, 20, 0.25);
+}
+    table tbody tr:nth-child(even) {
+        background: #B3E5FC;
+    }
+    table tbody tr:nth-child(odd) {
+        background: #B2EBF2;
+    }
+
+    table thead {
+        background: #01579B;
+        color: #FFF;
+    }
+    table tr th, table tr td {
+        border: 2px solid #01579B;
+        padding: 6px 13px;
+    }
+    table tr th {
+        font-weight: bold;
+    }
+    table tr td {
+        font-size: 14px;
+        font-family: "mononoki";
+        color: #333;
+    }
