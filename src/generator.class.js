@@ -283,7 +283,7 @@ class Generator {
         if (Reflect.has(content, "defaultVals")) {
             argc(content.defaultVals, is.array, (arr) => arr.length > 0);
             // eslint-disable-next-line prefer-const
-            for (let [i, { name, type, value }] of content.defaultVals.entries()) {
+            for (let [id, { name, type, value }] of content.defaultVals.entries()) {
                 if (is.undefined(name) || is.undefined(type) || is.undefined(value)) {
                     // eslint-disable-next-line max-len
                     throw new Error("DefaultVals is an array of Object, each object must contain these keys : name, type and value");
@@ -292,13 +292,13 @@ class Generator {
                 argc(type, is.string);
                 type = type.toLowerCase();
                 if (type === "string" || type === "boolean" || type === "number") {
-                    content.defaultVals[i].type = type;
+                    content.defaultVals[id].type = type;
                 }
                 else {
-                    content.defaultVals[i].type = "obj";
+                    content.defaultVals[id].type = "obj";
                 }
                 if (is.plainObject(value)) {
-                    content.defaultVals[i].value = JSON.stringify(value);
+                    content.defaultVals[id].value = JSON.stringify(value);
                 }
             }
         }
