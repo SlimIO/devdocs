@@ -38,7 +38,7 @@
         "@slimio/manifest": "^0.9.1",
         "kleur": "^3.0.3",
         "make-promises-safe": "^5.1.0",
-        "open": "^7.0.4",
+        "open": "^7.4.2",
         "polka": "^0.5.2",
         "sade": "^1.7.3",
         "semver": "^7.3.2",
